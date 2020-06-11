@@ -17,7 +17,7 @@ step-by-step instructions on how to run applications on the camera.
 
 ## Supported architectures
 
-## Example applications for video analytics
+## Example applications
 Below is the list of examples available in the respository.
 
 * [Larod](./larod/)
