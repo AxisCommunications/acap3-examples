@@ -17,7 +17,7 @@ larod
 |   ├── Makefile
 |   ├── package.conf
 │   └── input
-│       └── goldfish_224x224_uint8_RGB.bin
+│       └── veiltail-11457_640_RGB_224x224.bin
 └── README.md
 ```
 
@@ -27,12 +27,12 @@ larod
 * **app/LICENSE** - File containing the license conditions.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP.
 * **app/package.conf** - Configuration file containing parameters needed for proper ACAP3 packaging.
-* **input/goldfish_224x224_uint8_RGB.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
+* **input/veiltail-11457_640_RGB_224x224.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
 
 
 ### Limitations
 
-ARTPEC-7,Ambarella S6Lm or Ambarella CV25 based product is required
+ARTPEC-7 based product is required
 In order to change the binary name it has to be done in the Makefile
 
 ### How to run the code
@@ -62,11 +62,11 @@ larod
 |   ├── package.conf
 |   ├── param.conf
 │   └── input
-│       └── goldfish_224x224_uint8_RGB.bin
+│       └── veiltail-11457_640_RGB_224x224.bin
 │── README.md
 └── build
 	├── input
-	│   └── goldfish_224x224_uint8_RGB.bin
+	│   └── veiltail-11457_640_RGB_224x224.bin
 	├── larod_simple_app
 	├── larod-simple-app_1_0_0_<ARCHITECTURE>.eap
 	├── larod-simple-app_1_0_0_LICENSE.txt
@@ -104,7 +104,7 @@ Run the application by clicking on the application icon and enable the Start swi
 
 #### The expected output:
 
- A file with the output (goldfish_224x224_uint8_RGB.bin.out) will be generated in
+ A file with the output (veiltail-11457_640_RGB_224x224.bin.out) will be generated in
  the applications input folder:
 
 ```bash
