@@ -1,7 +1,7 @@
 # An vdo stream based ACAP3 application on an edge device
-This readme file explains how to build an ACAP3 that uses the vdostream API. It is achived by using the containerized Axis API and toolchain images.
+This readme file explains how to build an ACAP3 that uses the vdostream API. The application is built by using the containerized Axis API and toolchain images.
 
-Together with this file you should be able to find a directory called app, that directory contains the "vdoencodeclient.c" application which can easily be compiled and run with the help of the tools and step by step below.
+Together with this README file you should be able to find a directory called app, that directory contains the "vdoencodeclient" application source code which can easily be compiled and run with the help of the tools and step by step below.
 
 This example illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata. Captured frames are logged in the Application log.
 
@@ -17,20 +17,20 @@ vdostream
 ├── Dockerfile
 └── README.md
 ```
-* **Dockerfile**        -  Docker file with the specified Axis toolchain and API container to build the example specified
+* **Dockerfile**        - Docker file with the specified Axis toolchain and API container to build the example specified
 * **LICENSE**           - Text file which lists all open source licensed source code distributed with the application.
 * **Makefile**          - Used by the make tool to build the program.
 * **README.md**         - Step by step instructions on how to run the example.
 * **vdoencodeclient.c** - Application to capture the frames using vdo service in C.
 
 ### Limitations
-* The example is done for the armv7hf architecture, but it is possible to update to aarch64 aarch64.
-*  Supported video compression formats for an Axis video device are found in the datasheeet of the device.
+* The example is done for the armv7hf architecture, but it is possible to update to aarch64 architecture.
+* Supported video compression formats for an Axis video device are found in the datasheet of the device.
 
 ### How to run the code
 Below is a step by step on the whole process.
 
-#### Build and run the application
+#### Build the application
 Standing in your working directory run the following commands:
 ```
 docker build --tag <APP_IMAGE> .
@@ -89,7 +89,7 @@ Application log is found by:
 ```
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdoencodeclient
 ```
-or by clicking on the App log text.
+or by clicking on the "App log" link.
 
 #### Run application with different vdo parameters
 
