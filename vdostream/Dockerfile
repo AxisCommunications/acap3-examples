@@ -19,7 +19,7 @@ COPY --from=api /opt/axis/sdk/temp/sysroots/${PKG_ARCH}/usr/lib/pkgconfig/ /opt/
 # Copy the tools and scripts from the toolchain container
 RUN cp -r /opt/axis/sdk/temp/* /opt/axis/sdk/
 
-##The building of the particular ACAP
+# Building of the particular ACAP
 COPY ./app /opt/app/
 WORKDIR /opt/app
 RUN . /opt/axis/sdk/environment-setup* && create-package.sh
