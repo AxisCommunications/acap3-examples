@@ -41,6 +41,10 @@ Below is a step by step on the whole process. So basically starting with the gen
 #### Build and run the application
 Standing in your working directory run the following commands:
 
+**Note:** Depending on the network you are connected to.
+The file that needs those settings is: *~/.docker/config.json.* 
+For reference please see: https://docs.docker.com/network/proxy/.
+
 ```bash
 docker build --tag larod-simple-app:1.0 .
 ```
