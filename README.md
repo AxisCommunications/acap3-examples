@@ -31,17 +31,6 @@ There are two types of Docker images here: the ToolChain (SDK), and the API 3.1.
 * [Toolchain](https://hub.docker.com/repository/docker/axisecp/acap-toolchain) -  An Ubuntu-based Toolchain bundle with all tools for building and packaging an ACAP 3.1 application included.
 * [API 3.1](https://hub.docker.com/repository/docker/axisecp/acap-api) - An Ubuntu-based API bundle with all API components (header and library files) included.
 
-
-# How to work with Github repository
-You can help to make this repo a better one using the following commands.
-
-1. Fork it (git checkout ..)
-2. Create your feature branch: git checkout -b <contr/my-new-feature>
-3. Commit your changes: git commit -a
-4. Push to the branch: git push origin <contr/my-new-feature>
-5. Submit a pull request
-
-
 # License
 [Apache 2.0](LICENSE)
 
