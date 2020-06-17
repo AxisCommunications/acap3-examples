@@ -21,9 +21,10 @@ step-by-step instructions on how to run applications on the camera.
 Below is the list of examples available in the respository.
 
 * [Larod](./larod/)
-  * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
-* [vdostream](./vdostream/)
   * The example code is written in C which connects to larod and loads a model, runs inference on it and then finally deletes the loaded model from larod.
+* [vdostream](./vdostream/)
+  * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
+
 
 ### DockerHub Images
 There are two types of Docker images here: the ToolChain (SDK), and the API 3.1. These images can be used as the basis for custom built images for running your applications. The images needed are specified in the docker-compose files. All images are public and free to use for anyone.
