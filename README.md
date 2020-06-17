@@ -5,17 +5,14 @@
 * Business intelligence applications that improve business efficiency.
 * Camera feature plug-ins that add value beyond the Axis product's core functionality
 
+# Prerequisites for ACAP development
+ACAP is Axis own open platform for applications that run on-board an Axis product. If you are new to ACAP, start with learning more about the platform, [prerequisites](https://www.axis.com/developer-community/acap-fundamentals), [compatible architectures](https://www.axis.com/developer-community/acap-sdk) and [SDK user manual](https://www.axis.com/techsup/developer_doc/acap3/3.00.1/main/html/index.html).
 
-# Getting started
+## Getting started with the repo
 This repository contains a set of application examples which aims to enrich the
 developers analytics experience. All examples are using Docker framework and has a
 README file in its directory which shows overview, example directory structure and
 step-by-step instructions on how to run applications on the camera.
-
-## Requirements
-
-
-## Supported architectures
 
 ## Example applications
 Below is the list of examples available in the respository.
