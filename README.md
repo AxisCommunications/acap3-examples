@@ -27,6 +27,9 @@ There are two types of Docker images here: the ToolChain (SDK), and the API 3.1.
 * [Toolchain](https://hub.docker.com/repository/docker/axisecp/acap-toolchain) -  An Ubuntu-based Toolchain bundle with all tools for building and packaging an ACAP 3.1 application included.
 * [API 3.1](https://hub.docker.com/repository/docker/axisecp/acap-api) - An Ubuntu-based API bundle with all API components (header and library files) included.
 
+ # Frequently asked questions
+Please visit [FAQs page](FAQs.md)  for frequently asked questions.
+
 # License
 [Apache 2.0](LICENSE)
 
