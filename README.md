@@ -6,7 +6,7 @@
 * Camera feature plug-ins that add value beyond the Axis product's core functionality
 
 # Prerequisites for ACAP development
-ACAP is Axis own open platform for applications that run on-board an Axis product. If you are new to ACAP, start with learning more about the platform, [prerequisites](https://www.axis.com/developer-community/acap-fundamentals), [compatible architectures](https://www.axis.com/developer-community/acap-sdk) and [SDK user manual](https://www.axis.com/techsup/developer_doc/acap3/3.00.1/main/html/index.html).
+ACAP is Axis own open platform for applications that run on-board an Axis product. If you are new to ACAP, start with learning more about the platform, [prerequisites](https://www.axis.com/developer-community/acap-fundamentals), [compatible architectures](https://www.axis.com/developer-community/acap-sdk) and [SDK user manual](https://www.axis.com/products/online-manual/s00001#t10152931).
 
 ## Getting started with the repo
 This repository contains a set of application examples which aims to enrich the
@@ -21,7 +21,6 @@ Below is the list of examples available in the respository.
   * The example code is written in C which connects to larod and loads a model, runs inference on it and then finally deletes the loaded model from larod.
 * [vdostream](./vdostream/)
   * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
-
 
 ### DockerHub Images
 There are two types of Docker images here: the ToolChain (SDK), and the API 3.1. These images can be used as the basis for custom built images for running your applications. The images needed are specified in the docker-compose files. All images are public and free to use for anyone.

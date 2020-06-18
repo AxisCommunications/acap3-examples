@@ -1,6 +1,6 @@
 ### An Larod based ACAP3 application running inference on edge device
 
-This readme file explains how to build an ACAP3 that uses the larod API. It is achived by using the containerized Axis API bundle and toolchain
+This readme file explains how to build an ACAP3 that uses the [larod API](FAQs.md). It is achived by using the containerized Axis API bundle and toolchain
 
 Together with this file you should be able to find a directory called app, that directory contains the "larod-simple-app.c" application which can easily
 be compiled and run with the help of the tools and step by step below.
@@ -41,9 +41,9 @@ Below is a step by step on the whole process. So basically starting with the gen
 #### Build and run the application
 Standing in your working directory run the following commands:
 
-**Note:** Depending on the network you are connected to.
+**Note:** *Depending on the network you are connected to,
 The file that needs those settings is: *~/.docker/config.json.* 
-For reference please see: https://docs.docker.com/network/proxy/.
+For reference please see: https://docs.docker.com/network/proxy/.*
 
 ```bash
 docker build --tag larod-simple-app:1.0 .
@@ -98,25 +98,18 @@ Browse to the following page (replace <axis_device_ip> with the IP number of you
 http://<axis_device_ip>/#settings/apps
 ```
 
-Click Add, the + sign and browse to the newly larod_simple_app_1_0_0_armv7hf.eap
-
-Click Install
-
-larod_simple_app is now available as an application on the device.
-
-Run the application by clicking on the application icon and enable the Start switch
+*Goto your device web page above > Click on the tab App in the device GUI > Add **(+)** sign and browse to 
+the newly larod_simple_app_1_0_0_armv7hf.eap > Click Install > Run the application by enabling the Start switch*
 
 #### The expected output:
 
- A file with the output (veiltail-11457_640_RGB_224x224.bin.out) will be generated in
- the applications input folder:
+ In order to see the output, please copy the file with the output (veiltail-11457_640_RGB_224x224.bin.out) from device into your host
+ application directory. You need to enable SSH on the device before executing the following command. 
 
 ```bash
-/usr/local/packages/larod_simple_app/input/
+scp root@<172.25.64.249>:/usr/local/packages/larod_simple_app/input/veiltail-11457_640_RGB_224x224.bin.out . 
 ```
-
-From where it can be extracted.
-To interpret the output you could (off device) run the command:
+Run the following command in the same folder where you copied the output file (veiltail-11457_640_RGB_224x224.bin.out):
 
 ```bash
 od -A d -t u1 -v -w1 <name of output file> | sort -n -k 2
@@ -129,8 +122,8 @@ You can match these classes with:
 ```
 to see that indeed a goldfish was recognized.
 
-Please note that this app only supports models with one input and one output
-tensor, whereas larod itself supports any number of either.
+**Note: this app only supports models with one input and one output
+tensor, whereas larod itself supports any number of either.**
 
 ## License
 
