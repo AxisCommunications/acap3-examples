@@ -1,6 +1,6 @@
 ### An Larod based ACAP3 application running inference on edge device
 
-This readme file explains how to build an ACAP3 that uses the [larod API](./FAQs.md). It is achived by using the containerized Axis API bundle and toolchain
+This readme file explains how to build an ACAP3 that uses the [larod API](../FAQs.md#WhatisLarod?). It is achived by using the containerized Axis API bundle and toolchain.
 
 Together with this file you should be able to find a directory called app, that directory contains the "larod-simple-app.c" application which can easily
 be compiled and run with the help of the tools and step by step below.
@@ -41,9 +41,11 @@ Below is a step by step on the whole process. So basically starting with the gen
 #### Build and run the application
 Standing in your working directory run the following commands:
 
-**Note:** *Depending on the network you are connected to,
+> [!IMPORTANT]
+> *Depending on the network you are connected to,
 The file that needs those settings is: *~/.docker/config.json.* 
-For reference please see: https://docs.docker.com/network/proxy/.*
+For reference please see: https://docs.docker.com/network/proxy/ and a
+[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice??).*
 
 ```bash
 docker build --tag larod-simple-app:1.0 .
@@ -107,7 +109,7 @@ the newly larod_simple_app_1_0_0_armv7hf.eap > Click Install > Run the applicati
  application directory. You need to enable SSH on the device before executing the following command. 
 
 ```bash
-scp root@<172.25.64.249>:/usr/local/packages/larod_simple_app/input/veiltail-11457_640_RGB_224x224.bin.out . 
+scp root@<axis_device_ip>:/usr/local/packages/larod_simple_app/input/veiltail-11457_640_RGB_224x224.bin.out . 
 ```
 Run the following command in the same folder where you copied the output file (veiltail-11457_640_RGB_224x224.bin.out):
 
@@ -122,8 +124,9 @@ You can match these classes with:
 ```
 to see that indeed a goldfish was recognized.
 
-**Note: this app only supports models with one input and one output
-tensor, whereas larod itself supports any number of either.**
+> [!NOTE]
+> *This app only supports models with one input and one output
+tensor, whereas larod itself supports any number of either.*
 
 ## License
 
