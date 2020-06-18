@@ -1,6 +1,6 @@
 ### An Larod based ACAP3 application running inference on edge device
 
-This readme file explains how to build an ACAP3 that uses the [larod API](FAQs.md). It is achived by using the containerized Axis API bundle and toolchain
+This readme file explains how to build an ACAP3 that uses the [larod API](./FAQs.md). It is achived by using the containerized Axis API bundle and toolchain
 
 Together with this file you should be able to find a directory called app, that directory contains the "larod-simple-app.c" application which can easily
 be compiled and run with the help of the tools and step by step below.
