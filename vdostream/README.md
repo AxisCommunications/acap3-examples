@@ -28,10 +28,17 @@ vdostream
 * Supported video compression formats for an Axis video device are found in the datasheet of the device.
 
 ### How to run the code
-Below is a step by step on the whole process.
+Below is a step by step instructions on how to execute the code.
 
 #### Build the application
 Standing in your working directory run the following commands:
+
+> [!IMPORTANT]
+> *Depending on the network you are connected to,
+The file that needs those settings is: *~/.docker/config.json.* 
+For reference please see: https://docs.docker.com/network/proxy/ and a
+[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
+
 ```
 docker build --tag <APP_IMAGE> .
 ```
@@ -77,47 +84,52 @@ Browse to the following page (replace <axis_device_ip> with the IP number of you
 http://<axis_device_ip>/#settings/apps
 ```
 
-Click Add, the + sign and browse to the newly built vdoencodeclient_1_0_0_armv7hf.eap in build folder.
+*Goto your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to the newly built **vdoencodeclient_1_0_0_armv7hf.eap** in build folder > Click **Install** > Run the application by enabling the **Start** switch*
 
-Click Install, vdoencodeclient is now available as an application on the device.
 
-#### Run the application with default vdo parameters.
+#### Expected output: Run the application with default vdo parameters.
 
-Run the application by clicking on the application icon and enable the Start switch.
+Run the application with default video compression format h264 by clicking on the application icon and enable the **Start** switch.
+> [!WARNING]
+*> Please make sure SSH is enabled on the device*
 
-Application log is found by:
+Application log can be found directly at:
 ```
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdoencodeclient
 ```
-or by clicking on the "App log" link.
+or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands 
+in the terminal. 
 
-#### Run application with different vdo parameters
-
-It is possible to run the application on the command line with different arguments, in the following order:
-* format
-  video compression format, h264 (default), h265 or jpeg
-* frames
-  number of frames
-* output
-  output filename
-
-Enable ssh on camera by:
-```
-http://<axis_device_ip>/axis-cgi/admin/param.cgi?action=update&Network.SSH.Enabled=yes
-```
-
-Start terminal:
 ```
 ssh root@<axis_device_ip>
+cd /var/log/
+head -50 info.log
 ```
+**Output**
+```
+----- Contents of SYSTEM_LOG for 'vdoencodeclient' -----
 
-Run application from the filesystem on device:
+2020-06-22T11:00:03.509+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35729, type = P, size = 81
+2020-06-22T11:00:03.532+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35730, type = I, size = 78433
+2020-06-22T11:00:03.572+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35731, type = P, size = 567
+2020-06-22T11:00:03.605+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35732, type = P, size = 82
+2020-06-22T11:00:03.638+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35733, type = P, size = 74
+2020-06-22T11:00:03.672+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35734, type = P, size = 450
+2020-06-22T11:00:03.706+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35735, type = P, size = 111
+2020-06-22T11:00:03.738+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35736, type = P, size = 76
+2020-06-22T11:00:03.772+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35737, type = P, size = 74
+2020-06-22T11:00:03.805+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35738, type = P, size = 78
+2020-06-22T11:00:03.838+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35739, type = P, size = 78
+2020-06-22T11:00:03.872+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35740, type = P, size = 86
+2020-06-22T11:00:03.905+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35741, type = P, size = 79
+2020-06-22T11:00:03.938+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35742, type = P, size = 78
+2020-06-22T11:00:03.972+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35743, type = P, size = 77
+2020-06-22T11:00:04.005+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35744, type = P, size = 71
+2020-06-22T11:00:04.038+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35745, type = P, size = 82
+2020-06-22T11:00:04.072+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35746, type = P, size = 75
+2020-06-22T11:00:04.105+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35747, type = P, size = 77
+2020-06-22T11:00:04.138+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35748, type = P, size = 80
 ```
-cd /usr/local/packages/vdoencodeclient
-./vdoencodeclient --format h264 --frames 10 --output vdo.out
-```
-
-A file with the output (vdo.out) will be generated application folder, from where it can be extracted.
 
 ## License
-**Apache License 2.0**
+**[Apache License 2.0](../LICENSE)**
