@@ -2,7 +2,7 @@
 This readme file explains how to build an application that uses:
 - vdo to fetch frames from e.g. a camera
 - a library called libyuv to do some image preprocessing
-- larod to load a graph model and run classification inferences on it
+- [larod API](../FAQs.md#WhatisLarod?) to load a graph model and run classification inferences on it
 
 The application is built by using the containerized Axis API and toolchain images.
 
@@ -81,6 +81,12 @@ vdo-larod
 Below is a step by step on the whole process.
 
 #### Build the application
+> [!IMPORTANT]
+> *Depending on the network you are connected to,
+The file that needs those settings is: *~/.docker/config.json.*
+For reference please see: https://docs.docker.com/network/proxy/ and a
+[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice??).*
+
 Depending on selected chip, different model can be used for running larod. This is configured through attributes in package.conf:
 - APPOPTS, which contains the application command line options.
 - OTHERFILES, shows files to be included in the package e.g. model. Files listed here are copied to the application directory during installation.
