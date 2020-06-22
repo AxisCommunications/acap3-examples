@@ -1,6 +1,6 @@
 ### An Larod based ACAP3 application running inference on edge device
 
-This readme file explains how to build an ACAP3 that uses the [larod API](../FAQs.md#WhatisLarod?). It is achived by using the containerized Axis API bundle and toolchain.
+This readme file explains how to build an ACAP3 that uses the [larod API](../FAQs.md#WhatisLarod?). It is achieved by using the containerized Axis API bundle and tool-chain.
 
 Together with this file you should be able to find a directory called app, that directory contains the "larod-simple-app.c" application which can easily
 be compiled and run with the help of the tools and step by step below.
@@ -18,16 +18,18 @@ larod
 |   ├── package.conf
 │   └── input
 │       └── veiltail-11457_640_RGB_224x224.bin
+├── extract_analyze_output.sh
 └── README.md
 ```
 
 * **larod_simple_app.c** - Example application to load a model and run inference on it.
-* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
+* **Dockerfile** - Docker file with the specified Axis tool-chain and API container to build the example specified.
 * **README.md** - Step by step instructions on how to run the example.
 * **app/LICENSE** - File containing the license conditions.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP.
 * **app/package.conf** - Configuration file containing parameters needed for proper ACAP3 packaging.
 * **input/veiltail-11457_640_RGB_224x224.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
+* **extract_analyze_output.sh** - The script shows the matched class in the output.
 
 
 ### Limitations
@@ -36,16 +38,16 @@ ARTPEC-7 based product is required
 In order to change the binary name it has to be done in the Makefile
 
 ### How to run the code
-Below is a step by step on the whole process. So basically starting with the generation of the .eap file to running it on a device:
+Below is the step by step instructions on how to execute the program. So basically starting with the generation of the .eap file to running it on a device:
 
 #### Build and run the application
 Standing in your working directory run the following commands:
 
 > [!IMPORTANT]
 > *Depending on the network you are connected to,
-The file that needs those settings is: *~/.docker/config.json.* 
+The file that needs those settings is: *~/.docker/config.json.*
 For reference please see: https://docs.docker.com/network/proxy/ and a
-[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice??).*
+[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
 
 ```bash
 docker build --tag larod-simple-app:1.0 .
@@ -100,34 +102,34 @@ Browse to the following page (replace <axis_device_ip> with the IP number of you
 http://<axis_device_ip>/#settings/apps
 ```
 
-*Goto your device web page above > Click on the tab App in the device GUI > Add **(+)** sign and browse to 
-the newly larod_simple_app_1_0_0_armv7hf.eap > Click Install > Run the application by enabling the Start switch*
+*Goto your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to
+the newly **larod_simple_app_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
 
 #### The expected output:
 
  In order to see the output, please copy the file with the output (veiltail-11457_640_RGB_224x224.bin.out) from device into your host
- application directory. You need to enable SSH on the device before executing the following command. 
+ application directory. You need to enable SSH on the device before executing the following command.
 
 ```bash
-scp root@<axis_device_ip>:/usr/local/packages/larod_simple_app/input/veiltail-11457_640_RGB_224x224.bin.out . 
+scp root@<axis_device_ip>:/usr/local/packages/larod_simple_app/input/veiltail-11457_640_RGB_224x224.bin.out .
 ```
-Run the following command in the same folder where you copied the output file (veiltail-11457_640_RGB_224x224.bin.out):
+Run the script **extract_analyze_output.sh** in the same folder where you copied the output file (veiltail-11457_640_RGB_224x224.bin.out) to see the output.
+The script will prompt the password required to access the device.
+
 
 ```bash
-od -A d -t u1 -v -w1 <name of output file> | sort -n -k 2
+extract_analyze_output.sh <axis_device_ip> <Path_to_labels_mobilenet_quant_v1_224.txt>
 ```
-The highest matched classes will be on the bottom of the list that's printed.
-You can match these classes with:
+The model class PATH for objects matching is located in the
+*/home/user/Workspace/acap3-examples/larod/build/model/labels_mobilenet_quant_v1_224.txt*
 
-```bash
-/usr/local/packages/larod_simple_app/model/labels_mobilenet_quant_v1_224.txt
-```
-to see that indeed a goldfish was recognized.
+The matched class will be printed below:
+
+**Output:** The model has found that with a probability of 100 % the picture represents a goldfish.
 
 > [!NOTE]
 > *This app only supports models with one input and one output
 tensor, whereas larod itself supports any number of either.*
 
 ## License
-
-**Apache 2.0**
+**[Apache License 2.0](../LICENSE)**
