@@ -1,5 +1,5 @@
 # An vdo stream based ACAP3 application on an edge device
-This readme file explains how to build an ACAP3 that uses the vdostream API. The application is built by using the containerized Axis API and toolchain images.
+This readme file explains how to build an ACAP3 that uses the vdostream API. The application is built by using the containerized Axis API and tool-chain images.
 
 Together with this README file you should be able to find a directory called app, that directory contains the "vdoencodeclient" application source code which can easily be compiled and run with the help of the tools and step by step below.
 
@@ -17,7 +17,7 @@ vdostream
 ├── Dockerfile
 └── README.md
 ```
-* **Dockerfile**        - Docker file with the specified Axis toolchain and API container to build the example specified
+* **Dockerfile**        - Docker file with the specified Axis tool-chain and API container to build the example specified
 * **LICENSE**           - Text file which lists all open source licensed source code distributed with the application.
 * **Makefile**          - Used by the make tool to build the program.
 * **README.md**         - Step by step instructions on how to run the example.
@@ -25,7 +25,7 @@ vdostream
 
 ### Limitations
 * The example is done for the armv7hf architecture, but it is possible to update to aarch64 architecture.
-* Supported video compression formats for an Axis video device are found in the datasheet of the device.
+* Supported video compression formats for an Axis video device are found in the data-sheet of the device.
 
 ### How to run the code
 Below is a step by step instructions on how to execute the code.
@@ -35,7 +35,7 @@ Standing in your working directory run the following commands:
 
 > [!IMPORTANT]
 > *Depending on the network you are connected to,
-The file that needs those settings is: *~/.docker/config.json.* 
+The file that needs those settings is: *~/.docker/config.json.*
 For reference please see: https://docs.docker.com/network/proxy/ and a
 [script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
 
@@ -87,18 +87,19 @@ http://<axis_device_ip>/#settings/apps
 *Goto your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to the newly built **vdoencodeclient_1_0_0_armv7hf.eap** in build folder > Click **Install** > Run the application by enabling the **Start** switch*
 
 
-#### Expected output: Run the application with default vdo parameters.
+#### Run the application with default vdo parameters.
 
 Run the application with default video compression format h264 by clicking on the application icon and enable the **Start** switch.
-> [!WARNING]
-*> Please make sure SSH is enabled on the device*
 
 Application log can be found directly at:
 ```
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdoencodeclient
 ```
-or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands 
-in the terminal. 
+or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands
+in the terminal.
+> [!IMPORTANT]
+*> Please make sure SSH is enabled on the device to run the
+following commands.*
 
 ```
 ssh root@<axis_device_ip>
