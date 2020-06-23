@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ $# -lt 2 ]; then
     echo "Arguments should be: <APP_IMAGE> <UBUNTU_VERSION>"
     exit 1
