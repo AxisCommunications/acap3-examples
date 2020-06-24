@@ -1,12 +1,12 @@
-# An vdo stream based ACAP3 application on an edge device
-This readme file explains how to build an ACAP3 that uses the vdostream API. The application is built by using the containerized Axis API and tool-chain images.
+# A vdo stream based ACAP3 application on an edge device
+This readme file explains how to build an ACAP3 application that uses the vdostream API. The application is built by using the containerized Axis API and toolchain images.
 
-Together with this README file you should be able to find a directory called app, that directory contains the "vdoencodeclient" application source code which can easily be compiled and run with the help of the tools and step by step below.
+Together with this README file you should be able to find a directory called app. That directory contains the "vdoencodeclient" application source code which can easily be compiled and run with the help of the tools and step by step below.
 
 This example illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata. Captured frames are logged in the Application log.
 
 ## Getting started
-These instructions below will guide you on how to execute the code. Below is the structure and scripts used in the example:
+These instructions will guide you on how to execute the code. Below is the structure and scripts used in the example:
 
 ```bash
 vdostream
@@ -17,7 +17,7 @@ vdostream
 ├── Dockerfile
 └── README.md
 ```
-* **Dockerfile**        - Docker file with the specified Axis tool-chain and API container to build the example specified
+* **Dockerfile**        - Docker file with the specified Axis toolchain and API container to build the example specified
 * **LICENSE**           - Text file which lists all open source licensed source code distributed with the application.
 * **Makefile**          - Used by the make tool to build the program.
 * **README.md**         - Step by step instructions on how to run the example.
