@@ -1,3 +1,5 @@
+ *Copyright (C) 2020, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
+
 # A combined vdo stream and larod based ACAP3 application running inference on edge device
 This readme file explains how to build an application that uses:
 - vdo to fetch frames from e.g. a camera
