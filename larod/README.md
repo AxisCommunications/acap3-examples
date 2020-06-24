@@ -1,25 +1,25 @@
  *Copyright (C) 2020, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A larod based ACAP3 application running inference on edge device
+# A larod based ACAP3 application running inference on an edge device
 
 This readme file explains how to build an ACAP3 application that uses the [larod API](../FAQs.md#WhatisLarod?). It is achieved by using the containerized Axis API bundle and toolchain.
 
-Together with this file you should be able to find a directory called app. That directory contains the "larod_simple_app" application source code which can easily
+Together with this file, you should be able to find a directory called app. The directory contains the "larod_simple_app" application source code which can easily
 be compiled and run with the help of the tools and step by step below.
 
 ## Getting started
-These instructions will guide you on how to execute the code. Below is the structure and scripts used in the example:
+The instructions below guide you on how to execute the code. Below is the structure and scripts used in the example:
 
 ```bash
 larod
-├── Dockerfile
-│── app
+├── app
+│   ├── input
+│   │   └── veiltail-11457_640_RGB_224x224.bin
 │   ├── larod_simple_app.c
 │   ├── LICENSE
-|   ├── Makefile
-|   ├── package.conf
-│   └── input
-│       └── veiltail-11457_640_RGB_224x224.bin
+│   ├── Makefile
+│   └── package.conf
+├── Dockerfile
 ├── extract_analyze_output.sh
 └── README.md
 ```
@@ -37,7 +37,7 @@ larod
 ### Limitations
 
 ARTPEC-7 based product with video support is required
-In order to change the binary name it has to be done in the Makefile
+In order to change the binary name, it has to be done in the Makefile.
 
 ### How to run the code
 Below is the step by step instructions on how to execute the program. So basically starting with the generation of the .eap file to running it on a device:
@@ -109,7 +109,7 @@ the newly **larod_simple_app_1_0_0_armv7hf.eap** > Click **Install** > Run the a
 
 #### The expected output:
 
- In order to see the output, please copy the file with the output (veiltail-11457_640_RGB_224x224.bin.out) from device into your host
+ In order to see the output, please copy the file with the output (veiltail-11457_640_RGB_224x224.bin.out) from the device into your host
  application directory. You need to enable SSH on the device before executing the following command.
 
 ```bash
