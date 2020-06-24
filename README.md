@@ -1,6 +1,6 @@
 
 # What is Axis Camera Application Platform?
-[AXIS Camera Application Platform (ACAP)](https://www.axis.com/support/developer-support/axis-camera-application-platform) is an open application platform that enables members of [Axis Application Development Partner](https://www.axis.com/partners/adp-partner-program) (ADP) Program to develop applications that can be downloaded and installed on Axis network cameras and video encoders. ACAP makes it possible to develop applications for a wide range of applications:
+[AXIS Camera Application Platform (ACAP)](https://www.axis.com/support/developer-support/axis-camera-application-platform) is an open application platform that enables members of [Axis Application Development Partner](https://www.axis.com/partners/adp-partner-program) (ADP) Program to develop applications that can be downloaded and installed on Axis network cameras and video encoders. ACAP makes it possible to develop applications for a wide range of use cases:
 * Security applications that improve surveillance systems and facilitate investigation.
 * Business intelligence applications that improve business efficiency.
 * Camera feature plug-ins that add value beyond the Axis product's core functionality
@@ -23,8 +23,8 @@ Below is the list of examples available in the respository.
   * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
 
 ### DockerHub Images
-There are two types of Docker images here: the ToolChain (SDK), and the API 3.1. These images can be used as the basis for custom built images for running your applications. The images needed are specified in the docker-compose files. All images are public and free to use for anyone.
-* [Toolchain](https://hub.docker.com/repository/docker/axisecp/acap-toolchain) -  An Ubuntu-based Toolchain bundle with all tools for building and packaging an ACAP 3.1 application included.
+There are two types of Docker images here: the toolchain (SDK), and the API 3.1. These images can be used as the basis for custom built images for running your applications. The images needed are specified in the docker-compose files. All images are public and free to use for anyone.
+* [Toolchain](https://hub.docker.com/repository/docker/axisecp/acap-toolchain) -  An Ubuntu-based toolchain bundle with all tools for building and packaging an ACAP 3.1 application included.
 * [API 3.1](https://hub.docker.com/repository/docker/axisecp/acap-api) - An Ubuntu-based API bundle with all API components (header and library files) included.
 
  # Frequently asked questions
