@@ -2,7 +2,7 @@
 
 This readme file explains how to build an ACAP3 application that uses the [larod API](../FAQs.md#WhatisLarod?). It is achieved by using the containerized Axis API bundle and toolchain.
 
-Together with this file you should be able to find a directory called app. That directory contains the "larod-simple-app.c" application which can easily
+Together with this file you should be able to find a directory called app. That directory contains the "larod_simple_app" application source code which can easily
 be compiled and run with the help of the tools and step by step below.
 
 ## Getting started
@@ -22,14 +22,14 @@ larod
 └── README.md
 ```
 
-* **larod_simple_app.c** - Example application to load a model and run inference on it.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
-* **README.md** - Step by step instructions on how to run the example.
+* **app/larod_simple_app.c** - Example application to load a model and run inference on it.
 * **app/LICENSE** - File containing the license conditions.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
 * **app/package.conf** - Configuration file containing parameters needed for proper ACAP3 packaging.
-* **input/veiltail-11457_640_RGB_224x224.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
+* **app/input/veiltail-11457_640_RGB_224x224.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
 * **extract_analyze_output.sh** - The script shows the matched class in the output.
+* **README.md** - Step by step instructions on how to run the example.
 
 
 ### Limitations
