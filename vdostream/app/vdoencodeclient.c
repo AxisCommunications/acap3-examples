@@ -174,6 +174,10 @@ main(int argc, char* argv[])
     if (!set_format(settings, format, &error))
         goto exit;
 
+    // Set default arguments
+    vdo_map_set_uint32(settings, "width",  640);
+    vdo_map_set_uint32(settings, "height", 360);
+
     // Create a new stream
     stream = vdo_stream_new(settings, NULL, &error);
     g_clear_object(&settings);
