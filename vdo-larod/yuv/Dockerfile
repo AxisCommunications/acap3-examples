@@ -4,7 +4,7 @@ ARG UBUNTU_VERSION
 
 FROM arm32v7/ubuntu:${UBUNTU_VERSION}
 
-ARG version=5b6042fa0d211ebbd8b477c7f3855977c7973048
+ARG libyuv_version=5b6042fa0d211ebbd8b477c7f3855977c7973048
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
@@ -17,7 +17,7 @@ WORKDIR /opt/build
 RUN GIT_SSL_NO_VERIFY=1 git clone -n https://chromium.googlesource.com/libyuv/libyuv
 
 RUN cd libyuv && \
-    git checkout ${version}
+    git checkout ${libyuv_version}
 
 WORKDIR /opt/build/libyuv
 

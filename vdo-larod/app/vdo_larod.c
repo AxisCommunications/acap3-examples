@@ -34,13 +34,6 @@
  * Fourth argument, OUTPUT_SIZE, denotes the size in bytes of
  * the tensor output by model.
  *
- * Suppose that you have done through the steps of installation.
- * Then you would go to /usr/local/packages/vdo_larod on your device
- * and then for example run:
- *     ./vdo_larod \
- *         /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.larod \
- *         224 224 1001
- *
  * The application has two optional arguments on the command line in the following
  * order: CHIP NUM_FRAMES.
  *
@@ -50,11 +43,10 @@
  * Finally, second optional argument, NUM_FRAMES, is an integer for number of
  * captured frames.
  *
- * Then you would go to /usr/local/packages/vdo_larod on your device with Google TPU
- * and then for example run:
- *     ./vdo_larod \
- *         /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.larod \
- *         224 224 1001 -c 4
+ * Then you could run the application with Google TPU with command:
+ *     ./usr/local/packages/vdo_larod/vdo_larod \
+ *     /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.larod \
+ *     224 224 1001 -c 4
  */
 
 #include <errno.h>
@@ -361,9 +353,6 @@ int main(int argc, char** argv) {
         }
 
         // Get data from latest frame.
-        // Note: VDO caches memory mappings for VdoBuffer:s - we do not have to
-        // worry about memmap() being called each time vdo_buffer_get_data() is
-        // called.
         uint8_t* nv12Data = (uint8_t*) vdo_buffer_get_data(buf);
 
         // Covert image data from NV12 format to interleaved uint8_t RGB format.

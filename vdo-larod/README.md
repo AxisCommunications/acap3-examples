@@ -1,14 +1,15 @@
  *Copyright (C) 2020, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A combined vdo stream and larod based ACAP3 application running inference on edge device
-This readme file explains how to build an application that uses:
+# A combined vdo stream and larod based ACAP3 application running inference on an edge device
+This README file explains how to build an ACAP3 application that uses:
 - vdo to fetch frames from e.g. a camera
-- a library called libyuv to do some image preprocessing
+- a library called libyuv to do image preprocessing
 - [larod API](../FAQs.md#WhatisLarod?) to load a graph model and run classification inferences on it
 
-The application is built by using the containerized Axis API and toolchain images.
+It is achieved by using the containerized Axis API and toolchain images.
 
-Together with this README file you should be able to find a directory called app, that directory contains the "vdo_larod" application source code, which can easily be compiled and run with the help of the tools and step by step below.
+Together with this README file you should be able to find a directory called app. That directory contains the "vdo_larod" application source code, which can easily
+be compiled and run with the help of the tools and step by step below.
 
 ## Detailed outline of example application
 This application opens a client to vdo and starts fetching frames (in a new thread) in the yuv format. It tries to match twice the WIDTH and HEIGHT that is required by the neural network. The thread fetching frames is written so that it always tries to provide a frame as new as possible even if not all previous frames have been processed by libyuv and larod. The implementation of the vdo specific parts of the app can be found in file "imgprovider.c".
@@ -21,7 +22,7 @@ The image preprocessing is then started by libyuv in "imgconverter.c". The code 
 Finally larod will load a neural network model and start processing. It simply takes the images produced by vdo and libyuv and makes synchronous inferences calls to the neural network that was loaded. These function calls return when inferences are finished upon which the application parses the output tensor provided to print the top result to syslog/application log. The larod related code is found in "vdo_larod.c".
 
 ## Getting started
-These instructions below will guide you on how to execute the code. Below is the structure and scripts used in the example:
+These instructions will guide you on how to execute the code. Below is the structure and scripts used in the example:
 
 ```bash
 vdo-larod
@@ -44,20 +45,21 @@ vdo-larod
 ├── build.sh
 ├── Dockerfile
 └── README.md
+
 ```
-* **argparse.c/h** - Implementation of argument parser, written in C.
 * **build.sh** - Builds and tags the image of vdo_larod image e.g., axisecp/vdo_larod:1.0 and the .eap file.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
-* **imageconverter.c/h** - Implementation of libyuv parts, written in C.
-* **imageprovider.c/h** - Implementation of vdo parts, written in C.
-* **LICENSE** - Text file which lists all open source licensed source code distributed with the application.
-* **Makefile** - Used by the make tool to build the program.
-* **mobilenet_v2_1.9_224_quant_edgetpu.larod** - Model used for Google TPU.
-* **mobilenet_v2_1.9_224_quant.larod** - Model used for CPU with TensorFlow Lite.
-* **package.conf.cpu** - Defines the application and its configuration when building for CUP with TensorFlow Lite.
-* **package.conf.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
+* **app/argparse.c/h** - Implementation of argument parser, written in C.
+* **app/imageconverter.c/h** - Implementation of libyuv parts, written in C.
+* **app/imageprovider.c/h** - Implementation of vdo parts, written in C.
+* **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
+* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/model/mobilenet_v2_1.9_224_quant_edgetpu.larod** - Model used for Google TPU.
+* **app/model/mobilenet_v2_1.9_224_quant.larod** - Model used for CPU with TensorFlow Lite.
+* **app/package.conf.cpu** - Defines the application and its configuration when building for CUP with TensorFlow Lite.
+* **app/package.conf.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
+* **app/vdo-larod.c** - Application using larod, written in C.
 * **README.md** - Step by step instructions on how to run the example.
-* **vdo-larod.c** - Application using larod, written in C.
 * **yuv** - Folder containing files for building libyuv.
 
 Below is the structure and script used when building libyuv:
@@ -70,24 +72,25 @@ vdo-larod
 │   ├── Dockerfile
 │   ├── README.md
 ```
-* **build.sh** - Builds and tags the image of builder-yuv e.g., builder-yuv.
-* **0001-Create-a-shared-library.patch** - Patch for building the image of builder-yuv e.g., builder-yuv.
-* **Dockerfile** - Docker file for building libyuv.
-* **README.md** - Step by step instructions on how to build libyuv.
+* **yuv/build.sh** - Builds and tags the image of builder-yuv e.g., builder-yuv.
+* **yuv/0001-Create-a-shared-library.patch** - Patch for building the image of builder-yuv e.g., builder-yuv.
+* **yuv/Dockerfile** - Docker file for building libyuv.
+* **yuv/README.md** - Step by step instructions on how to build libyuv.
 
 ### Limitations
-* ARTPEC-7 based product.
+* ARTPEC-7 based device.
 * This application was not written to optimize performance.
 
 ### How to run the code
-Below is a step by step on the whole process.
+Below is the step by step instructions on how to execute the program. So basically starting with the generation of the .eap file to running it on a device:
 
 #### Build the application
+
 > [!IMPORTANT]
 > *Depending on the network you are connected to,
 The file that needs those settings is: *~/.docker/config.json.*
 For reference please see: https://docs.docker.com/network/proxy/ and a
-[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice??).*
+[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
 
 Depending on selected chip, different model can be used for running larod. This is configured through attributes in package.conf:
 - APPOPTS, which contains the application command line options.
@@ -96,27 +99,33 @@ Depending on selected chip, different model can be used for running larod. This 
 
 Different devices support different chips and models.
 
+Select one of the chip alternatives, CPU or Google TPU, to build an application for that chip:
+
 ##### Alternative Chip 2 - CPU with TensorFlow Lite
-Standing in your working directory, run the following command:
+Standing in your working directory run the following command, to copy configuration for CPU with TensorFlow Lite:
+
 ```
 cp app/package.conf.cpu app/package.conf
 ```
+
 ##### Alternative Chip 4 - Google TPU
-Standing in your working directory, run the following command:
+Standing in your working directory run the following command, to copy configuration for Google TPU:
+
 ```
 cp app/package.conf.edgetpu app/package.conf
 ```
+
 ##### Build script
-Standing in your working directory, run the following build command:
+Standing in your working directory run the following build command:
 ```
 ./build.sh <APP_IMAGE> <UBUNTU_VERSION> .
 ```
 <APP_IMAGE> is the name to tag the image with, e.g., axisecp/vdo_larod:1.0
 <UBUNTU_VERSION> is the Ubuntu version to be used, e.g., 19.10. This is used when building libyuv.
 
-This script will also copy the build result from the container image to a local directory build.
+This script will also copy the result from the container image to a local directory build.
 
-Working dir now contains a build folder with the following files:
+The working dir now contains a build folder with the following files:
 ```bash
 vdo-larod
 ├── build
@@ -142,44 +151,60 @@ vdo-larod
 │   ├── vdo_larod_1_0_0_LICENSE.txt
 
 ```
-* **include** - Folder containing include files for libyuv.
-* **lib** - Folder containing compiled library files for libyuv.
-* **model** - Folder containing models used in this application.
-* **package.conf** - Defines the application and its configuration.
-* **package.conf.orig** - Defines the application and its configuration, original file.
-* **param.conf** - File containing application parameters.
-* **vdo_larod** - Application executable binary file.
-* **vdo_larod_cpu_1_0_0_armv7hf.eap** - Application package .eap file,
+* **build/include** - Folder containing include files for libyuv.
+* **build/lib** - Folder containing compiled library files for libyuv.
+* **build/model** - Folder containing models used in this application.
+* **build/package.conf** - Defines the application and its configuration.
+* **build/package.conf.orig** - Defines the application and its configuration, original file.
+* **build/param.conf** - File containing application parameters.
+* **build/vdo_larod** - Application executable binary file.
+* **build/vdo_larod_cpu_1_0_0_armv7hf.eap** - Application package .eap file,
   if alternative chip 2 has been built.
-* **vdo_larod_edgetpu_1_0_0_armv7hf.eap** - Application package .eap file,
+* **build/vdo_larod_edgetpu_1_0_0_armv7hf.eap** - Application package .eap file,
   if alternative chip 4 has been built.
-* **vdo_larod_1_0_0_LICENSE.txt** - Copy of LICENSE file.
+* **build/vdo_larod_1_0_0_LICENSE.txt** - Copy of LICENSE file.
 
 #### Install your application
 Installing your application on an Axis video device is as simple as:
 
-Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video device):
-```
+Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video device)
+
+```bash
 http://<axis_device_ip>/#settings/apps
 ```
 
-Click Add, the + sign and browse to the newly built "vdo_larod_cpu_1_0_0_armv7hf.eap" or "vdo_larod_edgetpu_1_0_0_armv7hf.eap" in build folder.
+*Goto your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to
+the newly built **vdo_larod_cpu_1_0_0_armv7hf.eap** or **vdo_larod_edgetpu_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
 
-Click Install, vdo_larod is now available as an application on the device,
+Application vdo_larod is now available as an application on the device,
 using the friendly name "vdo_larod_cpu" or "vdo_larod_edgetpu".
 
-#### Run the application
-Run the application by clicking on the application icon and enable the Start switch.
+#### The expected output
+Application log can be found directly at:
 
-Application log is found by:
 ```
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdo_larod
 ```
-or by clicking on the "App log" link.
 
-#### The expected output
+or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands
+in the terminal.
+> [!IMPORTANT]
+*> Please make sure SSH is enabled on the device to run the
+following commands.*
 
-##### Alternative Chip 2 - CPU with TensorFlow Lite
+```
+ssh root@<axis_device_ip>
+cd /var/log/
+head -50 info.log
+```
+
+Depending on selected chip, different output is received.
+
+##### Output Alternative Chip 2 - CPU with TensorFlow Lite**
+
+```
+----- Contents of SYSTEM_LOG for 'vdo_larod' -----
+
 vdo_larod[27779]: Creating VDO image provider and creating stream 320 x 240
 vdo_larod[27779]: Dump of vdo stream settings map =====
 vdo_larod[27779]: chooseStreamResolution: We select stream w/h=320 x 240 based on VDO channel info.
@@ -194,8 +219,13 @@ vdo_larod[27779]: Top result: index 695 with probability 51.60%
 vdo_larod[27779]: Converted image in 3 ms
 vdo_larod[27779]: Ran inference for 324 ms
 vdo_larod[27779]: Top result: index 695 with probability 52.40%
+```
 
-##### Alternative Chip 4 - Google TPU
+##### Output Alternative Chip 4 - Google TPU
+
+```
+----- Contents of SYSTEM_LOG for 'vdo_larod' -----
+
 vdo_larod[32250]: Creating VDO image provider and creating stream 320 x 240
 vdo_larod[32250]: Dump of vdo stream settings map =====
 vdo_larod[32250]: chooseStreamResolution: We select stream w/h=320 x 240 based on VDO channel info.
@@ -215,6 +245,7 @@ vdo_larod[32250]: Converted image in 3 ms
 vdo_larod[32250]: Ran inference for 5 ms
 vdo_larod[32250]: Top result: index 535 with probability 45.20%
 vdo_larod[32250]: Ran inference for 5 ms
+```
 
 ##### Conclusion
 - This is an example of test data, which is dependant on selected device and chip.
@@ -222,4 +253,4 @@ vdo_larod[32250]: Ran inference for 5 ms
 - Converting images takes almost the same time on both chips.
 
 ## License
-**Apache License 2.0**
+**[Apache License 2.0](../LICENSE)**
