@@ -20,7 +20,8 @@ vdostream
 ├── Dockerfile
 └── README.md
 ```
-* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified
+
+* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
 * **app/vdoencodeclient.c** - Application to capture the frames using vdo service in C.
@@ -45,6 +46,7 @@ For reference please see: https://docs.docker.com/network/proxy/ and a
 ```bash
 docker build --tag <APP_IMAGE> .
 ```
+
 <APP_IMAGE> is the name to tag the image with, e.g., axisecp/vdoencodeclient:1.0
 
 Copy the result from the container image to a local directory build:
@@ -54,6 +56,7 @@ docker cp $(docker create <APP_IMAGE>):/opt/app ./build
 ```
 
 The working dir now contains a build folder with the following files:
+
 ```bash
 vdostream
 ├── app
@@ -73,6 +76,7 @@ vdostream
 │   ├── vdoencodeclient_1_0_0_LICENSE.txt
 │   ├── vdoencodeclient.c
 ```
+
 * **build/package.conf** - Defines the application and its configuration.
 * **build/package.conf.orig** - Defines the application and its configuration, original file.
 * **build/param.conf** - File containing application parameters.
@@ -81,9 +85,10 @@ vdostream
 * **build/vdoencodeclient_1_0_0_LICENSE.txt** - Copy of LICENSE file.
 
 #### Install your application
-Installing your application on an Axis video product is as simple as:
+Installing your application on an Axis video device is as simple as:
 
-Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video product)
+Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video device)
+
 ```bash
 http://<axis_device_ip>/#settings/apps
 ```
@@ -95,9 +100,11 @@ Application will run with default video compression format h264.
 
 #### The expected output
 Application log can be found directly at:
+
 ```
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdoencodeclient
 ```
+
 or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands
 in the terminal.
 > [!IMPORTANT]
@@ -109,7 +116,6 @@ ssh root@<axis_device_ip>
 cd /var/log/
 head -50 info.log
 ```
-
 
 ```
 ----- Contents of SYSTEM_LOG for 'vdoencodeclient' -----

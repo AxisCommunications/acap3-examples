@@ -33,7 +33,7 @@ larod
 * **README.md** - Step by step instructions on how to run the example.
 
 ### Limitations
-* ARTPEC-7 based product with video support is required
+* ARTPEC-7 based device with video support is required
 * In order to change the binary name, it has to be done in the Makefile.
 
 ### How to run the code
@@ -51,6 +51,7 @@ For reference please see: https://docs.docker.com/network/proxy/ and a
 ```bash
 docker build --tag <APP_IMAGE> .
 ```
+
 <APP_IMAGE> is the name to tag the image with, e.g., larod-simple-app:1.0
 
 Copy the result from the container image to a local directory build:
@@ -60,6 +61,7 @@ docker cp $(docker create <APP_IMAGE>):/opt/app ./build
 ```
 
 The working dir now contains a build folder with the following files:
+
 ```bash
 larod
 ├── Dockerfile
@@ -94,9 +96,10 @@ larod
 ```
 
 #### Install your application
-Installing your application on an Axis video product is as simple as:
+Installing your application on an Axis video device is as simple as:
 
-Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video product)
+Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video device)
+
 ```bash
 http://<axis_device_ip>/#settings/apps
 ```
@@ -114,13 +117,14 @@ following commands.*
 ```bash
 scp root@<axis_device_ip>:/usr/local/packages/larod_simple_app/input/veiltail-11457_640_RGB_224x224.bin.out .
 ```
+
 Run the script **extract_analyze_output.sh** in the same folder where you copied the output file (veiltail-11457_640_RGB_224x224.bin.out) to see the output.
 The script will prompt the password required to access the device.
-
 
 ```bash
 extract_analyze_output.sh <axis_device_ip> <Path_to_labels_mobilenet_quant_v1_224.txt>
 ```
+
 The model class PATH for objects matching is located in the
 */home/user/Workspace/acap3-examples/larod/build/model/labels_mobilenet_quant_v1_224.txt*
 
