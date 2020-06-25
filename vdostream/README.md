@@ -1,9 +1,10 @@
  *Copyright (C) 2020, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
 # A vdo stream based ACAP3 application on an edge device
-This readme file explains how to build an ACAP3 application that uses the vdostream API. The application is built by using the containerized Axis API and toolchain images.
+This README file explains how to build an ACAP3 application that uses the vdostream API. It is achieved by using the containerized Axis API and toolchain images.
 
-Together with this README file you should be able to find a directory called app. That directory contains the "vdoencodeclient" application source code which can easily be compiled and run with the help of the tools and step by step below.
+Together with this README file, you should be able to find a directory called app. That directory contains the "vdoencodeclient" application source code which can easily
+be compiled and run with the help of the tools and step by step below.
 
 This example illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata. Captured frames are logged in the Application log.
 
@@ -19,18 +20,18 @@ vdostream
 ├── Dockerfile
 └── README.md
 ```
-* **Dockerfile**        - Docker file with the specified Axis toolchain and API container to build the example specified
-* **LICENSE**           - Text file which lists all open source licensed source code distributed with the application.
-* **Makefile**          - Used by the make tool to build the program.
-* **README.md**         - Step by step instructions on how to run the example.
-* **vdoencodeclient.c** - Application to capture the frames using vdo service in C.
+* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified
+* **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
+* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/vdoencodeclient.c** - Application to capture the frames using vdo service in C.
+* **README.md** - Step by step instructions on how to run the example.
 
 ### Limitations
 * The example is done for the armv7hf architecture, but it is possible to update to aarch64 architecture.
 * Supported video compression formats for an Axis video device are found in the data-sheet of the device.
 
 ### How to run the code
-Below is a step by step instructions on how to execute the code.
+Below is the step by step instructions on how to execute the program. So basically starting with the generation of the .eap file to running it on a device:
 
 #### Build the application
 Standing in your working directory run the following commands:
@@ -41,17 +42,18 @@ The file that needs those settings is: *~/.docker/config.json.*
 For reference please see: https://docs.docker.com/network/proxy/ and a
 [script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
 
-```
+```bash
 docker build --tag <APP_IMAGE> .
 ```
 <APP_IMAGE> is the name to tag the image with, e.g., axisecp/vdoencodeclient:1.0
 
-Copy the build result from the container image to a local directory build
-```
+Copy the result from the container image to a local directory build:
+
+```bash
 docker cp $(docker create <APP_IMAGE>):/opt/app ./build
 ```
 
-Working dir now contains a build folder with the following files:
+The working dir now contains a build folder with the following files:
 ```bash
 vdostream
 ├── app
@@ -71,28 +73,27 @@ vdostream
 │   ├── vdoencodeclient_1_0_0_LICENSE.txt
 │   ├── vdoencodeclient.c
 ```
-* **package.conf**                       - Defines the application and its configuration.
-* **package.conf.orig**                  - Defines the application and its configuration, original file.
-* **param.conf**                         - File containing application parameters.
-* **vdoencodeclient***                   - Application executable binary file.
-* **vdoencodeclient_1_0_0_armv7hf.eap**  - Application package .eap file.
-* **vdoencodeclient_1_0_0_LICENSE.txt**  - Copy of LICENSE file.
+* **build/package.conf** - Defines the application and its configuration.
+* **build/package.conf.orig** - Defines the application and its configuration, original file.
+* **build/param.conf** - File containing application parameters.
+* **build/vdoencodeclient*** - Application executable binary file.
+* **build/vdoencodeclient_1_0_0_armv7hf.eap** - Application package .eap file.
+* **build/vdoencodeclient_1_0_0_LICENSE.txt** - Copy of LICENSE file.
 
-#### Install your application.
-Installing your application on an Axis video device is as simple as:
+#### Install your application
+Installing your application on an Axis video product is as simple as:
 
-Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video device):
-```
+Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video product)
+```bash
 http://<axis_device_ip>/#settings/apps
 ```
 
-*Goto your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to the newly built **vdoencodeclient_1_0_0_armv7hf.eap** in build folder > Click **Install** > Run the application by enabling the **Start** switch*
+*Goto your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to
+the newly built **vdoencodeclient_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
 
+Application will run with default video compression format h264.
 
-#### Run the application with default vdo parameters.
-
-Run the application with default video compression format h264 by clicking on the application icon and enable the **Start** switch.
-
+#### The expected output
 Application log can be found directly at:
 ```
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdoencodeclient
@@ -108,7 +109,8 @@ ssh root@<axis_device_ip>
 cd /var/log/
 head -50 info.log
 ```
-**Output**
+
+
 ```
 ----- Contents of SYSTEM_LOG for 'vdoencodeclient' -----
 
