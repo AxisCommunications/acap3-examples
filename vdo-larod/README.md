@@ -27,9 +27,6 @@ These instructions will guide you on how to execute the code. Below is the struc
 ```bash
 vdo-larod
 ├── app
-│   ├── model
-|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.larod
-|   │   ├── mobilenet_v2_1.9_224_quant.larod
 │   ├── argparse.c
 │   ├── argparse.h
 │   ├── imgconverter.c
@@ -54,8 +51,6 @@ vdo-larod
 * **app/imageprovider.c/h** - Implementation of vdo parts, written in C.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
-* **app/model/mobilenet_v2_1.9_224_quant_edgetpu.larod** - Model used for Google TPU.
-* **app/model/mobilenet_v2_1.9_224_quant.larod** - Model used for CPU with TensorFlow Lite.
 * **app/package.conf.cpu** - Defines the application and its configuration when building for CUP with TensorFlow Lite.
 * **app/package.conf.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
 * **app/vdo-larod.c** - Application using larod, written in C.
@@ -92,7 +87,11 @@ The file that needs those settings is: *~/.docker/config.json.*
 For reference please see: https://docs.docker.com/network/proxy/ and a
 [script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
 
-Depending on selected chip, different model can be used for running larod. This is configured through attributes in package.conf:
+Depending on selected chip, different model can be used for running larod. Label file is used for identifying objects in the video stream.
+
+Model and label files are downloaded from https://coral.ai/models/, when building the application.
+
+Which model that is used is configured through attributes in package.conf:
 - APPOPTS, which contains the application command line options.
 - OTHERFILES, shows files to be included in the package e.g. model. Files listed here are copied to the application directory during installation.
 - PACKAGENAME, a user friendly package name which is also part of the .eap file name.
@@ -136,10 +135,14 @@ vdo-larod
 │   ├── imgprovider.c
 │   ├── imgprovider.h
 │   ├── include
+│   ├── label
+|   │   ├── imagenet_labels.txt
 │   ├── lib
 │   ├── LICENSE
 │   ├── Makefile
 │   ├── model
+|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.larod
+|   │   ├── mobilenet_v2_1.9_224_quant.larod
 │   ├── package.conf
 │   ├── package.conf.cpu
 │   ├── package.conf.edgetpu
@@ -152,8 +155,12 @@ vdo-larod
 
 ```
 * **build/include** - Folder containing include files for libyuv.
+* **build/label** - Folder containing label files used in this application.
+* **build/label/imagenet_labels.txt** - Label file for MobileNet V2 (ImageNet).
 * **build/lib** - Folder containing compiled library files for libyuv.
 * **build/model** - Folder containing models used in this application.
+* **build/model/mobilenet_v2_1.9_224_quant_edgetpu.larod** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
+* **build/model/mobilenet_v2_1.9_224_quant.larod** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
 * **build/package.conf** - Defines the application and its configuration.
 * **build/package.conf.orig** - Defines the application and its configuration, original file.
 * **build/param.conf** - File containing application parameters.
@@ -198,7 +205,7 @@ cd /var/log/
 head -50 info.log
 ```
 
-Depending on selected chip, different output is received.
+Depending on selected chip, different output is received. The label file could then be used for identifying objects.
 
 ##### Output Alternative Chip 2 - CPU with TensorFlow Lite**
 
@@ -219,6 +226,11 @@ vdo_larod[27779]: Top result: index 695 with probability 51.60%
 vdo_larod[27779]: Converted image in 3 ms
 vdo_larod[27779]: Ran inference for 324 ms
 vdo_larod[27779]: Top result: index 695 with probability 52.40%
+```
+
+Index 695 is identified as a paddle wheel, by using the following command:
+```bash
+cat build/label/imagenet_labels.txt | grep 695
 ```
 
 ##### Output Alternative Chip 4 - Google TPU
@@ -245,6 +257,11 @@ vdo_larod[32250]: Converted image in 3 ms
 vdo_larod[32250]: Ran inference for 5 ms
 vdo_larod[32250]: Top result: index 535 with probability 45.20%
 vdo_larod[32250]: Ran inference for 5 ms
+```
+
+Index 535 is identified as a dishwasher, by using the following command:
+```bash
+cat build/label/imagenet_labels.txt | grep 535
 ```
 
 ##### Conclusion

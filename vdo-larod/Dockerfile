@@ -19,6 +19,10 @@ COPY --from=api /opt/axis/sdk/temp/sysroots/${PKG_ARCH}/usr/lib/pkgconfig/ /opt/
 # Copy the tools and scripts from the toolchain container
 RUN cp -r /opt/axis/sdk/temp/* /opt/axis/sdk/
 
+# Install any non-axis package that your build process/ACAP needs
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        curl
+
 # The building of the particular ACAP
 COPY ./app /opt/app/
 WORKDIR /opt/app
