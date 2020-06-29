@@ -60,6 +60,8 @@ Copy the result from the container image to a local directory build:
 docker cp $(docker create <APP_IMAGE>):/opt/app ./build
 ```
 
+Model and label files are downloaded from https://coral.ai/models/, when building the application.
+
 The working dir now contains a build folder with the following files:
 
 ```bash
@@ -86,9 +88,6 @@ larod
 	├── model
 	│	├── labels_mobilenet_quant_v1_224.txt
 	│	├── mobilenet_v1_1.0_224_quant.larod
-	│	├── mobilenet_v1_1.0_224_quant.tflite
-	│	├── mobilenet_v1_tflite.zip
-	│	└── __MACOSX
 	│── package.conf
 	├── package.conf.orig
 	├── param.conf
@@ -122,7 +121,7 @@ Run the script **extract_analyze_output.sh** in the same folder where you copied
 The script will prompt the password required to access the device.
 
 ```bash
-extract_analyze_output.sh <axis_device_ip> <Path_to_labels_mobilenet_quant_v1_224.txt>
+./extract_analyze_output.sh <axis_device_ip> <Path_to_labels_mobilenet_quant_v1_224.txt>
 ```
 
 The model class PATH for objects matching is located in the
