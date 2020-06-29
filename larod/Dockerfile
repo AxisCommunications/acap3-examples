@@ -23,10 +23,9 @@ RUN cp -r /opt/axis/sdk/temp/* /opt/axis/sdk/
 RUN apt-get update && apt-get install -y --no-install-recommends \
         curl \
         xz-utils \
-        unzip \
         iputils-ping
 
-##The building of the particular ACAP
+# The building of the particular ACAP
 COPY ./app /opt/app/
 WORKDIR /opt/app
 RUN . /opt/axis/sdk/environment-setup* && create-package.sh
