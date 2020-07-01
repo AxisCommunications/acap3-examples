@@ -44,7 +44,7 @@ vdo-larod
 └── README.md
 ```
 
-* **build.sh** - Builds and tags the image of vdo_larod image e.g., axisecp/vdo_larod:1.0 and the .eap file.
+* **build.sh** - Builds and tags the image of vdo_larod image e.g., vdo_larod:1.0 and the .eap file.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **app/argparse.c/h** - Implementation of argument parser, written in C.
 * **app/imageconverter.c/h** - Implementation of libyuv parts, written in C.
@@ -118,7 +118,7 @@ Standing in your working directory run the following build command:
 ```
 ./build.sh <APP_IMAGE> <UBUNTU_VERSION> .
 ```
-<APP_IMAGE> is the name to tag the image with, e.g., axisecp/vdo_larod:1.0
+<APP_IMAGE> is the name to tag the image with, e.g., vdo_larod:1.0
 <UBUNTU_VERSION> is the Ubuntu version to be used, e.g., 19.10. This is used when building libyuv.
 
 This script will also copy the result from the container image to a local directory build.
