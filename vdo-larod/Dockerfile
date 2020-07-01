@@ -1,11 +1,13 @@
 # Specify the architecture at build time: armv7hf
 # Should be used for getting API and toolchain image
 # Currently, only armv7hf is supported
+ARG http_proxy
+ARG https_proxy
 ARG ARCH=armv7hf
 ARG VERSION=3.1
 ARG UBUNTU_VERSION=19.10
 
-FROM builder-yuv as yuv
+FROM builder-yuv:1.0-ubuntu${UBUNTU_VERSION} as yuv
 FROM axisecp/acap-api:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION} as api
 FROM axisecp/acap-toolchain:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION} as toolchain
 

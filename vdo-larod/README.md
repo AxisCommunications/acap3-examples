@@ -42,8 +42,8 @@ vdo-larod
 ├── build.sh
 ├── Dockerfile
 └── README.md
-
 ```
+
 * **build.sh** - Builds and tags the image of vdo_larod image e.g., axisecp/vdo_larod:1.0 and the .eap file.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **app/argparse.c/h** - Implementation of argument parser, written in C.
@@ -65,12 +65,11 @@ vdo-larod
 │   ├── 0001-Create-a-shared-library.patch
 │   ├── build.sh
 │   ├── Dockerfile
-│   ├── README.md
 ```
-* **yuv/build.sh** - Builds and tags the image of builder-yuv e.g., builder-yuv.
-* **yuv/0001-Create-a-shared-library.patch** - Patch for building the image of builder-yuv e.g., builder-yuv.
+
+* **yuv/build.sh** - Builds and tags the image of builder-yuv e.g., builder-yuv:1.0-ubuntu19.10.
+* **yuv/0001-Create-a-shared-library.patch** - Patch, which is needed to support building an .so file, for the shared library libyuv.
 * **yuv/Dockerfile** - Docker file for building libyuv.
-* **yuv/README.md** - Step by step instructions on how to build libyuv.
 
 ### Limitations
 * ARTPEC-7 based device.
@@ -152,8 +151,8 @@ vdo-larod
 │   ├── vdo_larod.c
 │   ├── vdo_larod_cpu_1_0_0_armv7hf.eap / vdo_larod_edgetpu_1_0_0_armv7hf.eap
 │   ├── vdo_larod_1_0_0_LICENSE.txt
-
 ```
+
 * **build/include** - Folder containing include files for libyuv.
 * **build/label** - Folder containing label files used in this application.
 * **build/label/imagenet_labels.txt** - Label file for MobileNet V2 (ImageNet).

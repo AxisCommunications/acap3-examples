@@ -1,6 +1,6 @@
-ARG http_proxy=http://wwwproxy.se.axis.com:3128
-ARG https_proxy=http://wwwproxy.se.axis.com:3128
-ARG UBUNTU_VERSION
+ARG http_proxy
+ARG https_proxy
+ARG UBUNTU_VERSION=19.10
 
 FROM arm32v7/ubuntu:${UBUNTU_VERSION}
 
