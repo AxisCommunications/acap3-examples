@@ -51,7 +51,7 @@ vdo-larod
 * **app/imageprovider.c/h** - Implementation of vdo parts, written in C.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
-* **app/package.conf.cpu** - Defines the application and its configuration when building for CUP with TensorFlow Lite.
+* **app/package.conf.cpu** - Defines the application and its configuration when building for CPU with TensorFlow Lite.
 * **app/package.conf.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
 * **app/vdo-larod.c** - Application using larod, written in C.
 * **README.md** - Step by step instructions on how to run the example.
@@ -206,7 +206,7 @@ head -50 info.log
 
 Depending on selected chip, different output is received. The label file could then be used for identifying objects.
 
-##### Output Alternative Chip 2 - CPU with TensorFlow Lite**
+##### Output Alternative Chip 2 - CPU with TensorFlow Lite
 
 ```
 ----- Contents of SYSTEM_LOG for 'vdo_larod' -----
