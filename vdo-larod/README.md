@@ -116,10 +116,9 @@ cp app/package.conf.edgetpu app/package.conf
 ##### Build script
 Standing in your working directory run the following build command:
 ```
-./build.sh <APP_IMAGE> <UBUNTU_VERSION> .
+./build.sh <APP_IMAGE> .
 ```
 <APP_IMAGE> is the name to tag the image with, e.g., vdo_larod:1.0
-<UBUNTU_VERSION> is the Ubuntu version to be used, e.g., 19.10. This is used when building libyuv.
 
 This script will also copy the result from the container image to a local directory build.
 
