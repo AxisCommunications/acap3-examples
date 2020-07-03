@@ -47,7 +47,7 @@ For reference please see: https://docs.docker.com/network/proxy/ and a
 docker build --tag <APP_IMAGE> .
 ```
 
-<APP_IMAGE> is the name to tag the image with, e.g., axisecp/vdoencodeclient:1.0
+<APP_IMAGE> is the name to tag the image with, e.g., vdoencodeclient:1.0
 
 Copy the result from the container image to a local directory build:
 
