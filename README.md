@@ -15,12 +15,15 @@ README file in its directory which shows overview, example directory structure a
 step-by-step instructions on how to run applications on the camera.
 
 ## Example applications
-Below is the list of examples available in the respository.
+Below is the list of examples available in the repository.
 
 * [Larod](./larod/)
-  * The example code is written in C which connects to larod and loads a model, runs inference on it and then finally deletes the loaded model from larod.
+  * The example code is written in C which connects to [larod](./FAQs.md#WhatisLarod?) and loads a model, runs inference on it and then finally deletes the loaded model from [larod](./FAQs.md#WhatisLarod?).
 * [vdostream](./vdostream/)
   * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
+* [vdo-larod](./vdo-larod/)
+  * The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are converted to interleaved rgb format and then sent to larod for inference on MODEL.
+
 
 ### DockerHub Images
 There are two types of Docker images here: the toolchain (SDK), and the API 3.1. These images can be used as the basis for custom built images for running your applications. The images needed are specified in the docker-compose files. All images are public and free to use for anyone.
