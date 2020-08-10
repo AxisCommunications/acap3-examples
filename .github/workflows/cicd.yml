@@ -49,4 +49,30 @@ jobs:
         name: vdo stream application
         path: vdostream/build/
         
-
+    # Build VDO larod application to run on CPU
+    - name: Build VDO larod application to run on CPU
+      run: |        
+        cd vdo-larod
+        cp app/package.conf.cpu app/package.conf
+        ./build.sh vdo_larod:latest
+        cd ..
+        
+    # Save VDO larod application *.eap file as artifact
+    - uses: actions/upload-artifact@master
+      with:
+        name: CPU vdo-larod application
+        path: vdo-larod/build/
+        
+    # Build VDO larod application to run on TPU
+    - name: Build VDO larod application to run on TPU
+      run: |        
+        cd vdo-larod
+        cp app/package.conf.edgetpu app/package.conf
+        ./build.sh vdo_larod:latest 19.10
+        cd ..
+        
+    # Save VDO larod application *.eap file as artifact
+    - uses: actions/upload-artifact@master
+      with:
+        name: TPU vdo-larod application
+        path: vdo-larod/build/
