@@ -24,7 +24,7 @@ jobs:
     # Run build script larod application
     - name: Build larod application
       run: |
-        cd acap3/examples/larod
+        cd larod
         docker build --tag larod-simple-app:1.0 .
         docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
         
