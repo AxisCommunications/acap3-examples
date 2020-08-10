@@ -18,8 +18,8 @@ jobs:
     - name: Run ShellCheck
       uses: ludeeus/action-shellcheck@master
       # If shellCheck complains about unnecessery things, ignore it.
-      #env:
-      #  SHELLCHECK_OPTS: -e SC2153 -e SC2148 -e SC2046 -e SC2154
+      env:
+        SHELLCHECK_OPTS: -e SC2153 -e SC2148
     
     # Run build script larod application
     - name: Build larod application
