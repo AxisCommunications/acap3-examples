@@ -1,4 +1,4 @@
-name: ShellCheck
+name: Build Applications
 
 on:
   push:
@@ -27,11 +27,11 @@ jobs:
         cd larod
         docker build --tag larod-simple-app:1.0 .
         docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
+        cd ..
         
     # Build VDO stream application
     - name: Build vdo stream application
-      run: |
-        cd ..
+      run: |        
         cd vdostream
         docker build --tag axisecp/vdoencodeclient:1.0 .
         docker cp $(docker create axisecp/vdoencodeclient:1.0):/opt/app ./build
