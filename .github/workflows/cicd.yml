@@ -28,10 +28,12 @@ jobs:
         docker build --tag larod-simple-app:1.0 .
         docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
         cd ..
+        
+    # Save larop application *.eap file as artifact
     - uses: actions/upload-artifact@master
       with:
-        name: larod
-        path: larod/build/larod-simple-app_1_0_0_armv7hf.eap
+        name: larod application
+        path: larod/build/
         
     # Build VDO stream application
     - name: Build vdo stream application
@@ -39,5 +41,12 @@ jobs:
         cd vdostream
         docker build --tag axisecp/vdoencodeclient:1.0 .
         docker cp $(docker create axisecp/vdoencodeclient:1.0):/opt/app ./build
+        cd ..
+        
+    # Save VDO stream application *.eap file as artifact
+    - uses: actions/upload-artifact@master
+      with:
+        name: vdo stream application
+        path: vdostream/build/
         
 
