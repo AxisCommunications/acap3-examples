@@ -10,7 +10,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
       #- uses: actions/checkout@master
@@ -18,6 +17,17 @@ jobs:
       # on every push to the repo.
     - name: Run ShellCheck
       uses: ludeeus/action-shellcheck@master
-    # If shellCheck complains about unnecessery things, ignore it.
-    env:
-      SHELLCHECK_OPTS: -e SC2153 -e SC2148 -e SC2046 -e SC2154
+      # If shellCheck complains about unnecessery things, ignore it.
+      env:
+        SHELLCHECK_OPTS: -e SC2153 -e SC2148 -e SC2046 -e SC2154
+    
+    # Run build script larod application
+    - name: Build larod application
+      run: |
+        cd acap3/examples/larod
+        docker build --tag larod-simple-app:1.0 .
+        docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
+      
+        
+      
+    
