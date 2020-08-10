@@ -28,6 +28,10 @@ jobs:
         docker build --tag larod-simple-app:1.0 .
         docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
         cd ..
+    - uses: actions/upload-artifact@master
+      with:
+        name: larod
+        path: larod/build/larod-simple-app_1_0_0_armv7hf.eap
         
     # Build VDO stream application
     - name: Build vdo stream application
