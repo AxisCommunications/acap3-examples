@@ -93,7 +93,8 @@ jobs:
     
     # Build Subscribe to event application
     - name: Build subscribe to event application
-      run: |        
+      run: |
+        ls         
         cd subscribe_to_event
         docker build --tag subscribe-to-event:1.0 .
         docker cp $(docker create subscribe-to-event:1.0):/opt/app ./build
