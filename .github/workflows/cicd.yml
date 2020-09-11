@@ -89,13 +89,13 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: Send Event application
-        path: send_event/build/
+        path: axevent/send_event/build/
     
     # Build Subscribe to event application
     - name: Build subscribe to event application
       run: |
         ls         
-        cd subscribe_to_event
+        cd axevent/subscribe_to_event
         docker build --tag subscribe-to-event:1.0 .
         docker cp $(docker create subscribe-to-event:1.0):/opt/app ./build
         cd ..
@@ -104,12 +104,12 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: Subscribe to Event application
-        path: subscribe_to_event/build/
+        path: axevent/subscribe_to_event/build/
   
     # Build Subscribe to events application
     - name: Build subscribe to events application
       run: |        
-        cd subscribe_to_events
+        cd axevent/subscribe_to_events
         docker build --tag subscribe-to-events:1.0 .
         docker cp $(docker create subscribe-to-events:1.0):/opt/app ./build
         cd ..
@@ -118,4 +118,4 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: Subscribe to Events application
-        path: subscribe_to_events/build/
+        path: axevent/subscribe_to_events/build/
