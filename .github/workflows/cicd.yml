@@ -76,3 +76,45 @@ jobs:
       with:
         name: TPU vdo-larod application
         path: vdo-larod/build/
+    
+    # Build Send event application
+    - name: Build Send event application
+      run: |        
+        cd axevent/send_event
+        docker build --tag send-event:1.0 .
+        docker cp $(docker create send-event:1.0):/opt/app ./build
+        cd ..
+
+    # Save Send Event application *.eap file as artifact
+    - uses: actions/upload-artifact@master
+      with:
+        name: Send Event application
+        path: send_event/build/
+    
+    # Build Subscribe to event application
+    - name: Build subscribe to event application
+      run: |        
+        cd subscribe_to_event
+        docker build --tag subscribe-to-event:1.0 .
+        docker cp $(docker create subscribe-to-event:1.0):/opt/app ./build
+        cd ..
+        
+    # Save Subscribe to Event application *.eap file as artifact
+    - uses: actions/upload-artifact@master
+      with:
+        name: Subscribe to Event application
+        path: subscribe_to_event/build/
+  
+    # Build Subscribe to events application
+    - name: Build subscribe to events application
+      run: |        
+        cd subscribe_to_events
+        docker build --tag subscribe-to-events:1.0 .
+        docker cp $(docker create subscribe-to-events:1.0):/opt/app ./build
+        cd ..
+    
+    # Save Subscribe to Events application *.eap file as artifact
+    - uses: actions/upload-artifact@master
+      with:
+        name: Subscribe to Events application
+        path: subscribe_to_events/build/
