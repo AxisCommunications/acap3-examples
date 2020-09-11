@@ -1,4 +1,3 @@
-
 # What is Axis Camera Application Platform?
 [AXIS Camera Application Platform (ACAP)](https://www.axis.com/support/developer-support/axis-camera-application-platform) is an open application platform that enables members of [Axis Application Development Partner](https://www.axis.com/partners/adp-partner-program) (ADP) Program to develop applications that can be downloaded and installed on Axis network cameras and video encoders. ACAP makes it possible to develop applications for a wide range of use cases:
 * Security applications that improve surveillance systems and facilitate investigation.
@@ -17,6 +16,8 @@ step-by-step instructions on how to run applications on the camera.
 ## Example applications
 Below is the list of examples available in the repository.
 
+* [axevent](./axevent/)
+  * The example code is written in C which illustrates both how to subscribe to different events and how to send an event.
 * [Larod](./larod/)
   * The example code is written in C which connects to [larod](./FAQs.md#WhatisLarod?) and loads a model, runs inference on it and then finally deletes the loaded model from [larod](./FAQs.md#WhatisLarod?).
 * [vdostream](./vdostream/)
