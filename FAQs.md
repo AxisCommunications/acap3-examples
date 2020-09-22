@@ -17,6 +17,10 @@ ssh root@<axis_device_ip>
 ```
 Run on the device:
 ```bash
+#!/bin/sh
+
+# Setup proxy for dockerd
+
   cat >> /etc/systemd/system/sdkrun_dockerd.service <<EOF
   [Service]
   Environment="HTTP_PROXY=http://<myproxy.com>:<port>"
