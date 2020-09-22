@@ -1,4 +1,4 @@
-# How to contribute contribute
+# How to make a contribution
 
 This page addresses the guidelines for the following actions below.
 - How to clone the repo.
@@ -32,7 +32,7 @@ Please consider the following guidelines before making a Pull Request.
 - Follow the [conventional commits](https://www.conventionalcommits.org) message style in the commit messages
 - The PR will have to meet the sample code examples standard already available in the repository.
 - Explanatory comments related to code functions are required. Please write code comments for a better understanding of the code for other developers.
-- No PR will be accepted without having a well defined README (see example) file for the sample code.
+- No PR will be accepted without having a well defined README (see examples in the repo) file for the sample code.
 
 ## How to post an issue in the issue tracker
 Please follow the guidelines below before posting an issue in the issue tracker.
