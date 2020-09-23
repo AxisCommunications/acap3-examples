@@ -20,9 +20,8 @@ jobs:
       # If shellCheck complains about unnecessery things, ignore it.
       #env:
         #SHELLCHECK_OPTS: -e SC2153 -e SC2148
-    - name: Login to dockerhub axis account
-      run: docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASS }}
-      
+
+    
     # Run build script larod application
     - name: Build larod application
       run: |
