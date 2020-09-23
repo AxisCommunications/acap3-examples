@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
       #- uses: actions/checkout@master
@@ -24,10 +24,14 @@ jobs:
     # Run build script larod application
     - name: Build larod application
       run: |
+        export http_proxy=http://wwwproxy.se.axis.com:3128
+        export https_proxy=http://wwwproxy.se.axis.com:3128
         cd larod
-        docker build --tag larod-simple-app:1.0 .
+        docker build --build-arg http_proxy=${https_proxy} --build-arg https_proxy=${https_proxy} --tag larod-simple-app:1.0 .
         docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
         cd ..
+        mkdir -p acap3/examples/larod/build
+        cp larod/build/larod-simple-app_1_0_0_armv7hf.eap acap3/examples/larod/build/larod-simple-app_1_0_0_armv7hf.eap
         
     # Save larop application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -42,6 +46,8 @@ jobs:
         docker build --tag axisecp/vdoencodeclient:1.0 .
         docker cp $(docker create axisecp/vdoencodeclient:1.0):/opt/app ./build
         cd ..
+        mkdir -p acap3/examples/vdostream/build
+        cp vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap acap3/examples/vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap
         
     # Save VDO stream application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -54,8 +60,10 @@ jobs:
       run: |        
         cd vdo-larod
         cp app/package.conf.cpu app/package.conf
-        ./build.sh vdo_larod:latest
+        ./build.sh vdo_larod:latest 
         cd ..
+        mkdir -p acap3/examples/vdo-larod
+        cp vdo-larod/build/vdo_larod_cpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/vdo_larod_cpu_1_0_0_armv7hf.eap
         
     # Save VDO larod application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -69,7 +77,9 @@ jobs:
         cd vdo-larod
         cp app/package.conf.edgetpu app/package.conf
         ./build.sh vdo_larod:latest 19.10
-        cd ..
+        cd ..        
+        mkdir -p acap3/examples/vdo-larod/build
+        cp vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap
         
     # Save VDO larod application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -118,4 +128,14 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: Subscribe to Events application
-        path: axevent/subscribe_to_events/build/
+        path: axevent/subscribe_to_events/build/    
+      
+    - name: Run functional tests
+      run: |
+         export WORKSPACE=$(pwd)
+         git clone "https://${{ secrets.GERRIT_USER }}:${{ secrets.GERRIT_PASS }}@gittools.se.axis.com/gerrit/a/tests/atf/tart/recap"
+         cd recap  
+         git checkout topic/development/team_tests      
+         source /github-runner/github-runner/init/atf_init.sh
+         chmod +x test_starter.sh
+         ./test_starter.sh
