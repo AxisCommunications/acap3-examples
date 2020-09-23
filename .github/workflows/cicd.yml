@@ -97,7 +97,7 @@ jobs:
         cd ..
         mkdir -p acap3/examples/axevent/send_event/build
         ls
-        cp axevent/send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
+        cp send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
 
     # Save Send Event application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -114,7 +114,7 @@ jobs:
         docker cp $(docker create subscribe-to-event:1.0):/opt/app ./build
         cd ..
         mkdir -p acap3/examples/axevent/subscribe_to_event/build
-        cp axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
+        cp subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
         
     # Save Subscribe to Event application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -130,7 +130,7 @@ jobs:
         docker cp $(docker create subscribe-to-events:1.0):/opt/app ./build
         cd ..
         mkdir -p acap3/examples/axevent/subscribe_to_events/build
-        cp axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
+        cp subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
     
     # Save Subscribe to Events application *.eap file as artifact
     - uses: actions/upload-artifact@master
