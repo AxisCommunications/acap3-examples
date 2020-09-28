@@ -99,7 +99,7 @@ jobs:
         cd ..
         mkdir -p acap3/examples/axevent/send_event/build
         
-        cp send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
+        cp axevent/send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
         ls /github-runner/github-runner/_work/acap3-examples/acap3-examples/acap3/examples/axevent
 
     # Save Send Event application *.eap file as artifact
