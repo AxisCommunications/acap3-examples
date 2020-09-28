@@ -126,7 +126,7 @@ jobs:
       with:
         name: Subscribe to Event application
         path: axevent/subscribe_to_event/build/
-  
+              
     # Build Subscribe to events application
     - name: Build subscribe to events application
       run: |        
@@ -160,4 +160,5 @@ jobs:
     - uses: actions/upload-artifact@master
       with:
         name: Test report 
-        path: recap/output/report.xml  
+        path: recap/recap/output/report.xml
+
