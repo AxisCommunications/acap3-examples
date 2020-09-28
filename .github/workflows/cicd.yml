@@ -112,12 +112,14 @@ jobs:
     - name: Build subscribe to event application
       run: |
         ls         
-        cd axevent/subscribe_to_event
+        cd axevent
+        cd subscribe_to_event
         docker build --tag subscribe-to-event:1.0 .
         docker cp $(docker create subscribe-to-event:1.0):/opt/app ./build
         cd ..
+        cd ..
         mkdir -p acap3/examples/axevent/subscribe_to_event/build
-        cp subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
+        cp axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
         
     # Save Subscribe to Event application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -128,12 +130,14 @@ jobs:
     # Build Subscribe to events application
     - name: Build subscribe to events application
       run: |        
-        cd axevent/subscribe_to_events
+        cd axevent
+        cd subscribe_to_events
         docker build --tag subscribe-to-events:1.0 .
         docker cp $(docker create subscribe-to-events:1.0):/opt/app ./build
         cd ..
+        cd ..
         mkdir -p acap3/examples/axevent/subscribe_to_events/build
-        cp subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
+        cp axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
     
     # Save Subscribe to Events application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -151,3 +155,9 @@ jobs:
          chmod +x test_starter.sh
          ./test_starter.sh
          ls recap/output
+   
+    # Save functional test report as artifact
+    - uses: actions/upload-artifact@master
+      with:
+        name: Test report 
+        path: recap/output/report.xml  
