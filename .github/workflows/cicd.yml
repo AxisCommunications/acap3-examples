@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
       #- uses: actions/checkout@master
@@ -137,4 +137,14 @@ jobs:
       with:
         name: Subscribe to Events application
         path: axevent/subscribe_to_events/build/    
-
+      
+    - name: Run functional tests
+      run: |
+         export WORKSPACE=$(pwd)
+         git clone "https://${{ secrets.GERRIT_USER }}:${{ secrets.GERRIT_PASS }}@gittools.se.axis.com/gerrit/a/tests/atf/tart/recap"
+         cd recap  
+         git checkout topic/development/team_tests      
+         source /github-runner/github-runner/init/atf_init.sh
+         chmod +x test_starter.sh
+         ./test_starter.sh
+         ls recap/output
