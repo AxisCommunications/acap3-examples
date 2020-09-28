@@ -96,8 +96,9 @@ jobs:
 
         cd ..
         mkdir -p acap3/examples/axevent/send_event/build
-        ls
+        
         cp send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
+        ls acap3/examples/axevent/send_event/build
 
     # Save Send Event application *.eap file as artifact
     - uses: actions/upload-artifact@master
