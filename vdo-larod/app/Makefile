@@ -14,10 +14,15 @@ LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
 
 CFLAGS += -Wall
 
+SDK_TARGET_LIBS=$(SDKTARGETSYSROOT)/usr/lib
+
+SHLIB_DIR = ./lib
+
 all:	$(PROGS) \
 		model/mobilenet_v2_1.0_224_quant.larod \
 		model/mobilenet_v2_1.0_224_quant_edgetpu.larod \
-		label/imagenet_labels.txt
+		label/imagenet_labels.txt \
+		libscopy
 
 $(PROG1): $(OBJS1)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
@@ -38,6 +43,12 @@ model/mobilenet_v2_1.0_224_quant_edgetpu.larod:
 label/imagenet_labels.txt:
 	mkdir -p label
 	curl -L -o label/imagenet_labels.txt https://github.com/google-coral/edgetpu/raw/master/test_data/imagenet_labels.txt
+
+libscopy:
+	mkdir -p $(SHLIB_DIR)
+	cp $(SDK_TARGET_LIBS)/libyuv.so             $(SHLIB_DIR)/libyuv.so
+	cp $(SDK_TARGET_LIBS)/libyuv.so.1           $(SHLIB_DIR)/libyuv.so.1
+	cp $(SDK_TARGET_LIBS)/libyuv.so.1.0         $(SHLIB_DIR)/libyuv.so.1.0
 
 clean:
 	rm -f $(PROGS) *.o *.eap lib/* include/* model/* label/*

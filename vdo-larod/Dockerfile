@@ -21,6 +21,10 @@ COPY --from=api /opt/axis/sdk/temp/sysroots/${PKG_ARCH}/usr/lib/pkgconfig/ /opt/
 # Copy the tools and scripts from the toolchain container
 RUN cp -r /opt/axis/sdk/temp/* /opt/axis/sdk/
 
+# Copy needed files from the yuv container
+COPY --from=yuv /yuv/lib /opt/axis/sdk/sysroots/${PKG_ARCH}/usr/lib/
+COPY --from=yuv /yuv/include /opt/axis/sdk/sysroots/${PKG_ARCH}/usr/include/
+
 # Install any non-axis package that your build process/ACAP needs
 RUN apt-get update && apt-get install -y --no-install-recommends \
         curl
@@ -28,10 +32,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # The building of the particular ACAP
 COPY ./app /opt/app/
 WORKDIR /opt/app
-
-# Copy needed files from the yuv container
-COPY --from=yuv /yuv/lib /opt/app/lib/
-COPY --from=yuv /yuv/include /opt/app/include/
 
 # Creating package
 RUN . /opt/axis/sdk/environment-setup* && create-package.sh
