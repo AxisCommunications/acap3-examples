@@ -151,7 +151,7 @@ jobs:
          export WORKSPACE=$(pwd)
          git clone "https://${{ secrets.GERRIT_USER }}:${{ secrets.GERRIT_PASS }}@gittools.se.axis.com/gerrit/a/tests/atf/tart/recap"
          cd recap  
-         git checkout topic/development/team_tests      
+         git checkout topic/development/recaptest      
          source /github-runner/github-runner/init/atf_init.sh
          chmod +x test_starter.sh
          ./test_starter.sh
