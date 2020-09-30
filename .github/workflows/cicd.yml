@@ -21,7 +21,6 @@ jobs:
       #env:
         #SHELLCHECK_OPTS: -e SC2153 -e SC2148
 
-
     # Run build script larod application
     - name: Build larod application
       run: |
