@@ -24,7 +24,10 @@ Below is the list of examples available in the repository.
   * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
 * [vdo-larod](./vdo-larod/)
   * The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are converted to interleaved rgb format and then sent to larod for inference on MODEL.
-
+* [Tensorflow_Larod](./tensorflow-to-larod/)
+  * This example covers model conversion, model quantization, image formats and models with multiple output tensors in
+greater depth than the [larod](https://github.com/AxisCommunications/acap3-examples/tree/master/larod)
+and [vdo-larod](https://github.com/AxisCommunications/acap3-examples/tree/master/vdo-larod) examples.
 
 ### DockerHub Images
 There are two types of Docker images here: the toolchain (SDK), and the API 3.1. These images can be used as the basis for custom built images for running your applications. The images needed are specified in the docker-compose files. All images are public and free to use for anyone.
