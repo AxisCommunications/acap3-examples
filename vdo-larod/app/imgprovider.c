@@ -100,7 +100,7 @@ ImgProvider_t* createImgProvider(unsigned int w, unsigned int h,
     ImgProvider_t* provider = calloc(1, sizeof(ImgProvider_t));
     if (!provider) {
         syslog(LOG_ERR, "%s: Unable to allocate ImgProvider: %s", __func__,
-                 strerror(errno));
+               strerror(errno));
         goto errorExit;
     }
 
@@ -109,14 +109,14 @@ ImgProvider_t* createImgProvider(unsigned int w, unsigned int h,
 
     if (pthread_mutex_init(&provider->frameMutex, NULL)) {
         syslog(LOG_ERR, "%s: Unable to initialize mutex: %s", __func__,
-                 strerror(errno));
+               strerror(errno));
         goto errorExit;
     }
     mtxInitialized = true;
 
     if (pthread_cond_init(&provider->frameDeliverCond, NULL)) {
         syslog(LOG_ERR, "%s: Unable to initialize condition variable: %s", __func__,
-                 strerror(errno));
+               strerror(errno));
         goto errorExit;
     }
     condInitialized = true;
@@ -188,7 +188,7 @@ bool allocateVdoBuffers(ImgProvider_t* provider, VdoStream* vdoStream) {
             vdo_stream_buffer_alloc(vdoStream, NULL, &error);
         if (provider->vdoBuffers[i] == NULL) {
             syslog(LOG_ERR, "%s: Failed creating VDO buffer: %s", __func__,
-                     (error != NULL) ? error->message : "N/A");
+                   (error != NULL) ? error->message : "N/A");
             goto errorExit;
         }
 
@@ -198,14 +198,14 @@ bool allocateVdoBuffers(ImgProvider_t* provider, VdoStream* vdoStream) {
         void* dummyPtr = vdo_buffer_get_data(provider->vdoBuffers[i]);
         if (!dummyPtr) {
             syslog(LOG_ERR, "%s: Failed initializing buffer memmap: %s", __func__,
-                     (error != NULL) ? error->message : "N/A");
+                   (error != NULL) ? error->message : "N/A");
             goto errorExit;
         }
 
         if (!vdo_stream_buffer_enqueue(vdoStream, provider->vdoBuffers[i],
                                        &error)) {
             syslog(LOG_ERR, "%s: Failed enqueue VDO buffer: %s", __func__,
-                     (error != NULL) ? error->message : "N/A");
+                   (error != NULL) ? error->message : "N/A");
             goto errorExit;
         }
     }
@@ -233,13 +233,13 @@ bool chooseStreamResolution(unsigned int reqWidth, unsigned int reqHeight,
     channel = vdo_channel_get(VDO_CHANNEL, &error);
     if (!channel) {
         syslog(LOG_ERR, "%s: Failed vdo_channel_get(): %s", __func__,
-                 (error != NULL) ? error->message : "N/A");
+               (error != NULL) ? error->message : "N/A");
         goto end;
     }
     set = vdo_channel_get_resolutions(channel, NULL, &error);
     if (!set) {
         syslog(LOG_ERR, "%s: Failed vdo_channel_get_resolutions(): %s", __func__,
-                 (error != NULL) ? error->message : "N/A");
+               (error != NULL) ? error->message : "N/A");
         goto end;
     }
 
@@ -269,8 +269,8 @@ bool chooseStreamResolution(unsigned int reqWidth, unsigned int reqHeight,
                 __func__, *chosenWidth, *chosenHeight);
     } else {
         syslog(LOG_WARNING, "%s: VDO channel info contains no reslution info. Fallback "
-                   "to client-requested stream resolution.",
-                   __func__);
+               "to client-requested stream resolution.",
+               __func__);
     }
 
     ret = true;
@@ -306,7 +306,7 @@ bool createStream(ImgProvider_t* provider, unsigned int w, unsigned int h) {
     VdoStream* vdoStream = vdo_stream_new(vdoMap, NULL, &error);
     if (!vdoStream) {
         syslog(LOG_ERR, "%s: Failed creating vdo stream: %s", __func__,
-                 (error != NULL) ? error->message : "N/A");
+               (error != NULL) ? error->message : "N/A");
         goto errorExit;
     }
 
@@ -318,7 +318,7 @@ bool createStream(ImgProvider_t* provider, unsigned int w, unsigned int h) {
     // Start the actual VDO streaming.
     if (!vdo_stream_start(vdoStream, &error)) {
         syslog(LOG_ERR, "%s: Failed starting stream: %s", __func__,
-                 (error != NULL) ? error->message : "N/A");
+               (error != NULL) ? error->message : "N/A");
         goto errorExit;
     }
 
@@ -360,7 +360,7 @@ VdoBuffer* getLastFrameBlocking(ImgProvider_t* provider) {
         if (pthread_cond_wait(&provider->frameDeliverCond,
                               &provider->frameMutex)) {
             syslog(LOG_ERR, "%s: Failed to wait on condition: %s", __func__,
-                     strerror(errno));
+                   strerror(errno));
             goto errorExit;
         }
     }
@@ -393,7 +393,7 @@ static void* threadEntry(void* data) {
         if (!newBuffer) {
             // Fail but we continue anyway hoping for the best.
             syslog(LOG_WARNING, "%s: Failed fetching frame from vdo: %s", __func__,
-                       (error != NULL) ? error->message : "N/A");
+                   (error != NULL) ? error->message : "N/A");
             g_clear_error(&error);
             continue;
         }
@@ -422,7 +422,7 @@ static void* threadEntry(void* data) {
                                            &error)) {
                 // Fail but we continue anyway hoping for the best.
                 syslog(LOG_WARNING, "%s: Failed enqueueing buffer to vdo: %s", __func__,
-                           (error != NULL) ? error->message : "N/A");
+                       (error != NULL) ? error->message : "N/A");
                 g_clear_error(&error);
             }
         }
@@ -434,7 +434,7 @@ static void* threadEntry(void* data) {
 bool startFrameFetch(ImgProvider_t* provider) {
     if (pthread_create(&provider->fetcherThread, NULL, threadEntry, provider)) {
         syslog(LOG_ERR, "%s: Failed to start thread fetching frames from vdo: %s",
-                 __func__, strerror(errno));
+               __func__, strerror(errno));
         return false;
     }
 
@@ -446,7 +446,7 @@ bool stopFrameFetch(ImgProvider_t* provider) {
 
     if (pthread_join(provider->fetcherThread, NULL)) {
         syslog(LOG_ERR, "%s: Failed to join thread fetching frames from vdo: %s",
-                 __func__, strerror(errno));
+               __func__, strerror(errno));
         return false;
     }
 

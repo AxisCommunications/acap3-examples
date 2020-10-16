@@ -40,13 +40,16 @@
  * First optional argument, CHIP, is an enum describing the selected chip
  * e.g. 4 is used for Google TPU.
  *
- * Finally, second optional argument, NUM_FRAMES, is an integer for number of
+ * Second optional argument, LABEL, is path to a file labelling classifications.
+ *
+ * Finally, third optional argument, NUM_FRAMES, is an integer for number of
  * captured frames.
  *
  * Then you could run the application with Google TPU with command:
  *     ./usr/local/packages/vdo_larod/vdo_larod \
  *     /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.larod \
- *     224 224 1001 -c 4
+ *     224 224 1001 -c 4 \
+ *     -l /usr/local/packages/vdo_larod/label/imagenet_labels.txt
  */
 
 #include <errno.h>
@@ -54,6 +57,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/mman.h>
+#include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <syslog.h>
@@ -66,33 +70,16 @@
 #include "vdo-frame.h"
 #include "vdo-types.h"
 
-/// Set by signal handler if an interrupt signal sent to process.
-/// Indicates that app should stop asap and exit gracefully.
-volatile sig_atomic_t stopRunning = false;
-
 /**
  * brief Invoked on SIGINT. Makes app exit cleanly asap if invoked once, but
  * forces an immediate exit without clean up if invoked at least twice.
  *
- * param sig What signal has been sent. Will always be SIGINT.
+ * param sig What signal has been sent.
  */
-void sigintHandler(int sig) {
-    // Force an exit if SIGINT has already been sent before.
-    if (stopRunning) {
-        syslog(LOG_INFO, "Interrupted again, exiting immediately without clean up.");
-
-        exit(EXIT_FAILURE);
-    }
-
-    syslog(LOG_INFO, "Interrupted, starting graceful termination of app. Another "
-            "interrupt signal will cause a forced exit.");
-
-    // Tell the main thread to stop running inferences asap.
-    stopRunning = true;
-}
+static void sigintHandler(int sig);
 
 /**
- * brief Creates a temporary fd and truncated to correct size and mapped.
+ * brief Creates a temporary fd truncated to correct size and mapped.
  *
  * This convenience function creates temp files to be used for input and output.
  *
@@ -100,31 +87,94 @@ void sigintHandler(int sig) {
  * param fileSize How much space needed to be allocated (truncated) in fd.
  * param mappedAddr Pointer to the address of the fd mapped for this process.
  * param Pointer to the generated fd.
- * return Positive errno style return code (zero means success).
+ * return False if any errors occur, otherwise true.
  */
-bool createAndMapTmpFile(char* fileName, size_t fileSize, void** mappedAddr,
-                         int* convFd) {
+static bool createAndMapTmpFile(char* fileName, size_t fileSize,
+                                void** mappedAddr, int* convFd);
+
+/**
+ * brief Sets up and configures a connection to larod, and loads a model.
+ *
+ * Opens a connection to larod, which is tied to larodConn. After opening a
+ * larod connection the chip specified by larodChip is set for the
+ * connection. Then the model file specified by larodModelFd is loaded to the
+ * chip, and a corresponding larodModel object is tied to model.
+ *
+ * param larodChip Specifier for which larod chip to use.
+ * param larodModelFd Fd for a model file to load.
+ * param larodConn Pointer to a larod connection to be opened.
+ * param model Pointer to a larodModel to be obtained.
+ * return False if error has occurred, otherwise true.
+ */
+static bool setupLarod(const larodChip larodChip, const int larodModelFd,
+                       larodConnection** larodConn, larodModel** model);
+
+/**
+ * brief Free up resources held by an array of labels.
+ *
+ * param labels An array of label string pointers.
+ * param labelFileBuffer Heap buffer containing the actual string data.
+ */
+static void freeLabels(char** labelsArray, char* labelFileBuffer);
+
+/**
+ * brief Reads a file of labels into an array.
+ *
+ * An array filled by this function should be freed using freeLabels.
+ *
+ * param labelsPtr Pointer to a string array.
+ * param labelFileBuffer Pointer to the labels file contents.
+ * param labelsPath String containing the path to the labels file to be read.
+ * param numLabelsPtr Pointer to number which will store number of labels read.
+ * return False if any errors occur, otherwise true.
+ */
+static bool parseLabels(char*** labelsPtr, char** labelFileBuffer,
+                        char* labelsPath, size_t* numLabelsPtr);
+
+/// Set by signal handler if an interrupt signal sent to process.
+/// Indicates that app should stop asap and exit gracefully.
+volatile sig_atomic_t stopRunning = false;
+
+void sigintHandler(int sig) {
+    if (stopRunning) {
+        syslog(LOG_INFO, "Interrupted again, exiting immediately without clean up.");
+
+        signal(sig, SIG_DFL);
+        raise(sig);
+
+        return;
+    }
+
+    syslog(LOG_INFO, "Interrupted, starting graceful termination of app. Another "
+           "interrupt signal will cause a forced exit.");
+
+    // Tell the main thread to stop running inferences asap.
+    stopRunning = true;
+}
+
+static bool createAndMapTmpFile(char* fileName, size_t fileSize,
+                                void** mappedAddr, int* convFd) {
     syslog(LOG_INFO, "%s: Setting up a temp fd with pattern %s and size %zu", __func__,
-            fileName, fileSize);
+           fileName, fileSize);
 
     int fd = mkstemp(fileName);
     if (fd < 0) {
         syslog(LOG_ERR, "%s: Unable to open temp file %s: %s", __func__, fileName,
-                 strerror(errno));
+               strerror(errno));
         goto error;
     }
 
     // Allocate enough space in for the fd.
     if (ftruncate(fd, (off_t) fileSize) < 0) {
         syslog(LOG_ERR, "%s: Unable to truncate temp file %s: %s", __func__, fileName,
-                 strerror(errno));
+               strerror(errno));
         goto error;
     }
 
     // Remove since we don't actually care about writing to the file system.
     if (unlink(fileName)) {
         syslog(LOG_ERR, "%s: Unable to unlink from temp file %s: %s", __func__,
-                 fileName, strerror(errno));
+               fileName, strerror(errno));
         goto error;
     }
 
@@ -134,7 +184,7 @@ bool createAndMapTmpFile(char* fileName, size_t fileSize, void** mappedAddr,
 
     if (data == MAP_FAILED) {
         syslog(LOG_ERR, "%s: Unable to mmap temp file %s: %s", __func__, fileName,
-                 strerror(errno));
+               strerror(errno));
         goto error;
     }
 
@@ -151,22 +201,8 @@ error:
     return false;
 }
 
-/**
- * brief Sets up and configures a connection to larod, and loads a model.
- *
- * Opens a connection to larod, which is tied to larodConn. After opening a
- * larod connection the chip specified by larodChip is set for the
- * connection. Then the model file specified by larodModelFd is loaded to the
- * chip, and a corresponding larodModel object is tied to model.
- *
- * param larodChip Speficier for which larod chip to use.
- * param larodModelFd Fd for a model file to load.
- * param larodConn Pointer to a larod connection to be opened.
- * param model Pointer to a larodModel to be obtained.
- * return false if error has occurred, otherwise true.
- */
-bool setupLarod(const larodChip larodChip, const int larodModelFd,
-                larodConnection** larodConn, larodModel** model) {
+static bool setupLarod(const larodChip larodChip, const int larodModelFd,
+                       larodConnection** larodConn, larodModel** model) {
     larodError* error = NULL;
     larodConnection* conn = NULL;
     larodModel* loadedModel = NULL;
@@ -182,7 +218,7 @@ bool setupLarod(const larodChip larodChip, const int larodModelFd,
     if (larodChip != 0) {
         if (!larodSetChip(conn, larodChip, &error)) {
             syslog(LOG_ERR, "%s: Could not select chip %d: %s", __func__, larodChip,
-                     error->msg);
+                   error->msg);
             goto error;
         }
     }
@@ -214,6 +250,138 @@ end:
     return ret;
 }
 
+void freeLabels(char** labelsArray, char* labelFileBuffer) {
+    free(labelsArray);
+    free(labelFileBuffer);
+}
+
+bool parseLabels(char*** labelsPtr, char** labelFileBuffer, char* labelsPath,
+                 size_t* numLabelsPtr) {
+    // We cut off every row at 60 characters.
+    const size_t LINE_MAX_LEN = 60;
+    bool ret = false;
+    char* labelsData = NULL;  // Buffer containing the label file contents.
+    char** labelArray = NULL; // Pointers to each line in the labels text.
+
+    struct stat fileStats = {0};
+    if (stat(labelsPath, &fileStats) < 0) {
+        syslog(LOG_ERR, "%s: Unable to get stats for label file %s: %s", __func__,
+               labelsPath, strerror(errno));
+        return false;
+    }
+
+    // Sanity checking on the file size - we use size_t to keep track of file
+    // size and to iterate over the contents. off_t is signed and 32-bit or
+    // 64-bit depending on architecture. We just check toward 10 MByte as we
+    // will not encounter larger label files and both off_t and size_t should be
+    // able to represent 10 megabytes on both 32-bit and 64-bit systems.
+    if (fileStats.st_size > (10 * 1024 * 1024)) {
+        syslog(LOG_ERR, "%s: failed sanity check on labels file size", __func__);
+        return false;
+    }
+
+    int labelsFd = open(labelsPath, O_RDONLY);
+    if (labelsFd < 0) {
+        syslog(LOG_ERR, "%s: Could not open labels file %s: %s", __func__, labelsPath,
+               strerror(errno));
+        return false;
+    }
+
+    size_t labelsFileSize = (size_t) fileStats.st_size;
+    // Allocate room for a terminating NULL char after the last line.
+    labelsData = malloc(labelsFileSize + 1);
+    if (labelsData == NULL) {
+        syslog(LOG_ERR, "%s: Failed allocating labels text buffer: %s", __func__,
+               strerror(errno));
+        goto end;
+    }
+
+    ssize_t numBytesRead = -1;
+    size_t totalBytesRead = 0;
+    char* fileReadPtr = labelsData;
+    while (totalBytesRead < labelsFileSize) {
+        numBytesRead =
+            read(labelsFd, fileReadPtr, labelsFileSize - totalBytesRead);
+
+        if (numBytesRead < 1) {
+            syslog(LOG_ERR, "%s: Failed reading from labels file: %s", __func__,
+                   strerror(errno));
+            goto end;
+        }
+        totalBytesRead += (size_t) numBytesRead;
+        fileReadPtr += numBytesRead;
+    }
+
+    // Now count number of lines in the file - check all bytes except the last
+    // one in the file.
+    size_t numLines = 0;
+    for (size_t i = 0; i < (labelsFileSize - 1); i++) {
+        if (labelsData[i] == '\n') {
+            numLines++;
+        }
+    }
+
+    // We assume that there is always a line at the end of the file, possibly
+    // terminated by newline char. Either way add this line as well to the
+    // counter.
+    numLines++;
+
+    labelArray = malloc(numLines * sizeof(char*));
+    if (!labelArray) {
+        syslog(LOG_ERR, "%s: Unable to allocate labels array: %s", __func__,
+               strerror(errno));
+        ret = false;
+        goto end;
+    }
+
+    size_t labelIdx = 0;
+    labelArray[labelIdx] = labelsData;
+    labelIdx++;
+    for (size_t i = 0; i < labelsFileSize; i++) {
+        if (labelsData[i] == '\n') {
+            // Register the string start in the list of labels.
+            labelArray[labelIdx] = labelsData + i + 1;
+            labelIdx++;
+            // Replace the newline char with string-ending NULL char.
+            labelsData[i] = '\0';
+        }
+    }
+
+    // If the very last byte in the labels file was a new-line we just
+    // replace that with a NULL-char. Refer previous for loop skipping looking
+    // for new-line at the end of file.
+    if (labelsData[labelsFileSize - 1] == '\n') {
+        labelsData[labelsFileSize - 1] = '\0';
+    }
+
+    // Make sure we always have a terminating NULL char after the label file
+    // contents.
+    labelsData[labelsFileSize] = '\0';
+
+    // Now go through the list of strings and cap if strings too long.
+    for (size_t i = 0; i < numLines; i++) {
+        size_t stringLen = strnlen(labelArray[i], LINE_MAX_LEN);
+        if (stringLen >= LINE_MAX_LEN) {
+            // Just insert capping NULL terminator to limit the string len.
+            *(labelArray[i] + LINE_MAX_LEN + 1) = '\0';
+        }
+    }
+
+    *labelsPtr = labelArray;
+    *numLabelsPtr = numLines;
+    *labelFileBuffer = labelsData;
+
+    ret = true;
+
+end:
+    if (!ret) {
+        freeLabels(labelArray, labelsData);
+    }
+    close(labelsFd);
+
+    return ret;
+}
+
 /**
  * brief Main function that starts a stream with different options.
  */
@@ -239,6 +407,11 @@ int main(int argc, char** argv) {
     int larodModelFd = -1;
     int larodInputFd = -1;
     int larodOutputFd = -1;
+    char** labels = NULL; // This is the array of label strings. The label
+                          // entries points into the large labelFileData buffer.
+    size_t numLabels = 0; // Number of entries in the labels array.
+    char* labelFileData =
+        NULL; // Buffer holding the complete collection of label strings.
     args_t args;
 
     // Open the syslog to report messages for "vdo_larod"
@@ -263,7 +436,7 @@ int main(int argc, char** argv) {
     }
 
     syslog(LOG_INFO, "Creating VDO image provider and creating stream %d x %d",
-            streamWidth, streamHeight);
+           streamWidth, streamHeight);
     provider = createImgProvider(streamWidth, streamHeight, 2, VDO_FORMAT_YUV);
     if (!provider) {
         goto end;
@@ -272,19 +445,19 @@ int main(int argc, char** argv) {
     larodModelFd = open(args.modelFile, O_RDONLY);
     if (larodModelFd < 0) {
         syslog(LOG_ERR, "Unable to open model file %s: %s", args.modelFile,
-                 strerror(errno));
+               strerror(errno));
         goto end;
     }
 
     syslog(LOG_INFO, "Setting up larod connection with chip %d and model %s", args.chip,
-            args.modelFile);
+           args.modelFile);
     larodModel* model = NULL;
     if (!setupLarod(args.chip, larodModelFd, &conn, &model)) {
         goto end;
     }
 
     syslog(LOG_INFO, "Creating temporary files and memmaps for inference input and "
-            "output tensors");
+           "output tensors");
 
     if (!createAndMapTmpFile(CONV_INP_FILE_PATTERN,
                              args.width * args.height * CHANNELS,
@@ -305,7 +478,7 @@ int main(int argc, char** argv) {
     // This app only supports 1 input tensor right now.
     if (numInputs != 1) {
         syslog(LOG_ERR, "Model has %zu inputs, app only supports 1 input tensor.",
-                 numInputs);
+               numInputs);
         goto end;
     }
     if (!larodSetTensorFd(inputTensors[0], larodInputFd, &error)) {
@@ -321,7 +494,7 @@ int main(int argc, char** argv) {
     // This app only supports 1 output tensor right now.
     if (numOutputs != 1) {
         syslog(LOG_ERR, "Model has %zu outputs, app only supports 1 output tensor.",
-                 numOutputs);
+               numOutputs);
         goto end;
     }
     if (!larodSetTensorFd(outputTensors[0], larodOutputFd, &error)) {
@@ -335,6 +508,14 @@ int main(int argc, char** argv) {
     if (!infReq) {
         syslog(LOG_ERR, "Failed creating inference request: %s", error->msg);
         goto end;
+    }
+
+    if (args.labelsFile) {
+        if (!parseLabels(&labels, &labelFileData, args.labelsFile,
+                         &numLabels)) {
+            syslog(LOG_ERR, "Failed creating parsing labels file");
+            goto end;
+        }
     }
 
     syslog(LOG_INFO, "Start fetching video frames from VDO");
@@ -361,8 +542,8 @@ int main(int argc, char** argv) {
                                         (uint8_t*) larodInputAddr, args.width,
                                         args.height)) {
             syslog(LOG_ERR, "%s: Failed img scale/convert in "
-                     "convertCropScaleU8yuvToRGB() (continue anyway)",
-                     __func__);
+                   "convertCropScaleU8yuvToRGB() (continue anyway)",
+                   __func__);
         }
         gettimeofday(&endTs, NULL);
 
@@ -374,7 +555,7 @@ int main(int argc, char** argv) {
         // rewind the file position before each inference.
         if (lseek(larodOutputFd, 0, SEEK_SET) == -1) {
             syslog(LOG_ERR, "Unable to rewind output file position: %s",
-                     strerror(errno));
+                   strerror(errno));
 
             goto end;
         }
@@ -382,7 +563,7 @@ int main(int argc, char** argv) {
         gettimeofday(&startTs, NULL);
         if (!larodRunInference(conn, infReq, &error)) {
             syslog(LOG_ERR, "Unable to run inference on model %s: %s (%d)",
-                     args.modelFile, error->msg, error->code);
+                   args.modelFile, error->msg, error->code);
             goto end;
         }
         gettimeofday(&endTs, NULL);
@@ -401,8 +582,19 @@ int main(int argc, char** argv) {
                 maxIdx = j;
             }
         }
-        syslog(LOG_INFO, "Top result: index %zu with probability %.2f%%", maxIdx,
-                (float) maxProb / 2.5f);
+        if (labels) {
+            if (maxIdx < numLabels) {
+                syslog(LOG_INFO, "Top result: %s with score %.2f%%", labels[maxIdx],
+                       (float) maxProb / 2.5f);
+            } else {
+                syslog(LOG_INFO, "Top result: index %zu with score %.2f%% (index larger "
+                       "than num items in labels file)",
+                       maxIdx, (float) maxProb / 2.5f);
+            }
+        } else {
+            syslog(LOG_INFO, "Top result: index %zu with score %.2f%%", maxIdx,
+                   (float) maxProb / 2.5f);
+        }
 
         // Release frame reference to provider.
         returnFrame(provider, buf);
@@ -447,8 +639,9 @@ end:
     larodDestroyTensors(&outputTensors, numOutputs);
     larodClearError(&error);
 
-    // Close application logging to syslog
-    closelog();
+    if (labels) {
+        freeLabels(labels, labelFileData);
+    }
 
     return ret ? EXIT_SUCCESS : EXIT_FAILURE;
 }

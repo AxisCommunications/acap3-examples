@@ -35,6 +35,12 @@ const struct argp_option opts[] = {
      "from the library. If not specified, the default chip for a new "
      "connection will be used.",
      0},
+    {"labels", 'l', "LABELS", 0,
+     "Path to a file labelling classifications. Each row of this file should "
+     "consist of a label, and this label will be mapped to the classification "
+     "index corresponding to its row number. At most 60 characters from each "
+     "row/label will be read.",
+     0},
     {"num-frames", 'n', "NUM_FRAMES", 0,
      "How many frames to run inferences on. Default is 100 frames.", 0},
     {"help", 'h', NULL, 0, "Print this help text and exit.", 0},
@@ -45,8 +51,8 @@ const struct argp argp = {
     parseOpt,
     "MODEL WIDTH HEIGHT OUTPUT_SIZE",
     "This is an example app which loads an image classification MODEL to "
-    "larod and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv "
-    "format which are converted to interleaved rgb format and then sent to "
+    "larod and then uses vdo to fetch frames of size WIDTH x HEIGHT in a yuv "
+    "format which are converted to an interleaved rgb format and then sent to "
     "larod for inference on MODEL. OUTPUT_SIZE denotes the size in bytes of "
     "the tensor output by MODEL.\n\nExample call:\n"
     "larod-vdo-example-app /tmp/mobilenet_v2_1.0_224_quant.larod 224 224 "
@@ -74,6 +80,10 @@ int parseOpt(int key, char* arg, struct argp_state* state) {
             argp_failure(state, EXIT_FAILURE, ret, "invalid chip type");
         }
         args->chip = (larodChip) chip;
+        break;
+    }
+    case 'l': {
+        args->labelsFile = arg;
         break;
     }
     case 'n': {
@@ -126,6 +136,7 @@ int parseOpt(int key, char* arg, struct argp_state* state) {
         args->numFrames = 100;
         args->chip = 0;
         args->modelFile = NULL;
+        args->labelsFile = NULL;
         break;
     case ARGP_KEY_END:
         if (state->arg_num != 4) {
