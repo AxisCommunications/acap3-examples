@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
       #- uses: actions/checkout@master
@@ -147,13 +147,13 @@ jobs:
     - name: Run functional tests
       run: |
          export WORKSPACE=$(pwd)
-         git clone "https://${{ secrets.GERRIT_USER }}:${{ secrets.GERRIT_PASS }}@gittools.se.axis.com/gerrit/a/tests/atf/tart/recap"
-         cd recap  
-         git checkout topic/development/recaptest      
-         source /github-runner/github-runner/init/atf_init.sh
-         chmod +x test_starter.sh
-         ./test_starter.sh
-         ls recap/output
+     #git clone "https://${{ secrets.GERRIT_USER }}:${{ secrets.GERRIT_PASS }}@gittools.se.axis.com/gerrit/a/tests/atf/tart/recap"
+         #cd recap  
+         #git checkout topic/development/recaptest      
+         #source /github-runner/github-runner/init/atf_init.sh
+         #chmod +x test_starter.sh
+     # ./test_starter.sh
+     #ls recap/output
    
     # Save functional test report as artifact
     - uses: actions/upload-artifact@master
