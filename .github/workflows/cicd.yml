@@ -29,8 +29,8 @@ jobs:
         docker build --tag larod-simple-app:1.0 .
         docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
         cd ..
-        mkdir -p acap3/examples/larod/build
-        cp larod/build/larod-simple-app_1_0_0_armv7hf.eap acap3/examples/larod/build/larod-simple-app_1_0_0_armv7hf.eap
+      #mkdir -p acap3/examples/larod/build
+      #cp larod/build/larod-simple-app_1_0_0_armv7hf.eap acap3/examples/larod/build/larod-simple-app_1_0_0_armv7hf.eap
         
     # Save larop application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -45,8 +45,8 @@ jobs:
         docker build --tag axisecp/vdoencodeclient:1.0 .
         docker cp $(docker create axisecp/vdoencodeclient:1.0):/opt/app ./build
         cd ..
-        mkdir -p acap3/examples/vdostream/build
-        cp vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap acap3/examples/vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap
+      #  mkdir -p acap3/examples/vdostream/build
+      #  cp vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap acap3/examples/vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap
         
     # Save VDO stream application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -61,8 +61,8 @@ jobs:
         cp app/package.conf.cpu app/package.conf
         ./build.sh vdo_larod:latest 
         cd ..
-        mkdir -p acap3/examples/vdo-larod
-        cp vdo-larod/build/vdo_larod_cpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/vdo_larod_cpu_1_0_0_armv7hf.eap
+      #  mkdir -p acap3/examples/vdo-larod
+      #  cp vdo-larod/build/vdo_larod_cpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/vdo_larod_cpu_1_0_0_armv7hf.eap
         
     # Save VDO larod application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -77,10 +77,9 @@ jobs:
         cp app/package.conf.edgetpu app/package.conf
         ./build.sh vdo_larod:latest 19.10
         cd ..        
-        mkdir -p acap3/examples/vdo-larod/build
-        cp vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap
-        ls /github-runner/github-runner/_work/acap3-examples/acap3-examples/acap3/examples/vdo-larod
-        
+      #  mkdir -p acap3/examples/vdo-larod/build
+      #  cp vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap
+               
     # Save VDO larod application *.eap file as artifact
     - uses: actions/upload-artifact@master
       with:
@@ -98,8 +97,8 @@ jobs:
         cd ..
         mkdir -p acap3/examples/axevent/send_event/build
         
-        cp axevent/send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
-        ls /github-runner/github-runner/_work/acap3-examples/acap3-examples/acap3/examples/axevent
+     # cp axevent/send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
+     #   ls /github-runner/github-runner/_work/acap3-examples/acap3-examples/acap3/examples/axevent
 
     # Save Send Event application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -117,8 +116,8 @@ jobs:
         docker cp $(docker create subscribe-to-event:1.0):/opt/app ./build
         cd ..
         cd ..
-        mkdir -p acap3/examples/axevent/subscribe_to_event/build
-        cp axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
+     #   mkdir -p acap3/examples/axevent/subscribe_to_event/build
+     #   cp axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
         
     # Save Subscribe to Event application *.eap file as artifact
     - uses: actions/upload-artifact@master
@@ -135,8 +134,8 @@ jobs:
         docker cp $(docker create subscribe-to-events:1.0):/opt/app ./build
         cd ..
         cd ..
-        mkdir -p acap3/examples/axevent/subscribe_to_events/build
-        cp axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
+     #   mkdir -p acap3/examples/axevent/subscribe_to_events/build
+     #   cp axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
     
     # Save Subscribe to Events application *.eap file as artifact
     - uses: actions/upload-artifact@master
