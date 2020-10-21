@@ -39,7 +39,7 @@ def train(image_dir, annotation_path):
     person_car_indicator.compile(optimizer='adam', metrics=['binary_accuracy'],
                                  loss=['bce', 'bce'])
     person_car_indicator.summary()
-    data_generator = DataGenerator(image_dir, annotation_path, batch_size=32)
+    data_generator = DataGenerator(image_dir, annotation_path, batch_size=16)
     person_car_indicator.fit(data_generator, epochs=10)
 
     tf.saved_model.save(person_car_indicator, 'models/saved_model')

@@ -131,23 +131,25 @@ In this example, we're going to be working within a Docker container environment
 ./build_env.sh
 ./run_env.sh <a_name_for_your_env>
 ```
+Note that the MS COCO 2017 validation dataset is downloaded during the building of the environment. This is roughly 1GB in size which means this could take a few minutes to download.
 
 ## The example model
 In this example, we'll train a simple model with one input and two outputs. The input to the model is a scaled FP32 RGB image of shape (256, 256, 3), while both outputs are scalar values. However, the process is the same irrespective of the dimensions or number of inputs or outputs.
 The first output corresponds to the probability of there being people in the image and the second
 output to the probability of there being cars in the image. __Currently (TF2.3), there is a bug in the `.tflite` conversion which orders the model outputs alphabetically based on their name. For this reason, our outputs are named with A and B prefixes, as to retain them in the order our ACAP expects.__
 
-The model is trained on the MS COCO dataset. After training for 10 epochs, it achieves something like 80% validation accuracy on the people output and 90% validation accuracy on the car output with 1.6 million parameters, which results in a model file size of 22 MB. The model is saved in Tensorflow's SavedModel format, which is the recommended option, in the `/env/models` directory.
+The pre-trained model is trained on the MS COCO 2017 **training** dataset, which is significantly larger than the supplied MS COCO 2017 **validation** dataset. After training it for 10 epochs, it achieves something like 80% validation accuracy on the people output and 90% validation accuracy on the car output with 1.6 million parameters, which results in a model file size of 22 MB. This model is saved in Tensorflow's SavedModel format, which is the recommended option, in the `/env/models` directory.
 
-You can either skip this step and use the pre-trained model available in `models/`, or run the training process yourself on the smaller validation dataset by executing:
+Either use the pre-trained model or train the model yourself. If you wish to perform the training process yourself, this can be done using the supplied validation dataset, or by downloading and using the larger training dataset from [the MS COCO site](https://cocodataset.org/#download). Training the model on the larger dataset will give better results.
+
+Running the training process yourself is done by executing the following command, where the `-i` flag points to the folder containing the images and the `-a` flag points to the annotation `.json`-file:
 
  ```sh
  python training/train.py -i /env/data/images/val2017/ -a /env/data/annotations/instances_val2017.json
  ```
 
- For better results when training your own model, you should download the much larger training dataset from [the MS COCO site](https://cocodataset.org/#download).
 
-While this example looks at the process from model creation to inference on a camera, pre-trained models
+While this example looks at the process from model creation to inference on a camera, other pre-trained models
 are available at e.g., https://www.tensorflow.org/lite/models and https://coral.ai/models/. The models from [coral.ai](https://coral.ai) are pre-compiled to run on the Edge TPU and thus only require conversion to `.larod`, [as described further on](#converting-to-larod).
 
 When designing your model for an Edge TPU device, you should only use operations that have an Edge TPU implementation. The full list of such operations is available at https://coral.ai/docs/edgetpu/models-intro/#supported-operations.
@@ -323,7 +325,7 @@ convertCropScaleU8yuvToRGB(nv12Data, streamWidth, streamHeight, (uint8_t*) larod
 ```
 
 
-Any other postprocessing steps should be done now, as the inference is next. Using the larod interface, inference is run with the `larodRunInference` method, which outputs the results to the specified output addresses.
+Any other preprocessing steps should be done now, as the inference is next. Using the larod interface, inference is run with the `larodRunInference` method, which outputs the results to the specified output addresses.
 
 ```c
 larodRunInference(conn, infReq, &error);
