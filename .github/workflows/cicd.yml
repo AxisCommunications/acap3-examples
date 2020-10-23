@@ -33,10 +33,10 @@ jobs:
       #cp larod/build/larod-simple-app_1_0_0_armv7hf.eap acap3/examples/larod/build/larod-simple-app_1_0_0_armv7hf.eap
         
     # Save larop application *.eap file as artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: larod application
-        path: larod/build/
+   # - uses: actions/upload-artifact@master
+   #   with:
+   #     name: larod application
+   #     path: larod/build/
         
     # Build VDO stream application
     - name: Build vdo stream application
@@ -49,10 +49,10 @@ jobs:
       #  cp vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap acap3/examples/vdostream/build/vdoencodeclient_1_0_0_armv7hf.eap
         
     # Save VDO stream application *.eap file as artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: vdo stream application
-        path: vdostream/build/
+   # - uses: actions/upload-artifact@master
+   #   with:
+   #     name: vdo stream application
+   #     path: vdostream/build/
         
     # Build VDO larod application to run on CPU
     - name: Build VDO larod application to run on CPU
@@ -65,10 +65,10 @@ jobs:
       #  cp vdo-larod/build/vdo_larod_cpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/vdo_larod_cpu_1_0_0_armv7hf.eap
         
     # Save VDO larod application *.eap file as artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: CPU vdo-larod application
-        path: vdo-larod/build/
+   # - uses: actions/upload-artifact@master
+   #   with:
+   #     name: CPU vdo-larod application
+   #     path: vdo-larod/build/
         
     # Build VDO larod application to run on TPU
     - name: Build VDO larod application to run on TPU
@@ -81,10 +81,10 @@ jobs:
       #  cp vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap
                
     # Save VDO larod application *.eap file as artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: TPU vdo-larod application
-        path: vdo-larod/build/
+   # - uses: actions/upload-artifact@master
+   #   with:
+   #     name: TPU vdo-larod application
+    #    path: vdo-larod/build/
     
     # Build Send event application
     - name: Build Send event application
@@ -101,10 +101,10 @@ jobs:
      #   ls /github-runner/github-runner/_work/acap3-examples/acap3-examples/acap3/examples/axevent
 
     # Save Send Event application *.eap file as artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: Send Event application
-        path: axevent/send_event/build/
+    #- uses: actions/upload-artifact@master
+    #  with:
+    #    name: Send Event application
+    #    path: axevent/send_event/build/
     
     # Build Subscribe to event application
     - name: Build subscribe to event application
@@ -120,10 +120,10 @@ jobs:
      #   cp axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
         
     # Save Subscribe to Event application *.eap file as artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: Subscribe to Event application
-        path: axevent/subscribe_to_event/build/
+   # - uses: actions/upload-artifact@master
+   #   with:
+   #     name: Subscribe to Event application
+   #     path: axevent/subscribe_to_event/build/
               
     # Build Subscribe to events application
     - name: Build subscribe to events application
@@ -138,10 +138,10 @@ jobs:
      #   cp axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
     
     # Save Subscribe to Events application *.eap file as artifact
-    - uses: actions/upload-artifact@master
-      with:
-        name: Subscribe to Events application
-        path: axevent/subscribe_to_events/build/    
+    #- uses: actions/upload-artifact@master
+    #  with:
+    #    name: Subscribe to Events application
+    #    path: axevent/subscribe_to_events/build/    
       
     - name: Run functional tests
       run: |
