@@ -157,4 +157,4 @@ Compare how the subscriptions in subscribe_to_events.c are made to the output in
 
 
 ## License
-**[Apache License 2.0](../LICENSE)**
+**[Apache License 2.0](../../LICENSE)**

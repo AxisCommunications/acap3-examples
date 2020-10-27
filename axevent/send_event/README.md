@@ -249,4 +249,4 @@ Output in XML, which has been formatted manually to show topic "tns1:Monitoring/
 ```
 
 ## License
-**[Apache License 2.0](../LICENSE)**
+**[Apache License 2.0](../../LICENSE)**

@@ -153,4 +153,4 @@ the initial state of the property. This is the reason why there is one log stati
 log stating "Send stateful event with value: 0.000000".
 
 ## License
-**[Apache License 2.0](../LICENSE)**
+**[Apache License 2.0](../../LICENSE)**
