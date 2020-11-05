@@ -6,10 +6,11 @@ ARG https_proxy
 ARG ARCH=armv7hf
 ARG VERSION=3.1
 ARG UBUNTU_VERSION=19.10
+ARG REPO=axisecp
 
 FROM builder-yuv:1.0-ubuntu${UBUNTU_VERSION} as yuv
-FROM axisecp/acap-api:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION} as api
-FROM axisecp/acap-toolchain:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION} as toolchain
+FROM ${REPO}/acap-api:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION} as api
+FROM ${REPO}/acap-toolchain:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION} as toolchain
 
 ARG PKG_ARCH=cortexa9hf-neon-poky-linux-gnueabi
 
