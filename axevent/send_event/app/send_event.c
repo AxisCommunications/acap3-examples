@@ -51,7 +51,6 @@ send_event(AppData *app_data)
 {
   AXEventKeyValueSet *key_value_set = NULL;
   AXEvent *event = NULL;
-  GTimeVal time_stamp;
 
   key_value_set = ax_event_key_value_set_new();
 
@@ -60,11 +59,9 @@ send_event(AppData *app_data)
   ax_event_key_value_set_add_key_value(key_value_set, "Value", NULL, &app_data->value,
       AX_VALUE_TYPE_DOUBLE, NULL);
 
-  // Use the current time as timestamp in the event
-  g_get_current_time(&time_stamp);
-
   // Create the event
-  event = ax_event_new(key_value_set, &time_stamp);
+  // Use ax_event_new2 since ax_event_new is deprecated from 3.2
+  event = ax_event_new2(key_value_set, NULL);
 
   // The key/value set is no longer needed
   ax_event_key_value_set_free(key_value_set);
