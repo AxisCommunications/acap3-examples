@@ -20,6 +20,8 @@ Below is the list of examples available in the repository.
   * The example code is written in C which illustrates both how to subscribe to different events and how to send an event.
 * [Larod](./larod/)
   * The example code is written in C which connects to [larod](./FAQs.md#WhatisLarod?) and loads a model, runs inference on it and then finally deletes the loaded model from [larod](./FAQs.md#WhatisLarod?).
+* [licensekey](./licensekey/)
+  * The example code is written in C which illustrates how to check the licensekey status.
 * [vdostream](./vdostream/)
   * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
 * [vdo-larod](./vdo-larod/)
