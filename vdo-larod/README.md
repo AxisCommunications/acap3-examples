@@ -37,15 +37,13 @@ vdo-larod
 │   ├── Makefile
 │   ├── package.conf.cpu
 │   ├── package.conf.edgetpu
-│   ├── vdo_larod.c
-├── yuv
+│   └── vdo_larod.c
 ├── build.sh
 ├── Dockerfile
-└── README.md
+├── README.md
+└── yuv
 ```
 
-* **build.sh** - Builds and tags the image of vdo_larod image e.g., vdo_larod:1.0 and the .eap file.
-* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **app/argparse.c/h** - Implementation of argument parser, written in C.
 * **app/imageconverter.c/h** - Implementation of libyuv parts, written in C.
 * **app/imageprovider.c/h** - Implementation of vdo parts, written in C.
@@ -54,6 +52,8 @@ vdo-larod
 * **app/package.conf.cpu** - Defines the application and its configuration when building for CPU with TensorFlow Lite.
 * **app/package.conf.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
 * **app/vdo-larod.c** - Application using larod, written in C.
+* **build.sh** - Builds and tags the image of vdo_larod image e.g., vdo_larod:1.0 and the .eap file.
+* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **README.md** - Step by step instructions on how to run the example.
 * **yuv** - Folder containing files for building libyuv.
 
@@ -64,7 +64,7 @@ vdo-larod
 ├── yuv
 │   ├── 0001-Create-a-shared-library.patch
 │   ├── build.sh
-│   ├── Dockerfile
+└── └── Dockerfile
 ```
 
 * **yuv/build.sh** - Builds and tags the image of builder-yuv e.g., builder-yuv:1.0-ubuntu19.10.
@@ -134,13 +134,13 @@ vdo-larod
 │   ├── imgprovider.c
 │   ├── imgprovider.h
 │   ├── label
-|   │   ├── imagenet_labels.txt
+|   │   └── imagenet_labels.txt
 │   ├── lib
 │   ├── LICENSE
 │   ├── Makefile
 │   ├── model
 |   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.larod
-|   │   ├── mobilenet_v2_1.9_224_quant.larod
+|   │   └── mobilenet_v2_1.9_224_quant.larod
 │   ├── package.conf
 │   ├── package.conf.cpu
 │   ├── package.conf.edgetpu
@@ -149,7 +149,7 @@ vdo-larod
 │   ├── vdo_larod*
 │   ├── vdo_larod.c
 │   ├── vdo_larod_cpu_1_0_0_armv7hf.eap / vdo_larod_edgetpu_1_0_0_armv7hf.eap
-│   ├── vdo_larod_1_0_0_LICENSE.txt
+└── └── vdo_larod_1_0_0_LICENSE.txt
 ```
 
 * **build/label** - Folder containing label files used in this application.
@@ -190,7 +190,7 @@ Application log can be found directly at:
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdo_larod
 ```
 
-or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands
+or by clicking on the "**App log**" link in the device GUI or by extracting the logs using following commands
 in the terminal.
 > [!IMPORTANT]
 *> Please make sure SSH is enabled on the device to run the

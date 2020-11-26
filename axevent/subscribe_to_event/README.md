@@ -62,7 +62,7 @@ subscribe_to_event
 ├── app
 │   ├── LICENSE
 │   ├── Makefile
-│   └──  subscribe_to_event.c
+│   └── subscribe_to_event.c
 ├── build
 │   ├── LICENSE
 │   ├── Makefile
@@ -119,7 +119,7 @@ or
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=subscribe_to_event
 ```
 
-or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands
+or by clicking on the "**App log**" link in the device GUI or by extracting the logs using following commands
 in the terminal.
 > [!IMPORTANT]
 *> Please make sure SSH is enabled on the device to run the
@@ -134,17 +134,17 @@ head -200 info.log
 ##### Output
 
 ```
-2020-08-11T16:23:51.242+02:00 [ INFO    ] subscribe_to_event[0]: starting subscribe_to_event
-2020-08-11T16:23:51.280+02:00 [ INFO    ] subscribe_to_event[20408]: Started logging from subscribe event application
-2020-08-11T16:23:51.281+02:00 [ INFO    ] subscribe_to_event[20408]: And here's the token: 1234
-2020-08-11T16:23:56.628+02:00 [ INFO    ] send_event[0]: starting send_event
-2020-08-11T16:23:56.670+02:00 [ INFO    ] send_event[20562]: Started logging from send event application
-2020-08-11T16:23:56.783+02:00 [ INFO    ] send_event[20562]: Declaration complete for : 1
-2020-08-11T16:23:56.792+02:00 [ INFO    ] subscribe_to_event[20408]: Received event with value: 0.000000
-2020-08-11T16:24:06.956+02:00 [ INFO    ] send_event[20562]: Send stateful event with value: 0.000000
-2020-08-11T16:24:06.964+02:00 [ INFO    ] subscribe_to_event[20408]: Received event with value: 0.000000
-2020-08-11T16:24:16.956+02:00 [ INFO    ] send_event[20562]: Send stateful event with value: 10.000000
-2020-08-11T16:24:16.963+02:00 [ INFO    ] subscribe_to_event[20408]: Received event with value: 10.000000
+16:23:51.242 [ INFO    ] subscribe_to_event[0]: starting subscribe_to_event
+16:23:51.280 [ INFO    ] subscribe_to_event[20408]: Started logging from subscribe event application
+16:23:51.281 [ INFO    ] subscribe_to_event[20408]: And here's the token: 1234
+16:23:56.628 [ INFO    ] send_event[0]: starting send_event
+16:23:56.670 [ INFO    ] send_event[20562]: Started logging from send event application
+16:23:56.783 [ INFO    ] send_event[20562]: Declaration complete for : 1
+16:23:56.792 [ INFO    ] subscribe_to_event[20408]: Received event with value: 0.000000
+16:24:06.956 [ INFO    ] send_event[20562]: Send stateful event with value: 0.000000
+16:24:06.964 [ INFO    ] subscribe_to_event[20408]: Received event with value: 0.000000
+16:24:16.956 [ INFO    ] send_event[20562]: Send stateful event with value: 10.000000
+16:24:16.963 [ INFO    ] subscribe_to_event[20408]: Received event with value: 10.000000
 ```
 
 A stateful event will be sent every 10th second, changing its value. Stateful events are sent when a property's state changes.

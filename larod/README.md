@@ -23,12 +23,12 @@ larod
 └── README.md
 ```
 
-* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
+* **app/input/veiltail-11457_640_RGB_224x224.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
 * **app/larod_simple_app.c** - Example application to load a model and run inference on it.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
 * **app/package.conf** - Configuration file containing parameters needed for proper ACAP3 packaging.
-* **app/input/veiltail-11457_640_RGB_224x224.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
+* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **extract_analyze_output.sh** - The script shows the matched class in the output.
 * **README.md** - Step by step instructions on how to run the example.
 
@@ -66,33 +66,41 @@ The working dir now contains a build folder with the following files:
 
 ```bash
 larod
-├── Dockerfile
 │── app
+│   ├── input
+│   │   └── veiltail-11457_640_RGB_224x224.bin
 │   ├── larod_simple_app.c
 │   ├── LICENSE
-|   ├── Makefile
-|   ├── package.conf
-|   ├── param.conf
-│   └── input
-│       └── veiltail-11457_640_RGB_224x224.bin
-│── README.md
-└── build
-	├── input
-	│   └── veiltail-11457_640_RGB_224x224.bin
-	├── larod_simple_app
-	├── larod-simple-app_1_0_0_<ARCHITECTURE>.eap
-	├── larod-simple-app_1_0_0_LICENSE.txt
-	├── larod_simple_app.c
-	├── LICENSE
-	├── Makefile
-	├── model
-	│	├── labels_mobilenet_quant_v1_224.txt
-	│	├── mobilenet_v1_1.0_224_quant.larod
-	│── package.conf
-	├── package.conf.orig
-	├── param.conf
-	└── README.md
+│   ├── Makefile
+|   └── package.conf
+├── build
+│	├── input
+│	│   └── veiltail-11457_640_RGB_224x224.bin
+│	├── larod_simple_app*
+│	├── larod-simple-app_1_0_0_armv7hf.eap
+│	├── larod-simple-app_1_0_0_LICENSE.txt
+│	├── larod_simple_app.c
+│	├── LICENSE
+│	├── Makefile
+│	├── model
+│	│	├── labels_mobilenet_quant_v1_224.txt
+│	│	└── mobilenet_v1_1.0_224_quant.larod
+│	│── package.conf
+│	├── package.conf.orig
+│	└── param.conf
+├── Dockerfile
+├── extract_analyze_output.sh
+└── README.md
 ```
+
+* **build/larod_simple_app** - Application executable binary file.
+* **build/larod_simple_app_1_0_0_armv7hf.eap** - Application package .eap file.
+* **build/larod_simple_app_1_0_0_LICENSE.txt** - Copy of LICENSE file.
+* **build/model** - Folder containing label and models files used in this application.
+* **build/model/labels_mobilenet_quant_v1_224.txt** - Label file for MobileNet V1.
+* **build/model/mobilenet_v1_1.0_224_quant.larod** - Model file for MobileNet V1.
+* **build/package.conf.orig** - Defines the application and its configuration, original file.
+* **build/param.conf** - File containing application parameters.
 
 #### Install your application
 Installing your application on an Axis video device is as simple as:
