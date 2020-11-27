@@ -71,7 +71,7 @@ send_event
 ├── app
 │   ├── LICENSE
 │   ├── Makefile
-│   └──send_event.c
+│   └── send_event.c
 ├── build
 │   ├── LICENSE
 │   ├── Makefile
@@ -114,7 +114,7 @@ Application log can be found directly at:
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=send_event
 ```
 
-or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands
+or by clicking on the "**App log**" link in the device GUI or by extracting the logs using following commands
 in the terminal.
 > [!IMPORTANT]
 *> Please make sure SSH is enabled on the device to run the
@@ -129,11 +129,11 @@ head -200 info.log
 ```
 ----- Contents of SYSTEM_LOG for 'send_event' -----
 
-2020-08-11T16:23:56.628+02:00 [ INFO    ] send_event[0]: starting send_event
-2020-08-11T16:23:56.670+02:00 [ INFO    ] send_event[20562]: Started logging from send event application
-2020-08-11T16:23:56.783+02:00 [ INFO    ] send_event[20562]: Declaration complete for : 1
-2020-08-11T16:24:06.956+02:00 [ INFO    ] send_event[20562]: Send stateful event with value: 0.000000
-2020-08-11T16:24:16.956+02:00 [ INFO    ] send_event[20562]: Send stateful event with value: 10.000000
+16:23:56.628 [ INFO ] send_event[0]: starting send_event
+16:23:56.670 [ INFO ] send_event[20562]: Started logging from send event application
+16:23:56.783 [ INFO ] send_event[20562]: Declaration complete for : 1
+16:24:06.956 [ INFO ] send_event[20562]: Send stateful event with value: 0.000000
+16:24:16.956 [ INFO ] send_event[20562]: Send stateful event with value: 10.000000
 ```
 
 A stateful event will be sent every 10th second, changing its value.

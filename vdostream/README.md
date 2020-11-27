@@ -16,15 +16,15 @@ vdostream
 ├── app
 │   ├── LICENSE
 │   ├── Makefile
-│   ├── vdoencodeclient.c
+│   └── vdoencodeclient.c
 ├── Dockerfile
 └── README.md
 ```
 
-* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
 * **app/vdoencodeclient.c** - Application to capture the frames using vdo service in C.
+* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **README.md** - Step by step instructions on how to run the example.
 
 ### Limitations
@@ -62,9 +62,7 @@ vdostream
 ├── app
 │   ├── LICENSE
 │   ├── Makefile
-│   ├── vdoencodeclient.c
-├── Dockerfile
-└── README.md
+│   └── vdoencodeclient.c
 ├── build
 │   ├── LICENSE
 │   ├── Makefile
@@ -74,7 +72,9 @@ vdostream
 │   ├── vdoencodeclient*
 │   ├── vdoencodeclient_1_0_0_armv7hf.eap
 │   ├── vdoencodeclient_1_0_0_LICENSE.txt
-│   ├── vdoencodeclient.c
+│   └── vdoencodeclient.c
+├── Dockerfile
+└── README.md
 ```
 
 * **build/package.conf** - Defines the application and its configuration.
@@ -105,7 +105,7 @@ Application log can be found directly at:
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=vdoencodeclient
 ```
 
-or by clicking on the "**App log**" link in the device GUI or by using extracting the logs using following commands
+or by clicking on the "**App log**" link in the device GUI or by extracting the logs using following commands
 in the terminal.
 > [!IMPORTANT]
 *> Please make sure SSH is enabled on the device to run the
@@ -120,26 +120,26 @@ head -50 info.log
 ```
 ----- Contents of SYSTEM_LOG for 'vdoencodeclient' -----
 
-2020-06-22T11:00:03.509+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35729, type = P, size = 81
-2020-06-22T11:00:03.532+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35730, type = I, size = 78433
-2020-06-22T11:00:03.572+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35731, type = P, size = 567
-2020-06-22T11:00:03.605+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35732, type = P, size = 82
-2020-06-22T11:00:03.638+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35733, type = P, size = 74
-2020-06-22T11:00:03.672+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35734, type = P, size = 450
-2020-06-22T11:00:03.706+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35735, type = P, size = 111
-2020-06-22T11:00:03.738+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35736, type = P, size = 76
-2020-06-22T11:00:03.772+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35737, type = P, size = 74
-2020-06-22T11:00:03.805+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35738, type = P, size = 78
-2020-06-22T11:00:03.838+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35739, type = P, size = 78
-2020-06-22T11:00:03.872+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35740, type = P, size = 86
-2020-06-22T11:00:03.905+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35741, type = P, size = 79
-2020-06-22T11:00:03.938+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35742, type = P, size = 78
-2020-06-22T11:00:03.972+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35743, type = P, size = 77
-2020-06-22T11:00:04.005+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35744, type = P, size = 71
-2020-06-22T11:00:04.038+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35745, type = P, size = 82
-2020-06-22T11:00:04.072+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35746, type = P, size = 75
-2020-06-22T11:00:04.105+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35747, type = P, size = 77
-2020-06-22T11:00:04.138+02:00 axis-accc8efc9c84 [ INFO    ] vdoencodeclient[17690]: frame = 35748, type = P, size = 80
+11:00:03.509 [ INFO ] vdoencodeclient[17690]: frame = 35729, type = P, size = 81
+11:00:03.532 [ INFO ] vdoencodeclient[17690]: frame = 35730, type = I, size = 78433
+11:00:03.572 [ INFO ] vdoencodeclient[17690]: frame = 35731, type = P, size = 567
+11:00:03.605 [ INFO ] vdoencodeclient[17690]: frame = 35732, type = P, size = 82
+11:00:03.638 [ INFO ] vdoencodeclient[17690]: frame = 35733, type = P, size = 74
+11:00:03.672 [ INFO ] vdoencodeclient[17690]: frame = 35734, type = P, size = 450
+11:00:03.706 [ INFO ] vdoencodeclient[17690]: frame = 35735, type = P, size = 111
+11:00:03.738 [ INFO ] vdoencodeclient[17690]: frame = 35736, type = P, size = 76
+11:00:03.772 [ INFO ] vdoencodeclient[17690]: frame = 35737, type = P, size = 74
+11:00:03.805 [ INFO ] vdoencodeclient[17690]: frame = 35738, type = P, size = 78
+11:00:03.838 [ INFO ] vdoencodeclient[17690]: frame = 35739, type = P, size = 78
+11:00:03.872 [ INFO ] vdoencodeclient[17690]: frame = 35740, type = P, size = 86
+11:00:03.905 [ INFO ] vdoencodeclient[17690]: frame = 35741, type = P, size = 79
+11:00:03.938 [ INFO ] vdoencodeclient[17690]: frame = 35742, type = P, size = 78
+11:00:03.972 [ INFO ] vdoencodeclient[17690]: frame = 35743, type = P, size = 77
+11:00:04.005 [ INFO ] vdoencodeclient[17690]: frame = 35744, type = P, size = 71
+11:00:04.038 [ INFO ] vdoencodeclient[17690]: frame = 35745, type = P, size = 82
+11:00:04.072 [ INFO ] vdoencodeclient[17690]: frame = 35746, type = P, size = 75
+11:00:04.105 [ INFO ] vdoencodeclient[17690]: frame = 35747, type = P, size = 77
+11:00:04.138 [ INFO ] vdoencodeclient[17690]: frame = 35748, type = P, size = 80
 ```
 
 ## License

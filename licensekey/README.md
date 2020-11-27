@@ -16,18 +16,18 @@ These instructions will guide you on how to execute the code. Below is the struc
 licensekey
 ├── app
 │   ├── LICENSE
-│   ├── Makefile
 │   ├── licensekey_handler.c
+│   ├── Makefile
 |   └── package.conf
 ├── Dockerfile
 └── README.md
 ```
 
-* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
-* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
 * **app/licensekey_handler.c** - Application to check licensekey status in C.
+* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
 * **app/package.conf** - Defines the application and its configuration.
+* **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **README.md** - Step by step instructions on how to run the example.
 
 ### Limitations
@@ -63,28 +63,28 @@ The working dir now contains a build folder with the following files:
 licensekey
 ├── app
 │   ├── LICENSE
-│   ├── Makefile
 │   ├── licensekey_handler.c
+│   ├── Makefile
 |   └── package.conf
-├── Dockerfile
-└── README.md
 ├── build
 │   ├── LICENSE
-│   ├── Makefile
-│   ├── package.conf
-│   ├── package.conf.orig
-│   ├── param.conf
 │   ├── licensekey_handler*
 │   ├── licensekey_handler_1_0_0_armv7hf.eap
 │   ├── licensekey_handler_1_0_0_LICENSE.txt
-└── └── licensekey_handler.c
+│   ├── licensekey_handler.c
+│   ├── Makefile
+│   ├── package.conf
+│   ├── package.conf.orig
+│   └── param.conf
+├── Dockerfile
+└── README.md
 ```
 
-* **build/package.conf.orig** - Defines the application and its configuration, original file.
-* **build/param.conf** - File containing application parameters.
 * **build/licensekey_handler*** - Application executable binary file.
 * **build/licensekey_handler_1_0_0_armv7hf.eap** - Application package .eap file.
 * **build/licensekey_handler_1_0_0_LICENSE.txt** - Copy of LICENSE file.
+* **build/package.conf.orig** - Defines the application and its configuration, original file.
+* **build/param.conf** - File containing application parameters.
 
 #### Install your application
 Installing your application on an Axis video device is as simple as:
@@ -97,8 +97,6 @@ http://<axis_device_ip>/#settings/apps
 
 *Goto your device web page above > Click on the tab **Apps** in the device GUI > Add **(+)** sign and browse to
 the newly built **licensekey_handler_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
-
-Application will run with default video compression format h264.
 
 #### The expected output
 Application log can be found directly at:
@@ -113,9 +111,9 @@ or by clicking on the "**App log**" link in the device GUI.
 ----- Contents of SYSTEM_LOG for 'licensekey_handler' -----
 
 
-2020-11-17T10:26:42.499+01:00 axis-accc8e691c41 [ INFO    ] licensekey_handler[0]: starting licensekey_handler
-2020-11-17T10:26:42.539+01:00 axis-accc8e691c41 [ INFO    ] licensekey_handler[14660]: Licensekey is invalid
-2020-11-17T10:31:43.058+01:00 axis-accc8e691c41 [ INFO    ] licensekey_handler[14660]: Licensekey is invalid
+10:26:42.499 [ INFO ] licensekey_handler[0]: starting licensekey_handler
+10:26:42.539 [ INFO ] licensekey_handler[14660]: Licensekey is invalid
+10:31:43.058 [ INFO ] licensekey_handler[14660]: Licensekey is invalid
 ```
 
 A valid license key for a registered application ID is only accessible through ACAP Service Portal, see [Online manual](https://www.axis.com/products/online-manual/s00004#t10154653).
