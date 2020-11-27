@@ -21,17 +21,17 @@ Below is the structure and scripts of the files and folders on the top level:
 ```bash
 axevent
 ├── get_eventlist.py
+├── README.md
 ├── send_event
 ├── subscribe_to_event
-├── subscribe_to_events
-└── README.md
+└── subscribe_to_events
 ```
 
 * **get_eventlist.py** - Wrapper to find declared and sent events, using ONVIF APIs.
+* **README.md** - Step by step instructions on how to use the examples.
 * **send_event** - Folder containing files for building ACAP3 application "send_event".
 * **subscribe_to_event** - Folder containing files for building ACAP3 application "subscribe_to_event".
 * **subscribe_to_events** - Folder containing files for building ACAP3 application "subscribe_to_events".
-* **README.md** - Step by step instructions on how to use the examples.
 
 ### Example applications
 Each example has as a README file in its directory which shows overview, example directory structure and step-by-step instructions on how to run applications on the device.

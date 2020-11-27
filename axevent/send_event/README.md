@@ -129,11 +129,11 @@ head -200 info.log
 ```
 ----- Contents of SYSTEM_LOG for 'send_event' -----
 
-16:23:56.628 [ INFO    ] send_event[0]: starting send_event
-16:23:56.670 [ INFO    ] send_event[20562]: Started logging from send event application
-16:23:56.783 [ INFO    ] send_event[20562]: Declaration complete for : 1
-16:24:06.956 [ INFO    ] send_event[20562]: Send stateful event with value: 0.000000
-16:24:16.956 [ INFO    ] send_event[20562]: Send stateful event with value: 10.000000
+16:23:56.628 [ INFO ] send_event[0]: starting send_event
+16:23:56.670 [ INFO ] send_event[20562]: Started logging from send event application
+16:23:56.783 [ INFO ] send_event[20562]: Declaration complete for : 1
+16:24:06.956 [ INFO ] send_event[20562]: Send stateful event with value: 0.000000
+16:24:16.956 [ INFO ] send_event[20562]: Send stateful event with value: 10.000000
 ```
 
 A stateful event will be sent every 10th second, changing its value.

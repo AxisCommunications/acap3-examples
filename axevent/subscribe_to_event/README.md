@@ -134,17 +134,17 @@ head -200 info.log
 ##### Output
 
 ```
-16:23:51.242 [ INFO    ] subscribe_to_event[0]: starting subscribe_to_event
-16:23:51.280 [ INFO    ] subscribe_to_event[20408]: Started logging from subscribe event application
-16:23:51.281 [ INFO    ] subscribe_to_event[20408]: And here's the token: 1234
-16:23:56.628 [ INFO    ] send_event[0]: starting send_event
-16:23:56.670 [ INFO    ] send_event[20562]: Started logging from send event application
-16:23:56.783 [ INFO    ] send_event[20562]: Declaration complete for : 1
-16:23:56.792 [ INFO    ] subscribe_to_event[20408]: Received event with value: 0.000000
-16:24:06.956 [ INFO    ] send_event[20562]: Send stateful event with value: 0.000000
-16:24:06.964 [ INFO    ] subscribe_to_event[20408]: Received event with value: 0.000000
-16:24:16.956 [ INFO    ] send_event[20562]: Send stateful event with value: 10.000000
-16:24:16.963 [ INFO    ] subscribe_to_event[20408]: Received event with value: 10.000000
+16:23:51.242 [ INFO ] subscribe_to_event[0]: starting subscribe_to_event
+16:23:51.280 [ INFO ] subscribe_to_event[20408]: Started logging from subscribe event application
+16:23:51.281 [ INFO ] subscribe_to_event[20408]: And here's the token: 1234
+16:23:56.628 [ INFO ] send_event[0]: starting send_event
+16:23:56.670 [ INFO ] send_event[20562]: Started logging from send event application
+16:23:56.783 [ INFO ] send_event[20562]: Declaration complete for : 1
+16:23:56.792 [ INFO ] subscribe_to_event[20408]: Received event with value: 0.000000
+16:24:06.956 [ INFO ] send_event[20562]: Send stateful event with value: 0.000000
+16:24:06.964 [ INFO ] subscribe_to_event[20408]: Received event with value: 0.000000
+16:24:16.956 [ INFO ] send_event[20562]: Send stateful event with value: 10.000000
+16:24:16.963 [ INFO ] subscribe_to_event[20408]: Received event with value: 10.000000
 ```
 
 A stateful event will be sent every 10th second, changing its value. Stateful events are sent when a property's state changes.

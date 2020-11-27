@@ -64,7 +64,7 @@ vdo-larod
 ├── yuv
 │   ├── 0001-Create-a-shared-library.patch
 │   ├── build.sh
-└── └── Dockerfile
+│   └── Dockerfile
 ```
 
 * **yuv/build.sh** - Builds and tags the image of builder-yuv e.g., builder-yuv:1.0-ubuntu19.10.
@@ -149,7 +149,7 @@ vdo-larod
 │   ├── vdo_larod*
 │   ├── vdo_larod.c
 │   ├── vdo_larod_cpu_1_0_0_armv7hf.eap / vdo_larod_edgetpu_1_0_0_armv7hf.eap
-└── └── vdo_larod_1_0_0_LICENSE.txt
+│   └── vdo_larod_1_0_0_LICENSE.txt
 ```
 
 * **build/label** - Folder containing label files used in this application.

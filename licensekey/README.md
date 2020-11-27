@@ -111,9 +111,9 @@ or by clicking on the "**App log**" link in the device GUI.
 ----- Contents of SYSTEM_LOG for 'licensekey_handler' -----
 
 
-10:26:42.499 [ INFO    ] licensekey_handler[0]: starting licensekey_handler
-10:26:42.539 [ INFO    ] licensekey_handler[14660]: Licensekey is invalid
-10:31:43.058 [ INFO    ] licensekey_handler[14660]: Licensekey is invalid
+10:26:42.499 [ INFO ] licensekey_handler[0]: starting licensekey_handler
+10:26:42.539 [ INFO ] licensekey_handler[14660]: Licensekey is invalid
+10:31:43.058 [ INFO ] licensekey_handler[14660]: Licensekey is invalid
 ```
 
 A valid license key for a registered application ID is only accessible through ACAP Service Portal, see [Online manual](https://www.axis.com/products/online-manual/s00004#t10154653).

@@ -120,26 +120,26 @@ head -50 info.log
 ```
 ----- Contents of SYSTEM_LOG for 'vdoencodeclient' -----
 
-11:00:03.509 [ INFO    ] vdoencodeclient[17690]: frame = 35729, type = P, size = 81
-11:00:03.532 [ INFO    ] vdoencodeclient[17690]: frame = 35730, type = I, size = 78433
-11:00:03.572 [ INFO    ] vdoencodeclient[17690]: frame = 35731, type = P, size = 567
-11:00:03.605 [ INFO    ] vdoencodeclient[17690]: frame = 35732, type = P, size = 82
-11:00:03.638 [ INFO    ] vdoencodeclient[17690]: frame = 35733, type = P, size = 74
-11:00:03.672 [ INFO    ] vdoencodeclient[17690]: frame = 35734, type = P, size = 450
-11:00:03.706 [ INFO    ] vdoencodeclient[17690]: frame = 35735, type = P, size = 111
-11:00:03.738 [ INFO    ] vdoencodeclient[17690]: frame = 35736, type = P, size = 76
-11:00:03.772 [ INFO    ] vdoencodeclient[17690]: frame = 35737, type = P, size = 74
-11:00:03.805 [ INFO    ] vdoencodeclient[17690]: frame = 35738, type = P, size = 78
-11:00:03.838 [ INFO    ] vdoencodeclient[17690]: frame = 35739, type = P, size = 78
-11:00:03.872 [ INFO    ] vdoencodeclient[17690]: frame = 35740, type = P, size = 86
-11:00:03.905 [ INFO    ] vdoencodeclient[17690]: frame = 35741, type = P, size = 79
-11:00:03.938 [ INFO    ] vdoencodeclient[17690]: frame = 35742, type = P, size = 78
-11:00:03.972 [ INFO    ] vdoencodeclient[17690]: frame = 35743, type = P, size = 77
-11:00:04.005 [ INFO    ] vdoencodeclient[17690]: frame = 35744, type = P, size = 71
-11:00:04.038 [ INFO    ] vdoencodeclient[17690]: frame = 35745, type = P, size = 82
-11:00:04.072 [ INFO    ] vdoencodeclient[17690]: frame = 35746, type = P, size = 75
-11:00:04.105 [ INFO    ] vdoencodeclient[17690]: frame = 35747, type = P, size = 77
-11:00:04.138 [ INFO    ] vdoencodeclient[17690]: frame = 35748, type = P, size = 80
+11:00:03.509 [ INFO ] vdoencodeclient[17690]: frame = 35729, type = P, size = 81
+11:00:03.532 [ INFO ] vdoencodeclient[17690]: frame = 35730, type = I, size = 78433
+11:00:03.572 [ INFO ] vdoencodeclient[17690]: frame = 35731, type = P, size = 567
+11:00:03.605 [ INFO ] vdoencodeclient[17690]: frame = 35732, type = P, size = 82
+11:00:03.638 [ INFO ] vdoencodeclient[17690]: frame = 35733, type = P, size = 74
+11:00:03.672 [ INFO ] vdoencodeclient[17690]: frame = 35734, type = P, size = 450
+11:00:03.706 [ INFO ] vdoencodeclient[17690]: frame = 35735, type = P, size = 111
+11:00:03.738 [ INFO ] vdoencodeclient[17690]: frame = 35736, type = P, size = 76
+11:00:03.772 [ INFO ] vdoencodeclient[17690]: frame = 35737, type = P, size = 74
+11:00:03.805 [ INFO ] vdoencodeclient[17690]: frame = 35738, type = P, size = 78
+11:00:03.838 [ INFO ] vdoencodeclient[17690]: frame = 35739, type = P, size = 78
+11:00:03.872 [ INFO ] vdoencodeclient[17690]: frame = 35740, type = P, size = 86
+11:00:03.905 [ INFO ] vdoencodeclient[17690]: frame = 35741, type = P, size = 79
+11:00:03.938 [ INFO ] vdoencodeclient[17690]: frame = 35742, type = P, size = 78
+11:00:03.972 [ INFO ] vdoencodeclient[17690]: frame = 35743, type = P, size = 77
+11:00:04.005 [ INFO ] vdoencodeclient[17690]: frame = 35744, type = P, size = 71
+11:00:04.038 [ INFO ] vdoencodeclient[17690]: frame = 35745, type = P, size = 82
+11:00:04.072 [ INFO ] vdoencodeclient[17690]: frame = 35746, type = P, size = 75
+11:00:04.105 [ INFO ] vdoencodeclient[17690]: frame = 35747, type = P, size = 77
+11:00:04.138 [ INFO ] vdoencodeclient[17690]: frame = 35748, type = P, size = 80
 ```
 
 ## License
