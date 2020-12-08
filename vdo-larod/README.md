@@ -147,9 +147,9 @@ vdo-larod
 │   ├── package.conf.orig
 │   ├── param.conf
 │   ├── vdo_larod*
-│   ├── vdo_larod.c
 │   ├── vdo_larod_cpu_1_0_0_armv7hf.eap / vdo_larod_edgetpu_1_0_0_armv7hf.eap
-│   └── vdo_larod_1_0_0_LICENSE.txt
+│   ├── vdo_larod_1_0_0_LICENSE.txt
+│   └── vdo_larod.c
 ```
 
 * **build/label** - Folder containing label files used in this application.
