@@ -37,10 +37,3 @@ RUN mkdir -p /yuv/lib &&\
     cd /yuv/lib &&\
     ln -s libyuv.so.1 libyuv.so &&\
     ln -s libyuv.so.1 libyuv.so.1.0
-
-
-
-
-
-
-
