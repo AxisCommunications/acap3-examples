@@ -136,6 +136,7 @@ jobs:
         docker cp $(docker create subscribe-to-events:1.0):/opt/app ./build
         cd ..
         cd ..
+        
      #   mkdir -p acap3/examples/axevent/subscribe_to_events/build
      #   cp axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
     
