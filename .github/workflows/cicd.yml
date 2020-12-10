@@ -57,13 +57,7 @@ jobs:
     # Build VDO larod application to run on CPU
     - name: Build VDO larod application to run on CPU
       run: |
-        # Set Docker config to a unique directory in your workspace
-        export DOCKER_CONFIG="$WORKSPACE/.docker"
- 
-        # Make sure the config is empty
-         mkdir -p "$DOCKER_CONFIG" 
-        echo "{}" > "$DOCKER_CONFIG/config.json"      
-         docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASS }} 
+        docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASS }} 
         cd vdo-larod
         cp app/package.conf.cpu app/package.conf
         ./build.sh vdo_larod:latest 
@@ -80,7 +74,7 @@ jobs:
     # Build VDO larod application to run on TPU
     - name: Build VDO larod application to run on TPU
       run: | 
-        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin       
+        docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASS }}        
         cd vdo-larod
         cp app/package.conf.edgetpu app/package.conf
         ./build.sh vdo_larod:latest 19.10
