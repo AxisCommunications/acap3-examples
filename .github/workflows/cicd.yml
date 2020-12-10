@@ -56,7 +56,8 @@ jobs:
         
     # Build VDO larod application to run on CPU
     - name: Build VDO larod application to run on CPU
-      run: |        
+      run: |
+        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin        
         cd vdo-larod
         cp app/package.conf.cpu app/package.conf
         ./build.sh vdo_larod:latest 
@@ -72,7 +73,8 @@ jobs:
         
     # Build VDO larod application to run on TPU
     - name: Build VDO larod application to run on TPU
-      run: |        
+      run: | 
+        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin       
         cd vdo-larod
         cp app/package.conf.edgetpu app/package.conf
         ./build.sh vdo_larod:latest 19.10
