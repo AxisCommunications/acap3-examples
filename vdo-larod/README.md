@@ -38,7 +38,6 @@ vdo-larod
 │   ├── package.conf.cpu
 │   ├── package.conf.edgetpu
 │   └── vdo_larod.c
-├── build.sh
 ├── Dockerfile
 ├── README.md
 └── yuv
@@ -52,24 +51,19 @@ vdo-larod
 * **app/package.conf.cpu** - Defines the application and its configuration when building for CPU with TensorFlow Lite.
 * **app/package.conf.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
 * **app/vdo-larod.c** - Application using larod, written in C.
-* **build.sh** - Builds and tags the image of vdo_larod image e.g., vdo_larod:1.0 and the .eap file.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **README.md** - Step by step instructions on how to run the example.
 * **yuv** - Folder containing files for building libyuv.
 
-Below is the structure and script used when building libyuv:
+Below is the patch to build libyuv, remaining details are found in Dockerfile:
 
 ```bash
 vdo-larod
 ├── yuv
-│   ├── 0001-Create-a-shared-library.patch
-│   ├── build.sh
-│   └── Dockerfile
+│   └── 0001-Create-a-shared-library.patch
 ```
 
-* **yuv/build.sh** - Builds and tags the image of builder-yuv e.g., builder-yuv:1.0-ubuntu19.10.
 * **yuv/0001-Create-a-shared-library.patch** - Patch, which is needed to support building an .so file, for the shared library libyuv.
-* **yuv/Dockerfile** - Docker file for building libyuv.
 
 ### Limitations
 * ARTPEC-7 based device.
@@ -114,16 +108,21 @@ Standing in your working directory run the following command, to copy configurat
 cp app/package.conf.edgetpu app/package.conf
 ```
 
-##### Build script
-Standing in your working directory run the following build command:
+##### Build steps
+```bash
+docker build --tag <APP_IMAGE> .
 ```
-./build.sh <APP_IMAGE> .
-```
+
 <APP_IMAGE> is the name to tag the image with, e.g., vdo_larod:1.0
 
-This script will also copy the result from the container image to a local directory build.
+Copy the result from the container image to a local directory build:
+
+```bash
+docker cp $(docker create <APP_IMAGE>):/opt/app ./build
+```
 
 The working dir now contains a build folder with the following files:
+
 ```bash
 vdo-larod
 ├── build
