@@ -25,7 +25,4 @@ jobs:
         cd licensekey
         docker build --tag licensekey_handler:1.0 .
         docker cp $(docker create licensekey_handler:1.0 .):/opt/app ./build
-        cd ..
-        mkdir -p acap3/examples/licensekey/build
-        cp licensekey/build/licensekey_handler_1_0_0_armv7hf.eap acap3/examples/licensekey/build/licensekey_handler_1_0_0_armv7hf.eap
-        ls acap3/examples/licensekey/build
+
