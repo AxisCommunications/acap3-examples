@@ -25,7 +25,3 @@ jobs:
         cd subscribe-to-object-detection
         docker build --tag vod:1.0 .
         docker cp $(docker create vod:1.0):/opt/app ./build
-        cd ..
-        mkdir -p acap3/examples/subscribe-to-object-detection/build
-        cp subscribe-to-object-detection/build/subscribe_to_object_detection_1_0_0_armv7hf.eap acap3/examples/subscribe-to-object-detection/build/subscribe_to_object_detection_1_0_0_armv7hf.eap
-        
