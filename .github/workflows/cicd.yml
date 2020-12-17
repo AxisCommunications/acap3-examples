@@ -60,7 +60,8 @@ jobs:
         docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASS }} 
         cd vdo-larod
         cp app/package.conf.cpu app/package.conf
-        ./build.sh vdo_larod:latest 
+        docker build --build-arg http_proxy=http://wwwproxy.se.axis.com:3128 --build-arg https_proxy=http://wwwproxy.se.axis.com:3128 --tag vdo_larod_cpu:1.0 .
+        docker cp $(docker create vdo_larod_cpu:1.0):/opt/app ./build
         cd ..
       #  mkdir -p acap3/examples/vdo-larod
       #  cp vdo-larod/build/vdo_larod_cpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/vdo_larod_cpu_1_0_0_armv7hf.eap
@@ -77,7 +78,8 @@ jobs:
         docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASS }}        
         cd vdo-larod
         cp app/package.conf.edgetpu app/package.conf
-        ./build.sh vdo_larod:latest 19.10
+        docker build --build-arg http_proxy=http://wwwproxy.se.axis.com:3128 --build-arg https_proxy=http://wwwproxy.se.axis.com:3128 --tag vdo_larod_tpu:1.0 .
+        docker cp $(docker create vdo_larod_tpu:1.0):/opt/app ./build
         cd ..        
       #  mkdir -p acap3/examples/vdo-larod/build
       #  cp vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap
