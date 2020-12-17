@@ -1,0 +1,50 @@
+name: Build vdo larod Applications
+on:
+  push:
+     paths:
+      - 'vdo-larod/**'
+      - '.github/workflows/vdo-larod.yml'
+jobs:
+  build:
+
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+      #- uses: actions/checkout@master
+      # this will enable shellCheck to be performed
+      # on every push to the repo.
+    #- name: Run ShellCheck
+      #uses: ludeeus/action-shellcheck@master
+      # If shellCheck complains about unnecessery things, ignore it.
+      #env:
+        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
+    
+    # Build VDO larod application to run on CPU
+    - name: Build VDO larod application to run on CPU
+      run: |
+        export http_proxy=http://wwwwproxy.se.axis.com:3128
+        export https_proxy=http://wwwwproxy.se.axis.com:3128      
+        cd vdo-larod
+        cp app/package.conf.cpu app/package.conf
+        docker build --tag vdo_larod_cpu:1.0 .
+        docker cp $(docker create vdo_larod_cpu:1.0):/opt/app ./build
+        cd ..
+        pwd
+        mkdir -p acap3/examples/vdo-larod
+        cp vdo-larod/build/vdo_larod_cpu_1_0_0_armv7hf.eap acap3/examples/vdo-larod/vdo_larod_cpu_1_0_0_armv7hf.eap
+        ls acap3/examples/vdo-larod
+  
+    # Build VDO larod application to run on TPU
+    - name: Build VDO larod application to run on TPU
+      run: |
+        export http_proxy=http://wwwwproxy.se.axis.com:3128
+        export https_proxy=http://wwwwproxy.se.axis.com:3128     
+        cd vdo-larod
+        rm -rf build/
+        cp app/package.conf.edgetpu app/package.conf
+        docker build --tag vdo_larod_tpu:1.0 .
+        docker cp $(docker create vdo_larod_tpu:1.0):/opt/app ./build
+        cd ..
+        mkdir -p acap3/examples/vdo-larod/build
+        ls vdo-larod/build/
+        cp vd
