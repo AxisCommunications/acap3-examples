@@ -1,0 +1,28 @@
+name: Build video scene subscriber Application
+on:
+  push:
+     paths:
+      - 'video-scene-subscriber/**'
+      - '.github/workflows/video-scene-subscriber.yml'
+jobs:
+  build:
+
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+      #- uses: actions/checkout@master
+      # this will enable shellCheck to be performed
+      # on every push to the repo.
+    #- name: Run ShellCheck
+      #uses: ludeeus/action-shellcheck@master
+      # If shellCheck complains about unnecessery things, ignore it.
+      #env:
+        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
+    
+    #Build Video scene subscriber application
+    - name: Build Video scene subscriber application
+      run: |
+        export VERSION=3.2
+        cd video-scene-subscriber
+        docker build --build-arg VERSION=${VERSION} --tag video-scene-subscriber:1.0 .
+        docker cp $(docker create  video-scene-subscriber:1.0):/opt/app/ build
