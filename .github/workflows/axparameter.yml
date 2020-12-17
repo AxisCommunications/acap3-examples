@@ -1,0 +1,30 @@
+name: Build Axparameter Applications
+on:
+  push:
+     paths:
+      - 'axparameter/**'
+      - '.github/workflows/axparameter.yml'
+jobs:
+  build:
+
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+      #- uses: actions/checkout@master
+      # this will enable shellCheck to be performed
+      # on every push to the repo.
+    #- name: Run ShellCheck
+      #uses: ludeeus/action-shellcheck@master
+      # If shellCheck complains about unnecessery things, ignore it.
+      #env:
+        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
+    
+    # Build axparameter application
+    - name: Build axparameter application
+      run: |    
+        cd axparameter
+        docker build --tag axparameter:1.0 .
+        docker cp $(docker create axparameter:1.0):/opt/app ./build
+        cd ..
+        mkdir -p acap3/examples/axparameter/build
+        cp axparameter/build/axparameter_1_0_0_armv7hf.eap acap3/examples/axparameter/build/axparameter_1_0_0_armv7hf.eap
