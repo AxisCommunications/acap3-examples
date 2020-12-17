@@ -24,8 +24,5 @@ jobs:
       run: |
         export ARCH=armv7hf        
         cd boundingbox
-        docker build --build-arg ARCH=${ARCH} --build-arg PKG_ARCH=cortexa9hf-neon-poky-linux-gnueabi --build-arg http_proxy=${http_proxy} --build-arg https_proxy=${https_proxy} --tag boundingboxexample:1.0 .
+        docker build --build-arg ARCH=${ARCH} --build-arg PKG_ARCH=cortexa9hf-neon-poky-linux-gnueabi --tag boundingboxexample:1.0 .
         docker cp $(docker create  boundingboxexample:1.0):/opt/app build
-        cd ..
-        mkdir -p acap3/examples/boundingbox/build
-        cp boundingbox/build/boundingbox_example_1_0_0_armv7hf.eap acap3/examples/boundingbox/build/boundingbox_example_1_0_0_armv7hf.eap
