@@ -25,6 +25,3 @@ jobs:
         cd axparameter
         docker build --tag axparameter:1.0 .
         docker cp $(docker create axparameter:1.0):/opt/app ./build
-        cd ..
-        mkdir -p acap3/examples/axparameter/build
-        cp axparameter/build/axparameter_1_0_0_armv7hf.eap acap3/examples/axparameter/build/axparameter_1_0_0_armv7hf.eap
