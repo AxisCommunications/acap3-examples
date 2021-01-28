@@ -56,9 +56,7 @@ tensorflow_to_larod
 │   │   ├── train.py
 │   │   └── utils.py
 │   └── yuv
-│       ├── 0001-Create-a-shared-library.patch
-│       ├── build.sh
-│       └── Dockerfile
+│       └── 0001-Create-a-shared-library.patch
 ├── README.md
 └── run_env.sh
 ```
@@ -76,7 +74,7 @@ tensorflow_to_larod
 - **env/training/model.py** - Defines the Tensorflow model used in this example.
 - **env/training/train.py** - Defines the model training procedure of this example.
 - **env/training/utils.py** - Contains a datagenerator which specifies how data is loaded to the training process.
-- **env/yuv/** - Folder containing files for building libyuv.
+- **env/yuv/** - Folder containing patch for building libyuv.
 - **run_env.sh** - Runs the environment in which this example is run.
 
 
@@ -131,6 +129,8 @@ In this example, we're going to be working within a Docker container environment
 ./build_env.sh
 ./run_env.sh <a_name_for_your_env>
 ```
+The environment can be started without GPU support by supplying the `--no-gpu` flag to the `run_env.sh` script after the environment name.
+
 Note that the MS COCO 2017 validation dataset is downloaded during the building of the environment. This is roughly 1GB in size which means this could take a few minutes to download.
 
 ## The example model

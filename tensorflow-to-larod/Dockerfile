@@ -19,7 +19,8 @@ RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 RUN apt-get update && apt-get install docker-ce -y
 
-COPY ./env /env
+# Create skeleton
+RUN mkdir -p /env/app
 
 # Get dataset
 RUN apt-get install -y wget
@@ -31,9 +32,9 @@ RUN curl -o /env/data/annotations_trainval2017.zip http://images.cocodataset.org
     unzip -q /env/data/annotations_trainval2017.zip -d /env/data/ && \
     rm /env/data/annotations_trainval2017.zip
 
-WORKDIR /env
-
 # Get pretrained models
+WORKDIR /env
+COPY env/models.sha512 /env/models.sha512
 RUN mkdir -p /env/models
 ADD https://www.axis.com/techsup/developer_doc/acap3/examples/models.zip /env/
 RUN sha512sum -c /env/models.sha512
@@ -53,3 +54,6 @@ RUN pip3 install Pillow tensorflow==2.3.0
 
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES all
+
+# Copy the rest of the local files
+ADD env/ /env/
