@@ -63,7 +63,7 @@ RUN cmake -D CMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake
           ..
 
 # Build openCV libraries and other tools
-RUN make -j all install
+RUN make -j 2 install
 RUN ln -sf $TARGET_ROOT/usr/include/opencv4/opencv2 $TARGET_ROOT/usr/include/opencv2
 
 # Build the application
