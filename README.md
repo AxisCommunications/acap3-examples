@@ -1,4 +1,4 @@
-# What is Axis Camera Application Platform?
+# What is AXIS Camera Application Platform?
 [AXIS Camera Application Platform (ACAP)](https://www.axis.com/support/developer-support/axis-camera-application-platform) is an open application platform that enables members of [Axis Application Development Partner](https://www.axis.com/partners/adp-partner-program) (ADP) Program to develop applications that can be downloaded and installed on Axis network cameras and video encoders. ACAP makes it possible to develop applications for a wide range of use cases:
 * Security applications that improve surveillance systems and facilitate investigation.
 * Business intelligence applications that improve business efficiency.
