@@ -1,0 +1,20 @@
+{
+    "schemaVersion": "1.0",
+    "acapPackageConf": {
+        "setup": {
+            "friendlyName": "VDO Encode Client",
+            "appName": "vdoencodeclient",
+            "vendor": "-",
+            "embeddedSdkVersion": "2.0",
+            "user": {
+                "group": "sdk",
+                "username": "sdk"
+            },
+            "runMode": "never",
+            "version": "1.0.0"
+        },
+        "copyProtection": {
+            "method": "none"
+        }
+    }
+}

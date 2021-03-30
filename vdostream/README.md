@@ -16,13 +16,15 @@ vdostream
 ├── app
 │   ├── LICENSE
 │   ├── Makefile
-│   └── vdoencodeclient.c
+│   ├── manifest.json
+|   └── vdoencodeclient.c
 ├── Dockerfile
 └── README.md
 ```
 
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
 * **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/manifest.json** - Defines the application and its configuration.
 * **app/vdoencodeclient.c** - Application to capture the frames using vdo service in C.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **README.md** - Step by step instructions on how to run the example.
@@ -62,10 +64,12 @@ vdostream
 ├── app
 │   ├── LICENSE
 │   ├── Makefile
+│   ├── manifest.json
 │   └── vdoencodeclient.c
 ├── build
 │   ├── LICENSE
 │   ├── Makefile
+│   ├── manifest.json
 │   ├── package.conf
 │   ├── package.conf.orig
 │   ├── param.conf
@@ -77,9 +81,9 @@ vdostream
 └── README.md
 ```
 
-* **build/package.conf** - Defines the application and its configuration.
+* **build/package.conf** - Defines the application and its configuration. Generated for backward compatibility with older firmware.
 * **build/package.conf.orig** - Defines the application and its configuration, original file.
-* **build/param.conf** - File containing application parameters.
+* **build/param.conf** - File containing application parameters. Generated for backward compatibility with older firmware.
 * **build/vdoencodeclient*** - Application executable binary file.
 * **build/vdoencodeclient_1_0_0_armv7hf.eap** - Application package .eap file.
 * **build/vdoencodeclient_1_0_0_LICENSE.txt** - Copy of LICENSE file.
