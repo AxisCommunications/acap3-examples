@@ -1,12 +1,12 @@
-# Specify the architecture at build time: armv7hf
-# Should be used for getting API and toolchain images
-# Currently, only armv7hf is supported
 ARG http_proxy
 ARG https_proxy
 ARG ARCH=armv7hf
+ARG REPO=axisecp
+ARG SDK=acap-sdk
+ARG UBUNTU_VERSION=20.04
 ARG VERSION=3.2
 
-FROM axisecp/acap-sdk:${VERSION}-${ARCH}-ubuntu20.04 as sdk
+FROM ${REPO}/${SDK}:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
 
 # Add a sources.list file that contains the armhf repositories
 COPY sources.list /etc/apt
