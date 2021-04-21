@@ -1,14 +1,12 @@
-# Specify the architecture at build time: armv7hf
-# Should be used for getting API and toolchain image
-# Currently, only armv7hf is supported
 ARG http_proxy
 ARG https_proxy
 ARG ARCH=armv7hf
 ARG VERSION=3.2
 ARG UBUNTU_VERSION=20.04
 ARG REPO=axisecp
+ARG SDK=acap-sdk
 
-FROM ${REPO}/acap-sdk:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
+FROM ${REPO}/${SDK}:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
 
 # Build libyuv
 WORKDIR /opt/build
