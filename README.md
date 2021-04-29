@@ -34,6 +34,8 @@ and [vdo-larod](./vdo-larod) examples.
   * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
 * [vdo-larod](./vdo-larod/)
   * The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are converted to interleaved rgb format and then sent to larod for inference on MODEL.
+* [vdo-larod-preprocessing](./vdo-larod-preprocessing/)
+  * The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are sent to larod for preprocessing and inference on MODEL.
 
 ### DockerHub Image
 The ACAP SDK image can be used as a basis for custom built images to run your application or as a developer environment inside the container. The image is public and free to use for anyone.
@@ -45,4 +47,3 @@ Please visit [FAQs page](FAQs.md) for frequently asked questions.
 
 # License
 [Apache 2.0](LICENSE)
-
