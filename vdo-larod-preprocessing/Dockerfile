@@ -4,7 +4,7 @@ ARG http_proxy=$DOCKER_PROXY
 ARG https_proxy=$DOCKER_PROXY
 
 ARG ARCH=armv7hf
-ARG VERSION=rel-fw-10.5-maint
+ARG VERSION=3.3
 ARG UBUNTU_VERSION=20.04
 ARG REPO=docker-prod.se.axis.com/axisecp
 FROM ${REPO}/acap-sdk:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
