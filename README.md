@@ -42,7 +42,7 @@ and [vdo-larod](./vdo-larod) examples.
 ### DockerHub Image
 The ACAP SDK image can be used as a basis for custom built images to run your application or as a developer environment inside the container. The image is public and free to use for anyone.
 
-* [ACAP SDK](https://hub.docker.com/repository/docker/axisecp/acap-sdk) This image is based on Ubuntu and contains the environment needed for building an AXIS Camera Application Platform (ACAP) application. This includes all tools for building and packaging an ACAP 3 application as well as API components (header and library files) needed for accessing different parts of the camera firmware.
+* [ACAP SDK](https://hub.docker.com/r/axisecp/acap-sdk) This image is based on Ubuntu and contains the environment needed for building an AXIS Camera Application Platform (ACAP) application. This includes all tools for building and packaging an ACAP 3 application as well as API components (header and library files) needed for accessing different parts of the camera firmware.
 
 # Frequently asked questions
 Please visit [FAQs page](FAQs.md) for frequently asked questions.
