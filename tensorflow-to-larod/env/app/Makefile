@@ -13,6 +13,8 @@ CFLAGS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --cflags $(PKGS)
 LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
 
 CFLAGS += -Wall
+# This example is based on larod version 1
+CFLAGS += -DLAROD_API_VERSION_1
 
 all:	$(PROGS) \
 		model/converted_model.larod
