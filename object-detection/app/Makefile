@@ -12,7 +12,7 @@ LDFLAGS += -L./lib -Wl,-rpath,'$$ORIGIN/lib'
 CFLAGS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --cflags $(PKGS))
 LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
 
-CFLAGS += -Wall
+CFLAGS += -Wall -DLAROD_API_VERSION_1
 
 all:	$(PROGS) \
 		model/converted_model.larod \
