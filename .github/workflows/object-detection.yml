@@ -1,0 +1,27 @@
+name: Build Object Detection Applications
+on:
+  push:
+     paths:
+      - 'object-detection/**'
+      - '.github/workflows/object-detection.yml'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      #- uses: actions/checkout@master
+      # this will enable shellCheck to be performed
+      # on every push to the repo.
+    #- name: Run ShellCheck
+      #uses: ludeeus/action-shellcheck@master
+      # If shellCheck complains about unnecessery things, ignore it.
+      #env:
+        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
+    
+    #Build Licensekey handler application
+    - name: Build Object Detection  application
+      run: |
+        cd object-detection
+        docker build --tag object_detection_acap:1.0 .
+        docker cp $(docker create object_detection_acap:1.0 .):/opt/app ./build
