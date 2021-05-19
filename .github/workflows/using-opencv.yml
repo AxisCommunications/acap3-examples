@@ -1,0 +1,26 @@
+name: Build Using Opencv Applications
+on:
+  push:
+     paths:
+      - 'using-opencv/**'
+      - '.github/workflows/using-opencv.yml'
+jobs:
+  build:
+
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+      #- uses: actions/checkout@master
+      # this will enable shellCheck to be performed
+      # on every push to the repo.
+    #- name: Run ShellCheck
+      #uses: ludeeus/action-shellcheck@master
+      # If shellCheck complains about unnecessery things, ignore it.
+      #env:
+        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
+    
+    # Build Send event application
+    - name: Build using-opencv application
+      run: |    
+        cd using-opencv
+        ./build.sh my-opencv-app
