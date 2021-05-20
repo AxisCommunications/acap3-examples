@@ -64,11 +64,7 @@ RUN cmake -D CMAKE_TOOLCHAIN_FILE=../platforms/linux/arm-gnueabi.toolchain.cmake
 
 # Build openCV libraries and other tools
 RUN make -j 2 install
-RUN ln -sf $TARGET_ROOT/usr/include/opencv4/opencv2 $TARGET_ROOT/usr/include/opencv2
 
-# Build the application
-ARG PKG_ARCH=cortexa9hf-neon-poky-linux-gnueabi
-RUN cp -r /target-root/* /opt/axis/acapsdk/sysroots/cortexa9hf-neon-poky-linux-gnueabi/
 COPY app/ /build/src/
 WORKDIR /build/src
 RUN cp /opt/axis/acapsdk/sysroots/x86_64-pokysdk-linux/usr/bin/create-package.sh .

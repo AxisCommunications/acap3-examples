@@ -8,14 +8,12 @@ STRIP = arm-linux-gnueabihf-strip
 PKGS = gio-2.0 vdostream gio-unix-2.0
 
 LDFLAGS += -L$(SDKTARGETSYSROOT)/usr/lib
-
 LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
+CXXFLAGS += -Os -pipe -std=c++11
+CXXFLAGS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --cflags-only-I $(PKGS))
+CXXFLAGS += -I/target-root/usr/include/opencv4
 
-INCLUDES = -I. -I$(SDKTARGETSYSROOT)/usr/include/vdo -I$(SDKTARGETSYSROOT)/usr/include/glib-2.0 -I$(SDKTARGETSYSROOT)/usr/lib/glib-2.0/include
-
-CXXFLAGS += -Os -pipe -std=c++11 $(INCLUDES)
-
-SDK_TARGET_LIBS=$(SDKTARGETSYSROOT)/usr/lib
+SDK_TARGET_LIBS=$(TARGET_ROOT)/usr/lib
 
 SHLIB_DIR = ./lib
 
