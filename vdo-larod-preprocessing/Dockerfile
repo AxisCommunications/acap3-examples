@@ -6,7 +6,7 @@ ARG https_proxy=$DOCKER_PROXY
 ARG ARCH=armv7hf
 ARG VERSION=3.3
 ARG UBUNTU_VERSION=20.04
-ARG REPO=docker-prod.se.axis.com/axisecp
+ARG REPO=axisecp
 FROM ${REPO}/acap-sdk:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
 
 # Download model
