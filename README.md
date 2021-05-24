@@ -20,6 +20,8 @@ Below is the list of examples available in the repository.
   * The example code is written in C which illustrates both how to subscribe to different events and how to send an event.
 * [axoverlay](./axoverlay/)
   * The example code is written in C which illustrates how to draw plain boxes and text as overlays in a stream.
+* [hello-world](./hello-world/)
+  * The example code is written in C and shows how to build a simple hello world application.
 * [larod](./larod/)
   * The example code is written in C which connects to [larod](./FAQs.md#WhatisLarod?) and loads a model, runs inference on it and then finally deletes the loaded model from [larod](./FAQs.md#WhatisLarod?).
 * [licensekey](./licensekey/)
