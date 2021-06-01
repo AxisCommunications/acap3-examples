@@ -5,7 +5,7 @@
 * Camera feature plug-ins that add value beyond the Axis product's core functionality
 
 # Prerequisites for ACAP development
-ACAP is Axis own open platform for applications that run on-board an Axis product. If you are new to ACAP, start with learning more about the platform, [prerequisites](https://www.axis.com/developer-community/acap-fundamentals), [compatible architectures](https://www.axis.com/developer-community/acap-sdk) and [SDK user manual](https://www.axis.com/products/online-manual/s00004).
+ACAP is Axis own open platform for applications that run on-board an Axis product. If you are new to ACAP, start with learning more about the platform, [prerequisites](https://www.axis.com/developer-community/acap-fundamentals), [compatible architectures](https://www.axis.com/developer-community/acap-sdk) and [SDK user manual](https://help.axis.com/acap-3-developer-guide).
 
 ## Getting started with the repo
 This repository contains a set of application examples which aims to enrich the
