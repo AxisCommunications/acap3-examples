@@ -13,8 +13,8 @@ A description of the issue you encountered or the feature you're requesting.
 
 **System setup**
 - *AXIS product/device (e.g., Q1615 Mk III):*
-- *Device firmware version:*
-- *SDK version (e.g., 3.3):*
+- *Device firmware version (e.g., 10.5):*
+- *SDK version (e.g., ACAP SDK 3.3):*
 
 
 **Logs**
