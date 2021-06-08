@@ -23,4 +23,5 @@ jobs:
     - name: Build VDO OpenCL Filtering application
       run: |
         cd vdo-opencl-filtering
-        ./build.sh my-vdo-opencl-filtering-app
+        docker build --tag my-vdo-opencl-filtering-app:1.0 .
+        docker cp $(docker create my-vdo-opencl-filtering-app:1.0 .):/opt/app ./build
