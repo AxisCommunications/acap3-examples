@@ -55,7 +55,7 @@ const struct argp argp = {
     "format which are converted to an interleaved rgb format and then sent to "
     "larod for inference on MODEL. OUTPUT_SIZE denotes the size in bytes of "
     "the tensor output by MODEL.\n\nExample call:\n"
-    "larod-vdo-example-app /tmp/mobilenet_v2_1.0_224_quant.larod 224 224 "
+    "larod-vdo-example-app /tmp/mobilenet_v2_1.0_224_quant.tflite 224 224 "
     "1001 -c 2\nwhere 2 here refers to the tflite cpu backend. The numbers for "
     "each type of chip can be found at the top of the file larod.h.",
     NULL,

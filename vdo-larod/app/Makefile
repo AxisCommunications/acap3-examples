@@ -17,25 +17,22 @@ CFLAGS += -Wall
 CFLAGS += -DLAROD_API_VERSION_1
 
 all:	$(PROGS) \
-		model/mobilenet_v2_1.0_224_quant.larod \
-		model/mobilenet_v2_1.0_224_quant_edgetpu.larod \
+		model/mobilenet_v2_1.0_224_quant.tflite \
+		model/mobilenet_v2_1.0_224_quant_edgetpu.tflite \
 		label/imagenet_labels.txt
 
 $(PROG1): $(OBJS1)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
-model/mobilenet_v2_1.0_224_quant.larod:
+model/mobilenet_v2_1.0_224_quant.tflite:
 	mkdir -p model
 	curl -o model/mobilenet_v2_1.0_224_quant.tgz http://download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224_quant.tgz
 	tar -xvf model/mobilenet_v2_1.0_224_quant.tgz -C model
-	larod-convert.py tflite model/mobilenet_v2_1.0_224_quant.tflite
-	rm -f model/*.tgz model/*.tflite model/*.pb* model/*.ckpt* model/*.meta model/*.txt
+	rm -f model/*.tgz model/*.pb* model/*.ckpt* model/*.meta model/*.txt
 
-model/mobilenet_v2_1.0_224_quant_edgetpu.larod:
+model/mobilenet_v2_1.0_224_quant_edgetpu.tflite:
 	mkdir -p model
 	curl -L -o model/mobilenet_v2_1.0_224_quant_edgetpu.tflite https://github.com/google-coral/edgetpu/raw/master/test_data/mobilenet_v2_1.0_224_quant_edgetpu.tflite
-	larod-convert.py tflite model/mobilenet_v2_1.0_224_quant_edgetpu.tflite
-	rm -f model/*.tflite
 
 label/imagenet_labels.txt:
 	mkdir -p label

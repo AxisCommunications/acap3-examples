@@ -31,7 +31,7 @@
  * /usr/local/packages/larod_simple_app on your device and then for
  * example run:
  *     ./larod_simple_app \
- *         model/mobilenet_v1_1.0_224_quant.larod \
+ *         model/mobilenet_v1_1.0_224_quant.tflite \
  *         input/goldfish_224x224_uint8_RGB.bin
  *
  * To interpret the output you could (off device) run the command:

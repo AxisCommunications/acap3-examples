@@ -124,8 +124,8 @@ vdo_larod_preprocessing
 ├── build
 │   ├── model
 |   │   ├── imagenet_labels.txt
-|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.larod
-|   │   └── mobilenet_v2_1.9_224_quant.larod
+|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.tflite
+|   │   └── mobilenet_v2_1.9_224_quant.tflite
 │   ├── imagenet-labels.h
 │   ├── larod-vdo-utils.c
 │   ├── larod-vod-utils.h
@@ -143,8 +143,8 @@ vdo_larod_preprocessing
 
 Explanation of some files in the build folder:
 * **build/model/imagenet_labels.txt** - Label file for MobileNet V2 (ImageNet).
-* **build/model/mobilenet_v2_1.9_224_quant_edgetpu.larod** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
-* **build/model/mobilenet_v2_1.9_224_quant.larod** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
+* **build/model/mobilenet_v2_1.9_224_quant_edgetpu.tflite** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
+* **build/model/mobilenet_v2_1.9_224_quant.tflite** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
 * **build/vdo_larod_preprocessing_cpu_1_0_0_armv7hf.eap** - Application package .eap file,
   if alternative chip 2 has been built.
 * **build/vdo_larod_preprocessing_edgetpu_1_0_0_armv7hf.eap** - Application package .eap file,

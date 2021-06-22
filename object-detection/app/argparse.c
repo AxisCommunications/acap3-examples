@@ -50,7 +50,7 @@ const struct argp argp = {
     "image quality ranging from 0 to 100. THRESHOLD ranging from 0 to 100 is the "
     "min score required to show the detected objects and crop them. LABELSFILE "
     "is the path of a txt where labes names are saved. \n\nExample call: "
-    "\n/usr/local/packages/object_detection/model/converted_model.larod 300 "
+    "\n/usr/local/packages/object_detection/model/converted_model.tflite 300 "
     "300 80 1920 1080 50 /usr/local/packages/object_detection/label/labels.txt "
     "-c 4 \nwhere 4 here refers to the Edge TPU backend. The numbers for "
     "each type of chip can be found at the top of the file larod.h.",
