@@ -138,8 +138,8 @@ vdo-larod
 │   ├── LICENSE
 │   ├── Makefile
 │   ├── model
-|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.larod
-|   │   └── mobilenet_v2_1.9_224_quant.larod
+|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.tflite
+|   │   └── mobilenet_v2_1.9_224_quant.tflite
 │   ├── package.conf
 │   ├── package.conf.cpu
 │   ├── package.conf.edgetpu
@@ -155,8 +155,8 @@ vdo-larod
 * **build/label/imagenet_labels.txt** - Label file for MobileNet V2 (ImageNet).
 * **build/lib** - Folder containing compiled library files for libyuv.
 * **build/model** - Folder containing models used in this application.
-* **build/model/mobilenet_v2_1.9_224_quant_edgetpu.larod** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
-* **build/model/mobilenet_v2_1.9_224_quant.larod** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
+* **build/model/mobilenet_v2_1.9_224_quant_edgetpu.tflite** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
+* **build/model/mobilenet_v2_1.9_224_quant.tflite** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
 * **build/package.conf** - Defines the application and its configuration.
 * **build/package.conf.orig** - Defines the application and its configuration, original file.
 * **build/param.conf** - File containing application parameters.
@@ -211,7 +211,7 @@ Depending on selected chip, different output is received. The label file is used
 vdo_larod[13021]: Creating VDO image provider and creating stream 320 x 240
 vdo_larod[13021]: Dump of vdo stream settings map =====
 vdo_larod[13021]: chooseStreamResolution: We select stream w/h=320 x 240 based on VDO channel info.
-vdo_larod[13021]: Setting up larod connection with chip 2 and model /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant.larod
+vdo_larod[13021]: Setting up larod connection with chip 2 and model /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant.tflite
 vdo_larod[13021]: Creating temporary files and memmaps for inference input and output tensors
 vdo_larod[13021]: Start fetching video frames from VDO
 vdo_larod[13021]: createAndMapTmpFile: Setting up a temp fd with pattern /tmp/larod.in.test-XXXXXX and size 150528
@@ -232,7 +232,7 @@ vdo_larod[13021]: Top result:  955  banana with score 85.60%
 vdo_larod[27814]: Creating VDO image provider and creating stream 320 x 240
 vdo_larod[27814]: Dump of vdo stream settings map =====
 vdo_larod[27814]: chooseStreamResolution: We select stream w/h=320 x 240 based on VDO channel info.
-vdo_larod[27814]: Setting up larod connection with chip 4 and model /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.larod
+vdo_larod[27814]: Setting up larod connection with chip 4 and model /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.tflite
 vdo_larod[27814]: Creating temporary files and memmaps for inference input and output tensors
 vdo_larod[27814]: Start fetching video frames from VDO
 vdo_larod[27814]: createAndMapTmpFile: Setting up a temp fd with pattern /tmp/larod.in.test-XXXXXX and size 150528

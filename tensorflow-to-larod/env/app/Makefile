@@ -17,16 +17,15 @@ CFLAGS += -Wall
 CFLAGS += -DLAROD_API_VERSION_1
 
 all:	$(PROGS) \
-		model/converted_model.larod
+		model/converted_model.tflite
 
 $(PROG1): $(OBJS1)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
-model/converted_model.larod:
+model/converted_model.tflite:
 	mkdir -p model
 	cp converted_model_edgetpu.tflite model/converted_model.tflite
-	larod-convert.py tflite model/converted_model.tflite
-	rm -f model/*.tflite
+
 
 clean:
 	rm -f $(PROGS) *.o *.eap lib/* include/* model/* label/*

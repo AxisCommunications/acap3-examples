@@ -15,17 +15,15 @@ LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
 CFLAGS += -Wall -DLAROD_API_VERSION_1
 
 all:	$(PROGS) \
-		model/converted_model.larod \
+		model/converted_model.tflite \
 		label/labels.txt
 
 $(PROG1): $(OBJS1)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
 
-model/converted_model.larod:
+model/converted_model.tflite:
 	mkdir -p model
 	cp converted_model_edgetpu.tflite model/converted_model.tflite
-	larod-convert.py tflite model/converted_model.tflite
-	rm -f model/*.tflite
 
 label/labels.txt:
 	mkdir -p label

@@ -47,7 +47,7 @@ const struct argp argp = {
     "format which are converted to interleaved rgb format and then sent to "
     "larod for inference on MODEL. OUTPUT_SIZE denotes the size in bytes of "
     "the tensor output by MODEL.\n\nExample call:\n"
-    "/usr/local/packages/tensorflow_to_larod/model/converted_model.larod 256 "
+    "/usr/local/packages/tensorflow_to_larod/model/converted_model.tflite 256 "
     "256 1 -c 4\nwhere 4 here refers to the Edge TPU backend. The numbers for "
     "each type of chip can be found at the top of the file larod.h.",
     NULL,

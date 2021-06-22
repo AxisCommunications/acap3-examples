@@ -47,7 +47,7 @@
  *
  * Then you could run the application with Google TPU with command:
  *     ./usr/local/packages/vdo_larod/vdo_larod \
- *     /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.larod \
+ *     /usr/local/packages/vdo_larod/model/mobilenet_v2_1.0_224_quant_edgetpu.tflite \
  *     224 224 1001 -c 4 \
  *     -l /usr/local/packages/vdo_larod/label/imagenet_labels.txt
  */
