@@ -24,7 +24,7 @@ Below is the list of examples available in the repository.
   * The example code is written in C which connects to [larod](./FAQs.md#WhatisLarod?) and loads a model, runs inference on it and then finally deletes the loaded model from [larod](./FAQs.md#WhatisLarod?).
 * [licensekey](./licensekey/)
   * The example code is written in C which illustrates how to check the licensekey status.
-* [licensekey](./object-detection/)
+* [object-detection](./object-detection/)
   * The example code focuses on object detection, and croping and saving detected objects into jpeg files.
 * [tensorflow-to-larod](./tensorflow-to-larod/)
   * This example covers model conversion, model quantization, image formats and custom models in
