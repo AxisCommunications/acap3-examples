@@ -25,7 +25,7 @@ Below is the list of examples available in the repository.
 * [licensekey](./licensekey/)
   * The example code is written in C which illustrates how to check the licensekey status.
 * [object-detection](./object-detection/)
-  * The example code focuses on object detection, and croping and saving detected objects into jpeg files.
+  * The example code focus on object detection, cropping and saving detected objects into jpeg files.
 * [tensorflow-to-larod](./tensorflow-to-larod/)
   * This example covers model conversion, model quantization, image formats and custom models in
 greater depth than the [larod](./larod)
