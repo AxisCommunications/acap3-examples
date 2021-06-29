@@ -14,8 +14,6 @@ WORKDIR /opt/app/model
 RUN curl -o mobilenet_v2_1.0_224_quant.tgz http://download.tensorflow.org/models/tflite_11_05_08/mobilenet_v2_1.0_224_quant.tgz &&\
 	tar -xvf mobilenet_v2_1.0_224_quant.tgz &&\
 	curl -L -o mobilenet_v2_1.0_224_quant_edgetpu.tflite https://github.com/google-coral/edgetpu/raw/master/test_data/mobilenet_v2_1.0_224_quant_edgetpu.tflite &&\
-	larod-convert.py tflite mobilenet_v2_1.0_224_quant_edgetpu.tflite &&\
-	larod-convert.py tflite mobilenet_v2_1.0_224_quant.tflite &&\
 	curl -L -o imagenet_labels.txt https://github.com/google-coral/edgetpu/raw/master/test_data/imagenet_labels.txt
 
 # Copy the library to application folder

@@ -84,7 +84,7 @@ larod
 │	├── Makefile
 │	├── model
 │	│	├── labels_mobilenet_quant_v1_224.txt
-│	│	└── mobilenet_v1_1.0_224_quant.larod
+│	│	└── mobilenet_v1_1.0_224_quant.tflite
 │	│── package.conf
 │	├── package.conf.orig
 │	└── param.conf
@@ -98,7 +98,7 @@ larod
 * **build/larod_simple_app_1_0_0_LICENSE.txt** - Copy of LICENSE file.
 * **build/model** - Folder containing label and models files used in this application.
 * **build/model/labels_mobilenet_quant_v1_224.txt** - Label file for MobileNet V1.
-* **build/model/mobilenet_v1_1.0_224_quant.larod** - Model file for MobileNet V1.
+* **build/model/mobilenet_v1_1.0_224_quant.tflite** - Model file for MobileNet V1.
 * **build/package.conf.orig** - Defines the application and its configuration, original file.
 * **build/param.conf** - File containing application parameters.
 

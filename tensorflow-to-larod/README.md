@@ -150,7 +150,7 @@ Running the training process yourself is done by executing the following command
 
 
 While this example looks at the process from model creation to inference on a camera, other pre-trained models
-are available at e.g., https://www.tensorflow.org/lite/models and https://coral.ai/models/. The models from [coral.ai](https://coral.ai) are pre-compiled to run on the Edge TPU and thus only require conversion to `.larod`, [as described further on](#converting-to-larod).
+are available at e.g., https://www.tensorflow.org/lite/models and https://coral.ai/models/. The models from [coral.ai](https://coral.ai) are pre-compiled to run on the Edge TPU.
 
 When designing your model for an Edge TPU device, you should only use operations that have an Edge TPU implementation. The full list of such operations is available at https://coral.ai/docs/edgetpu/models-intro/#supported-operations.
 
@@ -179,7 +179,6 @@ will be done during the conversion described in the next section.
 To use the model on a camera, it needs to be converted. The conversion from the `SavedModel` model to the camera ready format is divided into three steps:
 1. Convert to Tensorflow Lite format (`.tflite`) with Edge TPU compatible data types, e.g., by using the supplied `convert_model.py` script
 2. Compile the `.tflite` model with the Edge TPU compiler to add Edge TPU compatibility
-3. Convert the Edge TPU compiled `.tflite` model to `.larod` using the `larod-convert.py` script from the ACAP SDK
 
 __All the resulting pre-trained original, converted and compiled models are available in the `/env/models` directory, so any step in the process can be skipped.__
 
@@ -224,11 +223,6 @@ Now there should be a compiled model called `converted_model_edgetpu.tflite` in 
 ```sh
 cp models/converted_model_edgetpu.tflite app/
 ```
-
-
-#### Converting to .larod
-The model needs to be converted to `.larod` for the camera to use it. This is done by using the ACAP SDK tool ```larod-convert.py``` and running `larod-convert.py tflite <path_to_tflite_model>`. However, in this example, this is done during the [build step](#building-the-algorithms-application), as the ACAP build environment has the needed SDK installed, which makes doing the conversion process easy.
-
 
 ## Designing the algorithm's application
 
@@ -310,7 +304,7 @@ infReq = larodCreateInferenceRequest(model, inputTensors, numInputs, outputTenso
 ```
 
 #### Fetching a frame and performing inference
-To get a frame, the `ImgProvider` created earlier is used. A buffer containing the latest image from the pipeline is retrieved by using the `getLastFrameBlocking` method with the created provider. The NV12 data from the buffer is then extracted with the `vdo_buffer_get_data` method.  
+To get a frame, the `ImgProvider` created earlier is used. A buffer containing the latest image from the pipeline is retrieved by using the `getLastFrameBlocking` method with the created provider. The NV12 data from the buffer is then extracted with the `vdo_buffer_get_data` method.
 
 ```c
 VdoBuffer* buf = getLastFrameBlocking(provider);
@@ -342,9 +336,9 @@ syslog(LOG_INFO, "Person detected: %.2f%% - Car detected: %.2f%%",
 ```
 
 ## Building the algorithm's application
-A packaging file is needed to compile the ACAP. This is found in [app/package.conf](env/app/package.conf). For the scope of this tutorial, the `APPOPTS` and `OTHERFILES` keys are noteworthy. `APPOPTS` allows arguments to be given to the ACAP, which in this case is handled by the `argparse` lib. The argument order, defined by [app/argparse.c](env/app/argparse.c), is `<model_path input_resolution_width input_resolution_height output_size_in_bytes>`. The file(s) specified in `OTHERFILES` simply tell the compiler what files to copy to the ACAP, such as our .larod model file.
+A packaging file is needed to compile the ACAP. This is found in [app/package.conf](env/app/package.conf). For the scope of this tutorial, the `APPOPTS` and `OTHERFILES` keys are noteworthy. `APPOPTS` allows arguments to be given to the ACAP, which in this case is handled by the `argparse` lib. The argument order, defined by [app/argparse.c](env/app/argparse.c), is `<model_path input_resolution_width input_resolution_height output_size_in_bytes>`. The file(s) specified in `OTHERFILES` simply tell the compiler what files to copy to the ACAP, such as our .tflite model file.
 
-The ACAP is built to specification by the `Makefile` in [app/Makefile](env/app/Makefile). It is also this file which specifies the last step in the model conversion process, namely converting the `.tflite` to `.larod` by using the `convert_larod.py`-tool described earlier. With the [Makefile](env/app/Makefile) and [package.conf](env/app/package.conf) files set up, the ACAP can be built by running the build script in the example environment:
+The ACAP is built to specification by the `Makefile` in [app/Makefile](env/app/Makefile).  With the [Makefile](env/app/Makefile) and [package.conf](env/app/package.conf) files set up, the ACAP can be built by running the build script in the example environment:
 
 ```sh
 ./build_acap.sh tensorflow_to_larod_acap:1.0
