@@ -4,7 +4,7 @@
 ARG http_proxy
 ARG https_proxy
 ARG ARCH=armv7hf
-ARG VERSION=3.3
+ARG VERSION=3.4
 ARG UBUNTU_VERSION=20.04
 ARG REPO=axisecp
 

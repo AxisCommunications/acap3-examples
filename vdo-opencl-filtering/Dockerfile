@@ -2,7 +2,7 @@
 # Should be used for getting API image
 # Currently, only armv7hf is supported
 ARG ARCH=armv7hf
-ARG VERSION=3.3
+ARG VERSION=3.4
 ARG UBUNTU_VERSION=20.04
 ARG REPO=axisecp
 ARG SDK=acap-sdk
