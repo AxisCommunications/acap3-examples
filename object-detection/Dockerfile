@@ -7,8 +7,9 @@ ARG ARCH=armv7hf
 ARG VERSION=3.4
 ARG UBUNTU_VERSION=20.04
 ARG REPO=axisecp
+ARG SDK=acap-sdk
 
-FROM ${REPO}/acap-sdk:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
+FROM ${REPO}/${SDK}:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
 
 # Build libyuv
 WORKDIR /opt/build
@@ -33,7 +34,7 @@ RUN CFLAGS=' -O2 -mthumb -mfpu=neon -mfloat-abi=hard -mcpu=cortex-a9 -fomit-fram
     CC=arm-linux-gnueabihf-gcc cmake -G"Unix Makefiles" ..
 RUN make
 WORKDIR /opt/app
-RUN mkdir -p lib include 
+RUN mkdir -p lib include
 RUN cp /opt/build/libjpeg-turbo/build/*.so* lib/
 RUN cp /opt/build/libjpeg-turbo/build/*.h include/
 RUN cp /opt/build/libjpeg-turbo/*.h include/

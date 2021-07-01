@@ -7,7 +7,8 @@ ARG ARCH=armv7hf
 ARG VERSION=3.4
 ARG UBUNTU_VERSION=20.04
 ARG REPO=axisecp
-FROM ${REPO}/acap-sdk:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
+ARG SDK=acap-sdk
+FROM ${REPO}/${SDK}:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
 
 # Download model
 WORKDIR /opt/app/model
