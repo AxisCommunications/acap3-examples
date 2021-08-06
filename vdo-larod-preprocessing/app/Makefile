@@ -13,6 +13,9 @@ LDLIBS += $(shell PKG_CONFIG_PATH=$(PKG_CONFIG_PATH) pkg-config --libs $(PKGS))
 
 CFLAGS += -Wall
 
+# This example is based on larod version 2
+CFLAGS += -DLAROD_API_VERSION_2
+
 all: $(PROGS)
 
 $(PROG1): $(OBJS1)
