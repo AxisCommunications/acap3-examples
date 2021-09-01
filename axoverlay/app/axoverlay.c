@@ -89,11 +89,7 @@ draw_rectangle(cairo_t *context, gint left, gint top,
   cairo_set_source_rgba(context, val, val, val, val);
   cairo_set_operator(context, CAIRO_OPERATOR_SOURCE);
   cairo_set_line_width(context, line_width);
-  cairo_move_to(context, left, top);
-  cairo_line_to(context, right, top);
-  cairo_line_to(context, right, bottom);
-  cairo_line_to(context, left, bottom);
-  cairo_line_to(context, left, left);
+  cairo_rectangle(context, left, top, right - left, bottom - top);
   cairo_stroke(context);
 }
 
