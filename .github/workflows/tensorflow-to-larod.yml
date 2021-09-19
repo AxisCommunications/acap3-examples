@@ -19,7 +19,6 @@ jobs:
       #env:
         #SHELLCHECK_OPTS: -e SC2153 -e SC2148
     
-    #Build tensorflow-to-larod application
     - name: Build tensorflow-to-larod application
       run: |
         imagetag=tensorflow-to-larod-acap:1.0

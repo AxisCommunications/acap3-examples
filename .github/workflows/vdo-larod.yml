@@ -19,23 +19,21 @@ jobs:
       #env:
         #SHELLCHECK_OPTS: -e SC2153 -e SC2148
     
-    # Build VDO larod application to run on CPU
     - name: Build VDO larod application to run on CPU
       run: |
         imagetag=vdo-larod-cpu:1.0
         docker image rm -f $imagetag
         cd vdo-larod
-        cp app/package.conf.cpu app/package.conf
-        docker build --no-cache --tag $imagetag .
+        cp app/manifest.json.cpu app/manifest.json
+        docker build --no-cache --build-arg CHIP=cpu --tag $imagetag .
         docker cp $(docker create $imagetag):/opt/app ./build
 
-    # Build VDO larod application to run on TPU
     - name: Build VDO larod application to run on TPU
       run: |
         imagetag=vdo-larod-tpu:1.0
         docker image rm -f $imagetag
         cd vdo-larod
         rm -rf build/
-        cp app/package.conf.edgetpu app/package.conf
-        docker build --no-cache --tag $imagetag .
+        cp app/manifest.json.edgetpu app/manifest.json
+        docker build --no-cache --build-arg CHIP=edgetpu --tag $imagetag .
         docker cp $(docker create $imagetag):/opt/app ./build
