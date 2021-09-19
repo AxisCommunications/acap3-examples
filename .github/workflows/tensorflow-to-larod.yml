@@ -22,9 +22,12 @@ jobs:
     #Build tensorflow-to-larod application
     - name: Build tensorflow-to-larod application
       run: |
+        imagetag=tensorflow-to-larod-acap:1.0
+        envname=tensorflow-to-larod
+        docker image rm -f $imagetag
         cd tensorflow-to-larod
         ./build_env.sh
-        docker run -v /var/run/docker.sock:/var/run/docker.sock --network host --name tensorflow_env5 tensorflow_to_larod /bin/bash ./build_acap.sh tensorflow_to_larod_acap:1.0
+        docker run -v /var/run/docker.sock:/var/run/docker.sock --network host --name tensorflow_env5 $envname /bin/bash ./build_acap.sh $imagetag
         docker cp tensorflow_env5:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
         docker stop tensorflow_env5
         docker rm tensorflow_env5

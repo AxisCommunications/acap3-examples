@@ -22,18 +22,21 @@ jobs:
     # Build VDO larod application to run on CPU
     - name: Build vdo-larod-preprocessing application to run on CPU
       run: |  
+        imagetag=vdo-larod-preprocessing-cpu:1.0
+        docker image rm -f $imagetag
         cd vdo-larod-preprocessing
         cp app/package.conf.cpu app/package.conf
-        docker build --tag vdo_larod_preprocessing_cpu:1.0 .
-        docker cp $(docker create vdo_larod_preprocessing_cpu:1.0):/opt/app ./build
-        cd ..
+        docker build --no-cache --tag $imagetag .
+        docker cp $(docker create $imagetag):/opt/app ./build
   
     # Build VDO larod application to run on TPU
     - name: Build vdo-larod-preprocessing application to run on TPU
       run: |     
+        imagetag=vdo-larod-preprocessing-tpu:1.0
+        docker image rm -f $imagetag
         cd vdo-larod-preprocessing
         rm -rf build/
         cp app/package.conf.edgetpu app/package.conf
-        docker build --tag vdo_larod_preprocessing_tpu:1.0 .
-        docker cp $(docker create vdo_larod_preprocessing_tpu:1.0):/opt/app ./build
+        docker build --no-cache --tag $imagetag .
+        docker cp $(docker create $imagetag):/opt/app ./build
  

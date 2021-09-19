@@ -113,7 +113,7 @@ cp app/package.conf.edgetpu app/package.conf
 docker build --tag <APP_IMAGE> .
 ```
 
-<APP_IMAGE> is the name to tag the image with, e.g., vdo_larod:1.0
+<APP_IMAGE> is the name to tag the image with, e.g., vdo-larod:1.0
 
 Copy the result from the container image to a local directory build:
 

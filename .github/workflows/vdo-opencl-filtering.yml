@@ -22,6 +22,8 @@ jobs:
     # Build VDO OpenCL Filtering application
     - name: Build VDO OpenCL Filtering application
       run: |
+        imagetag=vdo_cl_filter_demo:1.0
+        docker image rm -f $imagetag
         cd vdo-opencl-filtering
-        docker build --tag my-vdo-opencl-filtering-app:1.0 .
-        docker cp $(docker create my-vdo-opencl-filtering-app:1.0 .):/opt/app ./build
+        docker build --no-cache --tag $imagetag .
+        docker cp $(docker create $imagetag):/opt/app ./build

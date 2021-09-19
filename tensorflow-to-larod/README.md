@@ -105,7 +105,7 @@ cp models/converted_model_edgetpu.tflite app/
 
 6. Compile the ACAP:
 ```sh
-./build_acap.sh tensorflow_to_larod_acap:1.0
+./build_acap.sh tensorflow-to-larod-acap:1.0
 ```
 
 7. Open a new terminal
@@ -341,7 +341,7 @@ A packaging file is needed to compile the ACAP. This is found in [app/package.co
 The ACAP is built to specification by the `Makefile` in [app/Makefile](env/app/Makefile).  With the [Makefile](env/app/Makefile) and [package.conf](env/app/package.conf) files set up, the ACAP can be built by running the build script in the example environment:
 
 ```sh
-./build_acap.sh tensorflow_to_larod_acap:1.0
+./build_acap.sh tensorflow-to-larod-acap:1.0
 ```
 
 After running this script, the `build` directory should have been populated. Inside it is an `.eap` file, which is your stand-alone ACAP build.

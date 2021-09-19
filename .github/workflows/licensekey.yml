@@ -22,7 +22,8 @@ jobs:
     #Build Licensekey handler application
     - name: Build licensekey handler application
       run: |
+        imagetag=licensekey-handler:1.0
+        docker image rm -f $imagetag
         cd licensekey
-        docker build --tag licensekey_handler:1.0 .
-        docker cp $(docker create licensekey_handler:1.0 .):/opt/app ./build
-
+        docker build --no-cache --tag $imagetag .
+        docker cp $(docker create $imagetag):/opt/app ./build

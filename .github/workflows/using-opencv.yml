@@ -22,5 +22,7 @@ jobs:
     # Build Send event application
     - name: Build using-opencv application
       run: |    
+        imagetag=using-opencv
+        docker image rm -f "${imagetag}:latest"
         cd using-opencv
-        ./build.sh my-opencv-app
+        ./build.sh $imagetag

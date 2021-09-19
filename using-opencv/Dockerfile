@@ -67,5 +67,5 @@ RUN make -j 2 install
 
 COPY app/ /build/src/
 WORKDIR /build/src
-RUN cp /opt/axis/acapsdk/sysroots/x86_64-pokysdk-linux/usr/bin/create-package.sh .
-RUN . /opt/axis/acapsdk/environment-setup* && create-package.sh
+RUN cp /opt/axis/acapsdk/sysroots/x86_64-pokysdk-linux/usr/bin/acap-build .
+RUN . /opt/axis/acapsdk/environment-setup* && acap-build .
