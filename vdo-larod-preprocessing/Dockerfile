@@ -30,6 +30,6 @@ RUN if [ "$CHIP" = cpu ]; then \
     . /opt/axis/acapsdk/environment-setup* && acap-build . \
     -a 'model/mobilenet_v2_1.0_224_quant_edgetpu.tflite'; \
     else \
-    echo 'Error:' $CHIP 'is not a valid value for the CHIP variable'; \
+    printf "Error: '%s' is not a valid value for the CHIP variable\n", "$CHIP"; \
     exit 1; \
     fi
