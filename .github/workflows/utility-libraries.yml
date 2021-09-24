@@ -1,0 +1,18 @@
+name: Build utility libraries Application
+on:
+  push:
+    paths:
+      - "utility-libraries/**"
+      - ".github/workflows/utility-libraries.yml"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build curl library application
+        run: |
+          imagetag=utility-libraries:1.0
+          cd utility-libraries/curl_example
+          docker build --no-cache --tag $imagetag .
+          docker cp $(docker create $imagetag):/opt/app/ ./build
