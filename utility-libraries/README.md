@@ -7,7 +7,7 @@ This README file lists examples of how to build and use libraries in an applicat
 Below is the structure of the files and folders on the top level:
 
 ```bash
-utility_libraries
+utility-libraries
 ├── curl_example
 └── README.md
 ```
