@@ -19,13 +19,10 @@ jobs:
       #env:
         #SHELLCHECK_OPTS: -e SC2153 -e SC2148
     
-    # Run build script larod application
     - name: Build larod application
       run: |
-        export http_proxy=http://wwwproxy.se.axis.com:3128
-        export https_proxy=http://wwwproxy.se.axis.com:3128
-        docker login -u ${{ secrets.DOCKERHUB_USER }} --password ${{ secrets.DOCKERHUB_PASS }}
-        
+        imagetag=larod-simple-app:1.0
+        docker image rm -f $imagetag
         cd larod
-        docker build --tag larod-simple-app:1.0 .
-        docker cp $(docker create larod-simple-app:1.0):/opt/app ./build
+        docker build --no-cache --tag $imagetag .
+        docker cp $(docker create $imagetag):/opt/app ./build

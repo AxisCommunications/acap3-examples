@@ -15,4 +15,4 @@ for arg in "$@"; do
   esac
 done
 
-docker run $GPU_FLAG -v /var/run/docker.sock:/var/run/docker.sock --network host --name $ENV_NAME -it tensorflow_to_larod /bin/bash
+docker run $GPU_FLAG -v /var/run/docker.sock:/var/run/docker.sock --network host --name $ENV_NAME -it tensorflow-to-larod /bin/bash
