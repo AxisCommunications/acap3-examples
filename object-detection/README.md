@@ -1,38 +1,47 @@
 *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
 # Object Detection Example
+
 ## Overview
+
 This example focuses on the application of object detection on an Axis camera equipped with an Edge TPU. A pretrained Edge TPU model [MobileNet SSD v2 (COCO)] is used to detect the location of 90 types of different objects. The model is downloaded through the dockerfile from the google-coral repository. The detected objects are saved in /tmp folder for further usage.
 
 ## Prerequisites
+
 - Axis camera equipped with an [Edge TPU](https://coral.ai/docs/edgetpu/faq/)
 - [Docker](https://docs.docker.com/get-docker/)
 
 ## Quickstart
+
 The following instructions can be executed to simply run the example.
 
 1. Compile the ACAP:
-```sh
-./build_acap.sh object_detection_acap:1.0
-```
-2. Find the ACAP `.eap` file
-```sh
-build/object_detection_app_1_0_0_armv7hf.eap
-```
-3. Install and start the ACAP on your camera through the GUI
 
-4. SSH to the camera
+    ```sh
+    ./build_acap.sh object_detection_acap:1.0
+    ```
 
-5. View its log to see the ACAP output:
-```sh
-tail -f /var/volatile/log/info.log | grep object_detection
-```
+1. Find the ACAP `.eap` file
+
+    ```sh
+    build/object_detection_app_1_0_0_armv7hf.eap
+    ```
+
+1. Install and start the ACAP on your camera through the GUI
+
+1. SSH to the camera
+
+1. View its log to see the ACAP output:
+
+    ```sh
+    tail -f /var/volatile/log/info.log | grep object_detection
+    ```
 
 ## Designing the application
 
 The whole principle is similar to the [tensorflow-to-larod](https://github.com/AxisCommunications/acap3-examples-staging/tree/master/tensorflow-to-larod). In this example, the original video has a resolution of 1920x1080, while the input size of MobileNet SSD COCO requires a input size of 300x300, so we set up two different streams, one is for MobileNet model, another is used to crop a higher resolution jpg image.
 
-#### Setting up the MobileNet Stream
+### Setting up the MobileNet Stream
 
 There are two methods used to obtain a proper resolution. The [chooseStreamResolution](app/imgprovider.c#L221) method is used to select the smallest stream and assign them into streamWidth and streamHeight.
 
@@ -66,6 +75,7 @@ larodConnection* conn = NULL;
 larodModel* model = NULL;
 setupLarod(args.chip, larodModelFd, &conn, &model);
 ```
+
 The [createAndMapTmpFile](app/object_detection.c#L173) method is used to create temporary files to store the input and output tensors.
 
 ```c
@@ -93,6 +103,7 @@ createAndMapTmpFile(CONV_OUT4_FILE_PATTERN, TENSOR4SIZE, &larodOutput4Addr, &lar
 ```
 
 In terms of the crop part, another temporary file is created.
+
 ```c
 char CROP_FILE_PATTERN[] = "/tmp/crop.test-XXXXXX";
 void* cropAddr = MAP_FAILED;
@@ -201,9 +212,11 @@ To install an ACAP, the `.eap` file in the `build` directory needs to be uploade
 In the Apps view of the camera, press the icon for your ACAP. A window will pop up which allows you to start the application. Press the Start icon to run the algorithm.
 
 With the algorithm started, we can view the output by either pressing "App log" in the same window, or by SSHing into the camera and viewing the log as below:
+
 ```sh
 tail -f /var/volatile/log/info.log | grep object_detection
 ```
+
 There are four outputs from MobileNet SSD v2 (COCO) model. The number of detections, cLasses, scores, and locations are shown as below. The four location numbers stand for [top, left, bottom, right]. By the way, currently the saved images will be overwritten continuously, so those saved images might not all from the detections of the last frame, if the number of detections is less than previous detection numbers.
 
 ```sh
@@ -215,6 +228,5 @@ There are four outputs from MobileNet SSD v2 (COCO) model. The number of detecti
 The detected objects with a score higher than a threshold are saved into /tmp folder in .jpg form as well.
 
 ## License
+
 **[Apache License 2.0](../LICENSE)**
-
-
