@@ -21,17 +21,17 @@ The following instructions can be executed to simply run the example.
     ./build_acap.sh object_detection_acap:1.0
     ```
 
-1. Find the ACAP `.eap` file
+2. Find the ACAP `.eap` file
 
     ```sh
     build/object_detection_app_1_0_0_armv7hf.eap
     ```
 
-1. Install and start the ACAP on your camera through the GUI
+3. Install and start the ACAP on your camera through the GUI
 
-1. SSH to the camera
+4. SSH to the camera
 
-1. View its log to see the ACAP output:
+5. View its log to see the ACAP output:
 
     ```sh
     tail -f /var/volatile/log/info.log | grep object_detection
