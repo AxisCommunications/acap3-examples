@@ -1,9 +1,10 @@
-name: Build tensorflow-to-larod Applications
+name: Build tensorflow-to-larod application
 on:
   push:
-     paths:
-      - 'tensorflow-to-larod/**'
-      - '.github/workflows/tensorflow-to-larod.yml'
+    paths:
+      - "tensorflow-to-larod/**"
+      - "!tensorflow-to-larod/README.md"
+      - ".github/workflows/tensorflow-to-larod.yml"
 jobs:
   build:
 

@@ -72,9 +72,7 @@ tensorflow_to_larod
 - **env/app/imgconverter.c/h** - Implementation of libyuv parts, written in C.
 - **env/app/imgprovider.c/h** - Implementation of vdo parts, written in C.
 - **env/app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
-
 - **env/app/manifest.json** - Defines the application and its configuration.
-
 - **env/app/tensorflow_to_larod.c** - The file implementing the core functionality of the ACAP.
 - **env/build_acap.sh** - Builds the ACAP and the .eap file.
 - **env/convert_model.py** - A script used to convert Tensorflow models to quantized Tensorflow Lite models.
@@ -91,58 +89,55 @@ The following instructions can be executed to simply run the example. Each step 
 
 1. Build and run the example environment:
 
-```sh
-./build_env.sh
-./run_env.sh <a_name_for_your_env>
-```
+   ```sh
+   ./build_env.sh
+   ./run_env.sh <a_name_for_your_env>
+   ```
 
-1. Train a Tensorflow model _(optional, pre-trained models available)_:
+2. Train a Tensorflow model _(optional, pre-trained models available)_:
 
-```sh
-python training/train.py -i /env/data/images/val2017/ -a /env/data/annotations/instances_val2017.json
-```
+   ```sh
+   python training/train.py -i /env/data/images/val2017/ -a /env/data/annotations/instances_val2017.json
+   ```
 
-1. Quantize the Tensorflow model and convert it to `.tflite`:
+3. Quantize the Tensorflow model and convert it to `.tflite`:
 
-```sh
-python convert_model.py -i /env/models/saved_model -d /env/data/images/val2017 -o /env/models/converted_model.tflite
-```
+   ```sh
+   python convert_model.py -i /env/models/saved_model -d /env/data/images/val2017 -o /env/models/converted_model.tflite
+   ```
 
-1. Compile the converted model to work on the Edge TPU:
+4. Compile the converted model to work on the Edge TPU:
 
-```sh
-edgetpu_compiler -s -o models models/converted_model.tflite
-```
+   ```sh
+   edgetpu_compiler -s -o models models/converted_model.tflite
+   ```
 
-1. Copy the compiled converted model to the `app` directory:
+5. Copy the compiled converted model to the `app` directory:
 
-```sh
-cp models/converted_model_edgetpu.tflite app/
-```
+   ```sh
+   cp models/converted_model_edgetpu.tflite app/
+   ```
 
-1. Compile the ACAP:
+6. Compile the ACAP:
 
-```sh
-./build_acap.sh tensorflow-to-larod-acap:1.0
-```
+   ```sh
+   ./build_acap.sh tensorflow-to-larod-acap:1.0
+   ```
 
-1. Open a new terminal
+7. Open a new terminal
+8. In the new terminal, copy the ACAP `.eap` file from the example environment:
 
-1. In the new terminal, copy the ACAP `.eap` file from the example environment:
+   ```sh
+   docker cp <a_name_for_your_env>:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
+   ```
 
-```sh
-docker cp <a_name_for_your_env>:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
-```
+9. Install and start the ACAP on your camera through the GUI
+10. SSH to the camera
+11. View its log to see the ACAP output:
 
-1. Install and start the ACAP on your camera through the GUI
-
-1. SSH to the camera
-
-1. View its log to see the ACAP output:
-
-```sh
-tail -f /var/volatile/log/info.log | grep tensorflow_to_larod
-```
+    ```sh
+    tail -f /var/volatile/log/info.log | grep tensorflow_to_larod
+    ```
 
 ## Environment for building and training
 
@@ -174,9 +169,9 @@ Running the training process yourself is done by executing the following command
  ```
 
 While this example looks at the process from model creation to inference on a camera, other pre-trained models
-are available at e.g., <https://www.tensorflow.org/lite/models> and <https://coral.ai/models/.> The models from [coral.ai](https://coral.ai) are pre-compiled to run on the Edge TPU.
+are available at e.g., <https://www.tensorflow.org/lite/models> and <https://coral.ai/models/>. The models from [coral.ai](https://coral.ai) are pre-compiled to run on the Edge TPU.
 
-When designing your model for an Edge TPU device, you should only use operations that have an Edge TPU implementation. The full list of such operations is available at <https://coral.ai/docs/edgetpu/models-intro/#supported-operations.>
+When designing your model for an Edge TPU device, you should only use operations that have an Edge TPU implementation. The full list of such operations is available at <https://coral.ai/docs/edgetpu/models-intro/#supported-operations>.
 
 ## Model quantization
 
