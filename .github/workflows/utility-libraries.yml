@@ -2,8 +2,9 @@ name: Build utility libraries Application
 on:
   push:
     paths:
-      - "utility-libraries/**"
-      - ".github/workflows/utility-libraries.yml"
+      - 'utility-libraries/**'
+      - '!utility-libraries/**/README.md'
+      - '.github/workflows/utility-libraries.yml'
 jobs:
   build:
     runs-on: ubuntu-latest

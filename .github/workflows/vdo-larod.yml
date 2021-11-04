@@ -1,8 +1,9 @@
 name: Build vdo larod Applications
 on:
   push:
-     paths:
+    paths:
       - 'vdo-larod/**'
+      - '!vdo-larod/README.md'
       - '.github/workflows/vdo-larod.yml'
 jobs:
   build:

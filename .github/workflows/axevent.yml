@@ -1,9 +1,10 @@
 name: Build Axevent Applications
 on:
   push:
-     paths:
+    paths:
       - 'axevent/**'
-      - '.github/workflows/Axevent.yml'
+      - '!axevent/**/README.md'
+      - '.github/workflows/axevent.yml'
 jobs:
   build:
 

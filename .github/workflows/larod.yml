@@ -1,8 +1,9 @@
 name: Build larod Applications
 on:
   push:
-     paths:
+    paths:
       - 'larod/**'
+      - '!larod/README.md'
       - '.github/workflows/larod.yml'
 jobs:
   build:
