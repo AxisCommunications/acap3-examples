@@ -3,6 +3,7 @@ on:
   push:
      paths:
       - 'reproducible-package/**'
+      - '!reproducible-package/README.md'
       - '.github/workflows/reproducible-package.yml'
 jobs:
   build:

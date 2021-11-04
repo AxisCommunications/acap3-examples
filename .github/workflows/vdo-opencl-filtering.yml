@@ -3,6 +3,7 @@ on:
   push:
      paths:
       - 'vdo-opencl-filtering/**'
+      - '!vdo-opencl-filtering/README.md'
       - '.github/workflows/vdo-opencl-filtering.yml'
 jobs:
   build:

@@ -2,9 +2,9 @@ name: Build using opencv application
 on:
   push:
     paths:
-      - "using-opencv/**"
-      - "!using-opencv/README.md"
-      - ".github/workflows/using-opencv.yml"
+      - 'using-opencv/**'
+      - '!using-opencv/README.md'
+      - '.github/workflows/using-opencv.yml'
 jobs:
   build:
 

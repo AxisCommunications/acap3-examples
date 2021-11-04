@@ -1,8 +1,9 @@
 name: Build vdostream Application
 on:
   push:
-     paths:
+    paths:
       - 'vdostream/**'
+      - '!vdostream/README.md'
       - '.github/workflows/vdostream.yml'
 jobs:
   build:

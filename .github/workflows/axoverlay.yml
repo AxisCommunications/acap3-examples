@@ -1,8 +1,9 @@
 name: Build axoverlay handler Applications
 on:
   push:
-     paths:
+    paths:
       - 'axoverlay/**'
+      - '!axoverlay/README.md'
       - '.github/workflows/axoverlay.yml'
 jobs:
   build:

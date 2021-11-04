@@ -1,8 +1,9 @@
 name: Build licensekey handler Applications
 on:
   push:
-     paths:
+    paths:
       - 'licensekey/**'
+      - '!licensekey/README.md'
       - '.github/workflows/licensekey.yml'
 jobs:
   build:

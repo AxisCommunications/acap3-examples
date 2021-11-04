@@ -1,8 +1,9 @@
 name: Build vdo-larod-preprocessing Applications
 on:
   push:
-     paths:
+    paths:
       - 'vdo-larod-preprocessing/**'
+      - '!vdo-larod-preprocessing/README.md'
       - '.github/workflows/vdo-larod-preprocessing.yml'
 jobs:
   build:
