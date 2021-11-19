@@ -1,4 +1,4 @@
-name: Build utility libraries Application
+name: Build utility libraries applications
 on:
   push:
     paths:
@@ -10,10 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
       - name: Build curl library application
         run: |
-          imagetag=utility-libraries:1.0
+          imagetag=curl-example:1.0
           docker image rm -f $imagetag
           cd utility-libraries/curl_example
           docker build --no-cache --tag $imagetag .
@@ -24,7 +23,7 @@ jobs:
 
       - name: Build custom library application
         run: |
-          imagetag=utility-libraries:1.0
+          imagetag=custom-lib-example:1.0
           docker image rm -f $imagetag
           cd utility-libraries/custom_lib_example
           docker build --no-cache --tag $imagetag .
