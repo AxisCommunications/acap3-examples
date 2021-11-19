@@ -7,27 +7,18 @@ on:
       - '.github/workflows/tensorflow-to-larod.yml'
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      #- uses: actions/checkout@master
-      # this will enable shellCheck to be performed
-      # on every push to the repo.
-    #- name: Run ShellCheck
-      #uses: ludeeus/action-shellcheck@master
-      # If shellCheck complains about unnecessery things, ignore it.
-      #env:
-        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
-    
-    - name: Build tensorflow-to-larod application
-      run: |
-        imagetag=tensorflow-to-larod-acap:1.0
-        envname=tensorflow-to-larod
-        docker image rm -f $imagetag
-        cd tensorflow-to-larod
-        ./build_env.sh
-        docker run -v /var/run/docker.sock:/var/run/docker.sock --network host --name tensorflow_env5 $envname /bin/bash ./build_acap.sh $imagetag
-        docker cp tensorflow_env5:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
-        docker stop tensorflow_env5
-        docker rm tensorflow_env5
+      - uses: actions/checkout@v2
+
+      - name: Build tensorflow-to-larod application
+        run: |
+          imagetag=tensorflow-to-larod-acap:1.0
+          envname=tensorflow-to-larod
+          docker image rm -f $imagetag
+          cd tensorflow-to-larod
+          ./build_env.sh
+          docker run -v /var/run/docker.sock:/var/run/docker.sock --network host --name tensorflow_env5 $envname /bin/bash ./build_acap.sh $imagetag
+          docker cp tensorflow_env5:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
+          docker stop tensorflow_env5
+          docker rm tensorflow_env5

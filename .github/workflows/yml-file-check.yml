@@ -4,9 +4,9 @@ name: Check if yml is present
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,11 +26,12 @@ jobs:
                    fail_list+="$acap.yml\n"
                fi
           done
-            if [ "$fail_list" ]; then
-                printf "\n\nAPPLICATIONS THAT DONT'T HAVE YML FILE:\n"
-                printf $fail_list
-                printf "\n\n"
-                exit 1
-            else
-                printf "\n\nALL APPLICATIONS HAVE YML FILE\n"
-            fi
+
+          if [ "$fail_list" ]; then
+              printf "\n\nAPPLICATIONS THAT DONT'T HAVE YML FILE:\n"
+              printf $fail_list
+              printf "\n\n"
+              exit 1
+          else
+              printf "\n\nALL APPLICATIONS HAVE YML FILE\n"
+          fi
