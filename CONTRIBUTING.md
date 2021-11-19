@@ -41,6 +41,7 @@ git push origin <branch_name>
 Please consider the following guidelines before making a Pull Request.
 
 - Please make sure that the sample code builds perfectly fine on your local system.
+- Make sure that all [linters](LINT.md) pass.
 - Follow the [conventional commits](https://www.conventionalcommits.org) message style in the commit messages
 - The PR will have to meet the sample code examples standard already available in the repository.
 - Explanatory comments related to code functions are required. Please write code comments for a better understanding of the code for other developers.

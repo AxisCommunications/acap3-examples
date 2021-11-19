@@ -1,4 +1,4 @@
-name: Build axoverlay handler Applications
+name: Build axoverlay Applications
 on:
   push:
     paths:
@@ -7,23 +7,18 @@ on:
       - '.github/workflows/axoverlay.yml'
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      #- uses: actions/checkout@master
-      # this will enable shellCheck to be performed
-      # on every push to the repo.
-    #- name: Run ShellCheck
-      #uses: ludeeus/action-shellcheck@master
-      # If shellCheck complains about unnecessery things, ignore it.
-      #env:
-        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
+      - uses: actions/checkout@v2
 
-    - name: Build Axoverlay application
-      run: |
-        imagetag=axoverlay:1.0
-        docker image rm -f $imagetag
-        cd axoverlay
-        docker build --no-cache --tag $imagetag .
-        docker cp $(docker create $imagetag .):/opt/app ./build
+      - name: Build Axoverlay application
+        run: |
+          imagetag=axoverlay:1.0
+          docker image rm -f $imagetag
+          cd axoverlay
+          docker build --no-cache --tag $imagetag .
+          docker cp $(docker create $imagetag .):/opt/app ./build
+          cd ..
+          mkdir -p acap3/examples/axoverlay/build
+          cp axoverlay/build/axoverlay_1_0_0_armv7hf.eap acap3/examples/axoverlay/build/axoverlay_1_0_0_armv7hf.eap
+          ls acap3/examples/axoverlay/build

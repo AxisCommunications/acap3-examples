@@ -25,8 +25,8 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -shared $^ -o $@
 
 custom_link:
-	ln -sf libcustom.so.$(MAJORVER).$(MINORVER).$(PATCH) libcustom.so.$(MAJORVER)
-	ln -sf libcustom.so.$(MAJORVER) libcustom.so
+	ln -sf libcustom.so.$(MAJORVER).$(MINORVER).$(PATCH) libcustom.so.$(MAJORVER) 
+	ln -sf libcustom.so.$(MAJORVER) libcustom.so	
 
 clean:
 	rm -rf libcustom*

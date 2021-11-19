@@ -7,34 +7,31 @@ on:
       - '.github/workflows/vdo-larod.yml'
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      #- uses: actions/checkout@master
-      # this will enable shellCheck to be performed
-      # on every push to the repo.
-    #- name: Run ShellCheck
-      #uses: ludeeus/action-shellcheck@master
-      # If shellCheck complains about unnecessery things, ignore it.
-      #env:
-        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
-    
-    - name: Build VDO larod application to run on CPU
-      run: |
-        imagetag=vdo-larod-cpu:1.0
-        docker image rm -f $imagetag
-        cd vdo-larod
-        cp app/manifest.json.cpu app/manifest.json
-        docker build --no-cache --build-arg CHIP=cpu --tag $imagetag .
-        docker cp $(docker create $imagetag):/opt/app ./build
+      - uses: actions/checkout@v2
 
-    - name: Build VDO larod application to run on TPU
-      run: |
-        imagetag=vdo-larod-tpu:1.0
-        docker image rm -f $imagetag
-        cd vdo-larod
-        rm -rf build/
-        cp app/manifest.json.edgetpu app/manifest.json
-        docker build --no-cache --build-arg CHIP=edgetpu --tag $imagetag .
-        docker cp $(docker create $imagetag):/opt/app ./build
+      - name: Build VDO larod application to run on CPU
+        run: |
+          imagetag=vdo-larod-cpu:1.0
+          docker image rm -f $imagetag
+          cd vdo-larod
+          cp app/manifest.json.cpu app/manifest.json
+          docker build --no-cache --build-arg CHIP=cpu --tag $imagetag .
+          docker cp $(docker create $imagetag):/opt/app ./build
+          cd ..
+          mkdir -p vdo-larod/build_cpu/
+          cp vdo-larod/build/vdo_larod_cpu_1_0_0_armv7hf.eap vdo-larod/build_cpu/vdo_larod_cpu_1_0_0_armv7hf.eap
+
+      - name: Build VDO larod application to run on TPU
+        run: |
+          imagetag=vdo-larod-tpu:1.0
+          docker image rm -f $imagetag
+          cd vdo-larod
+          rm -rf build/
+          cp app/manifest.json.edgetpu app/manifest.json
+          docker build --no-cache --build-arg CHIP=edgetpu --tag $imagetag .
+          docker cp $(docker create $imagetag):/opt/app ./build
+          cd ..
+          mkdir -p vdo-larod/build_tpu/
+          cp vdo-larod/build/vdo_larod_edgetpu_1_0_0_armv7hf.eap vdo-larod/build_tpu/vdo_larod_edgetpu_1_0_0_armv7hf.eap

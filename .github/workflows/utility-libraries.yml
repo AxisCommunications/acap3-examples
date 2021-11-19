@@ -14,13 +14,21 @@ jobs:
       - name: Build curl library application
         run: |
           imagetag=utility-libraries:1.0
+          docker image rm -f $imagetag
           cd utility-libraries/curl_example
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app/ ./build
+          cd ../..
+          mkdir -p acap3/examples/utility-libraries/curl_example/build
+          cp utility-libraries/curl_example/build/curl_example_1_0_0_armv7hf.eap acap3/examples/utility-libraries/curl_example/build/curl_example_1_0_0_armv7hf.eap
 
       - name: Build custom library application
         run: |
           imagetag=utility-libraries:1.0
+          docker image rm -f $imagetag
           cd utility-libraries/custom_lib_example
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app/ ./build
+          cd ../..
+          mkdir -p acap3/examples/utility-libraries/custom_lib_example/build
+          cp utility-libraries/custom_lib_example/build/customlib_example_1_0_0_armv7hf.eap acap3/examples/utility-libraries/custom_lib_example/build/customlib_example_1_0_0_armv7hf.eap
