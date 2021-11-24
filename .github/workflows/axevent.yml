@@ -1,4 +1,4 @@
-name: Build Axevent Applications
+name: Build axevent applications
 on:
   push:
     paths:
@@ -8,41 +8,50 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXNAME: axevent
+      EXDIR: acap/examples/$EXNAME
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build Send event application
+      - name: Build ${{ env.example }} application
+        env:
+          example: send_event
+          imagetag: send-event:1.0
+          eapfile: send_event_1_0_0_armv7hf.eap
         run: |
-          imagetag=send-event:1.0
           docker image rm -f $imagetag
-          cd axevent/send_event
+          cd $EXNAME/$example
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app ./build
-          cd ..
-          cd ..
-          mkdir -p acap3/examples/axevent/send_event/build
-          cp axevent/send_event/build/send_event_1_0_0_armv7hf.eap acap3/examples/axevent/send_event/build/send_event_1_0_0_armv7hf.eap
+          cd ../..
+          mkdir -p $EXDIR/$example/build
+          cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile
 
-      - name: Build subscribe to event application
+      - name: Build ${{ env.example }} application
+        env:
+          example: subscribe_to_event
+          imagetag: subscribe-to-event:1.0
+          eapfile: subscribe_to_event_1_0_0_armv7hf.eap
         run: |
-          imagetag=subscribe-to-event:1.0
           docker image rm -f $imagetag
-          cd axevent/subscribe_to_event
+          cd $EXNAME/$example
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app ./build
-          cd ..
-          cd ..
-          mkdir -p acap3/examples/axevent/subscribe_to_event/build
-          cp axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_event/build/subscribe_to_event_1_0_0_armv7hf.eap
+          cd ../..
+          mkdir -p $EXDIR/$example/build
+          cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile
 
-      - name: Build subscribe to events application
+      - name: Build ${{ env.example }} application
+        env:
+          example: subscribe_to_events
+          imagetag: subscribe-to-events:1.0
+          eapfile: subscribe_to_events_1_0_0_armv7hf.eap
         run: |
-          imagetag=subscribe-to-events:1.0
           docker image rm -f $imagetag
-          cd axevent/subscribe_to_events
+          cd $EXNAME/$example
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app ./build
-          cd ..
-          cd ..
-          mkdir -p acap3/examples/axevent/subscribe_to_events/build
-          cp axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap acap3/examples/axevent/subscribe_to_events/build/subscribe_to_events_1_0_0_armv7hf.eap
+          cd ../..
+          mkdir -p $EXDIR/$example/build
+          cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile

@@ -1,4 +1,4 @@
-name: Build vdo-opencl-filtering Application
+name: Build vdo-opencl-filtering application
 on:
   push:
     paths:
@@ -8,16 +8,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXNAME: vdo-opencl-filtering
+      EAPNAME: vdo_cl_filter_demo
+      EXDIR: acap/examples/$EXNAME
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build vdo-opencl-filtering application
+      - name: Build ${{ env.example }} application
+        env:
+          example: ${{ env.EXNAME }}
+          imagetag: ${{ env.EXNAME }}:1.0
+          eapfile: ${{ env.EAPNAME }}_1_0_0_armv7hf.eap
         run: |
-          imagetag=vdo_cl_filter_demo:1.0
           docker image rm -f $imagetag
-          cd vdo-opencl-filtering
+          cd $EXNAME
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app ./build
           cd ..
-          mkdir -p acap3/examples/vdo-opencl-filtering/build
-          cp vdo-opencl-filtering/build/vdo_cl_filter_demo_1_0_0_armv7hf.eap acap3/examples/vdo-opencl-filtering/build/vdo_cl_filter_demo_1_0_0_armv7hf.eap
+          mkdir -p $EXDIR/build
+          cp $EXNAME/build/$eapfile $EXDIR/build/$eapfile
