@@ -20,7 +20,6 @@ building-opencv
 │   ├── LICENSE
 │   ├── Makefile - The Makefile specifying how the ACAP should be built
 │   └── manifest.json - A file specifying execution-related options for the ACAP
-├── build.sh - A convenience script for building the ACAP
 ├── Dockerfile - Specification of the container used to build the ACAP
 ├── README.md
 └── sources.list - Text file specifying repositories for armhf packages
@@ -30,10 +29,24 @@ building-opencv
 
 ### Quick start
 
-1. Run the `build.sh` script with a container name as argument:
+> [!IMPORTANT]
+> *Depending on the network you are connected to,
+The file that needs those settings is:* ~/.docker/config.json. *For
+reference please see: <https://docs.docker.com/network/proxy/> and a
+[script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
 
-   ```sh
-   ./build.sh my-opencv-app
+1. Standing in your working directory run the following commands:
+
+   ```bash
+   docker build --tag <APP_IMAGE> .
+   ```
+
+   <APP_IMAGE> is the name to tag the image with, e.g., opencv-app:1.0
+
+   Copy the result from the container image to a local directory build:
+
+   ```bash
+   docker cp $(docker create <APP_IMAGE>):/opt/app ./build
    ```
 
 2. You should now have a `build` directory. In it is the `.eap` file that is
@@ -86,8 +99,7 @@ The output of the application can be seen through the `App log` or by running `j
 
 ## Notes
 
-Proxy settings for the Docker build are taken from the environment variables `http_proxy` and `https_proxy`. This can be changed in
-the `build.sh` script.
+Proxy settings for the Docker build are taken from the environment variables `http_proxy` and `https_proxy`.
 
 ## License
 

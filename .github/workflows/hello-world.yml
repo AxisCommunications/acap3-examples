@@ -1,4 +1,4 @@
-name: Build hello-world Applications
+name: Build hello-world application
 on:
   push:
     paths:
@@ -8,17 +8,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXNAME: hello-world
+      EAPNAME: hello_world
+      EXDIR: acap/examples/$EXNAME
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build hello-world application
+      - name: Build ${{ env.example }} application
+        env:
+          example: ${{ env.EXNAME }}
+          imagetag: ${{ env.EXNAME }}:1.0
+          eapfile: ${{ env.EAPNAME }}_1_0_0_armv7hf.eap
         run: |
-          imagetag=hello-world:1.0
           docker image rm -f $imagetag
-          cd hello-world
+          cd $EXNAME
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app ./build
           cd ..
-          mkdir -p acap3/examples/hello-world/build
-          cp hello-world/build/hello_world_1_0_0_armv7hf.eap acap3/examples/hello-world/build/hello_world_1_0_0_armv7hf.eap
-          ls acap3/examples/hello-world/build
+          mkdir -p $EXDIR/build
+          cp $EXNAME/build/$eapfile $EXDIR/build/$eapfile

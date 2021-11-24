@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Lint Code Base
         uses: github/super-linter/slim@v4
         env:
@@ -28,3 +29,29 @@ jobs:
           VALIDATE_DOCKERFILE_HADOLINT: true
           VALIDATE_MARKDOWN: true
           VALIDATE_YAML: true
+
+      - name: Check that linter symbolic links exist in top directory
+        run: |
+          missing_symlinks=""
+          symlinks="\
+            .hadolint.yml \
+            .markdownlint.yml \
+            .yamllint.yml \
+          "
+
+          for syml in $symlinks
+          do
+            [ -L $syml ] && [ -f $syml ] || {
+              missing_symlinks="$syml $missing_symlinks"
+            }
+          done
+
+          [ -z "$missing_symlinks" ] || {
+            echo "ERROR: Missing linter symlinks"
+            echo "The following symlinks are missing in top directory"
+            for msyml in $missing_symlinks
+            do
+              echo "* $msyml"
+            done
+            exit 1
+          }

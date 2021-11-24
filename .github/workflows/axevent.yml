@@ -55,4 +55,3 @@ jobs:
           cd ../..
           mkdir -p $EXDIR/$example/build
           cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile
-

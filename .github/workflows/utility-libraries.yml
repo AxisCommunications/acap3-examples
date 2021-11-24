@@ -1,4 +1,4 @@
-name: Build utility libraries applications
+name: Build utility-libraries applications
 on:
   push:
     paths:
@@ -8,26 +8,35 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXNAME: utility-libraries
+      EXDIR: acap/examples/$EXNAME
     steps:
       - uses: actions/checkout@v2
-      - name: Build curl library application
-        run: |
-          imagetag=curl-example:1.0
-          docker image rm -f $imagetag
-          cd utility-libraries/curl_example
-          docker build --no-cache --tag $imagetag .
-          docker cp $(docker create $imagetag):/opt/app/ ./build
-          cd ../..
-          mkdir -p acap3/examples/utility-libraries/curl_example/build
-          cp utility-libraries/curl_example/build/curl_example_1_0_0_armv7hf.eap acap3/examples/utility-libraries/curl_example/build/curl_example_1_0_0_armv7hf.eap
 
-      - name: Build custom library application
+      - name: Build ${{ env.example }} application
+        env:
+          example: curl_example
+          imagetag: curl-example:1.0
+          eapfile: curl_example_1_0_0_armv7hf.eap
         run: |
-          imagetag=custom-lib-example:1.0
           docker image rm -f $imagetag
-          cd utility-libraries/custom_lib_example
-          docker build --no-cache --tag $imagetag .
-          docker cp $(docker create $imagetag):/opt/app/ ./build
+          cd $EXNAME/$example
+          docker cp $(docker create $imagetag):/opt/app ./build
           cd ../..
-          mkdir -p acap3/examples/utility-libraries/custom_lib_example/build
-          cp utility-libraries/custom_lib_example/build/customlib_example_1_0_0_armv7hf.eap acap3/examples/utility-libraries/custom_lib_example/build/customlib_example_1_0_0_armv7hf.eap
+          mkdir -p $EXDIR/$example/build
+          cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile
+
+      - name: Build ${{ env.example }} application
+        env:
+          example: custom_lib_example
+          imagetag: custom-lib-example:1.0
+          eapfile: customlib_example_1_0_0_armv7hf.eap
+        run: |
+          docker image rm -f $imagetag
+          cd $EXNAME/$example
+          docker build --no-cache --tag $imagetag .
+          docker cp $(docker create $imagetag):/opt/app ./build
+          cd ../..
+          mkdir -p $EXDIR/$example/build
+          cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile

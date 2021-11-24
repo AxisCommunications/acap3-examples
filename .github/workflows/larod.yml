@@ -1,4 +1,4 @@
-name: Build larod Applications
+name: Build larod application
 on:
   push:
     paths:
@@ -8,16 +8,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      EXNAME: larod
+      EAPNAME: larod-simple-app
+      EXDIR: acap/examples/$EXNAME
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build larod application
+      - name: Build ${{ env.example }} application
+        env:
+          example: ${{ env.EXNAME }}
+          imagetag: ${{ env.EXNAME }}:1.0
+          eapfile: ${{ env.EAPNAME }}_1_0_0_armv7hf.eap
         run: |
-          imagetag=larod-simple-app:1.0
           docker image rm -f $imagetag
-          cd larod
+          cd $EXNAME
           docker build --no-cache --tag $imagetag .
           docker cp $(docker create $imagetag):/opt/app ./build
           cd ..
-          mkdir -p acap3/examples/larod/build
-          cp larod/build/larod-simple-app_1_0_0_armv7hf.eap acap3/examples/larod/build/larod-simple-app_1_0_0_armv7hf.eap
+          mkdir -p $EXDIR/build
+          cp $EXNAME/build/$eapfile $EXDIR/build/$eapfile
