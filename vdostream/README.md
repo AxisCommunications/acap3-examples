@@ -1,8 +1,8 @@
  *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A vdo stream based ACAP3 application on an edge device
+# A vdo stream based ACAP application on an edge device
 
-This README file explains how to build an ACAP3 application that uses the vdostream API. It is achieved by using the containerized API and toolchain images.
+This README file explains how to build an ACAP application that uses the vdostream API. It is achieved by using the containerized API and toolchain images.
 
 Together with this README file, you should be able to find a directory called app. That directory contains the "vdoencodeclient" application source code which can easily
 be compiled and run with the help of the tools and step by step below.
@@ -25,7 +25,7 @@ vdostream
 ```
 
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
-* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP application.
 * **app/manifest.json** - Defines the application and its configuration.
 * **app/vdoencodeclient.c** - Application to capture the frames using vdo service in C.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.

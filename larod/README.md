@@ -1,8 +1,8 @@
  *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A larod based ACAP3 application running inference on an edge device
+# A larod based ACAP application running inference on an edge device
 
-This README file explains how to build an ACAP3 application that uses the [larod API](../FAQs.md#WhatisLarod?). It is achieved by using the containerized API and toolchain images.
+This README file explains how to build an ACAP application that uses the [larod API](../FAQs.md#WhatisLarod?). It is achieved by using the containerized API and toolchain images.
 
 Together with this README file, you should be able to find a directory called app. That directory contains the "larod_simple_app" application source code which can easily
 be compiled and run with the help of the tools and step by step below.
@@ -28,7 +28,7 @@ larod
 * **app/input/veiltail-11457_640_RGB_224x224.bin** - 224x224 raw bitmap image of a goldfish to run inference on.
 * **app/larod_simple_app.c** - Example application to load a model and run inference on it.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
-* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP application.
 * **app/manifest.json** - Defines the application and its configuration.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **extract_analyze_output.sh** - The script shows the matched class in the output.
@@ -142,7 +142,7 @@ The script will prompt the password required to access the device.
 ```
 
 The model class PATH for objects matching is located in the
-*/home/user/Workspace/acap3-examples/larod/build/model/labels_mobilenet_quant_v1_224.txt*
+*larod/build/model/labels_mobilenet_quant_v1_224.txt*
 
 The matched class will be printed below:
 

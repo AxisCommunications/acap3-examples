@@ -1,6 +1,6 @@
  *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A guide to building and running a custom library on ACAP3
+# A guide to building and running a custom library in an ACAP application
 
 This README file explains how to build a user defined custom library from source files and bundle it for use in an ACAP. The example application uses the custom library and prints "Hello World!" in the AXIS Camera application platform.
 
@@ -24,7 +24,7 @@ custom_lib_example
 ```
 
 * **app/LICENSE**             - File containing the license conditions.
-* **app/Makefile**            - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/Makefile**            - Makefile containing the build and link instructions for building the ACAP application.
 * **app/manifest.json**       - Defines the application and its configuration.
 * **app/customlib_example.c** - Example application.
 * **build/custom_build**      - Folder containing custom library source files
