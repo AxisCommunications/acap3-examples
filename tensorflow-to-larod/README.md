@@ -7,12 +7,10 @@
 In this example, we look at the process of running a Tensorflow model on
 an Axis camera equipped with an Edge TPU. We go through the steps needed from the training of the model
 to actually running inference on a camera by interfacing with the
-[larod API](https://www.axis.com/techsup/developer_doc/acap3/3.1/api/larod/html/larod_8h.html).
+[larod API](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/larod/html/index.html).
 This example is somewhat more comprehensive and covers e.g.,
 model conversion, model quantization, image formats and models with multiple output tensors in
-greater depth than the
-[larod](https://github.com/AxisCommunications/acap3-examples/tree/master/larod)
-and [vdo-larod](https://github.com/AxisCommunications/acap3-examples/tree/master/vdo-larod) examples.
+greater depth than the [larod](../larod) and [vdo-larod](../vdo-larod) examples.
 
 ## Table of contents
 
@@ -71,7 +69,7 @@ tensorflow_to_larod
 - **env/app/argparse.c/h** - Implementation of argument parser, written in C.
 - **env/app/imgconverter.c/h** - Implementation of libyuv parts, written in C.
 - **env/app/imgprovider.c/h** - Implementation of vdo parts, written in C.
-- **env/app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+- **env/app/Makefile** - Makefile containing the build and link instructions for building the ACAP application.
 - **env/app/manifest.json** - Defines the application and its configuration.
 - **env/app/tensorflow_to_larod.c** - The file implementing the core functionality of the ACAP.
 - **env/build_acap.sh** - Builds the ACAP and the .eap file.
@@ -252,13 +250,13 @@ cp models/converted_model_edgetpu.tflite app/
 
 ## Designing the algorithm's application
 
-To upload the algorithm to the camera, it needs to be packaged as an [ACAP](https://www.axis.com/products/analytics/acap) and compiled. As this ACAP is going to perform inference on images captured by the camera and output a prediction on if there are any persons or cars present in the image, some C code is needed. The ACAP code that is relevant to this example is located in [/env/app/tensorflow_to_larod.c](env/app/tensorflow_to_larod.c). This code is similar to the [vdo-larod](https://github.com/AxisCommunications/acap3-examples/tree/master/vdo-larod) example, with emphasis put on the differences, such as input to and multiple outputs from the model as well as handling these predictions.
+To upload the algorithm to the camera, it needs to be packaged as an [ACAP](https://www.axis.com/products/analytics/acap) and compiled. As this ACAP is going to perform inference on images captured by the camera and output a prediction on if there are any persons or cars present in the image, some C code is needed. The ACAP code that is relevant to this example is located in [/env/app/tensorflow_to_larod.c](env/app/tensorflow_to_larod.c). This code is similar to the [vdo-larod](../vdo-larod) example, with emphasis put on the differences, such as input to and multiple outputs from the model as well as handling these predictions.
 
 In this section we will go over the _rough outline_ of what needs to be done to run inference for our model, but again, the full code is available in [/env/app/tensorflow_to_larod.c](env/app/tensorflow_to_larod.c).
 
 ### Setting up a video stream
 
-First of all, the frame to perform our analytics operation on needs to be retrieved. We do this using the [libvdo](https://www.axis.com/techsup/developer_doc/acap3/3.1/api/vdostream/html/index.html) library. First, the most appropriate available stream for our needs is chosen with the [chooseStreamResolution](env/app/imgprovider.c#L221) method. While any stream could be used, selecting the smallest stream which is still greater or equal to our requested resolution ensures that a minimal amount of time is spent on resizing.
+First of all, the frame to perform our analytics operation on needs to be retrieved. We do this using the [libvdo](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/vdostream/html/index.html) library. First, the most appropriate available stream for our needs is chosen with the [chooseStreamResolution](env/app/imgprovider.c#L221) method. While any stream could be used, selecting the smallest stream which is still greater or equal to our requested resolution ensures that a minimal amount of time is spent on resizing.
 
 ```c
 unsigned int streamWidth = 0;
@@ -266,7 +264,7 @@ unsigned int streamHeight = 0;
 chooseStreamResolution(args.width, args.height, &streamWidth, &streamHeight);
 ```
 
-With our stream settings known, a stream can be set up. This is done by creating an ImgProvider, which enables fetching frames from our stream. The stream resolution is fed into the [createImgProvider](env/app/imgprovider.c#L95) method, along with the number of frames to have available to the application and the selected [output format](https://www.axis.com/techsup/developer_doc/acap3/3.1/api/vdostream/html/vdo-types_8h.html#a5ed136c302573571bf325c39d6d36246), which in turn returns an ImgProvider.
+With our stream settings known, a stream can be set up. This is done by creating an ImgProvider, which enables fetching frames from our stream. The stream resolution is fed into the [createImgProvider](env/app/imgprovider.c#L95) method, along with the number of frames to have available to the application and the selected [output format](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/vdostream/html/vdo-types_8h.html#a5ed136c302573571bf325c39d6d36246), which in turn returns an ImgProvider.
 
 ```c
 provider = createImgProvider(streamWidth, streamHeight, 2, VDO_FORMAT_YUV);
@@ -274,7 +272,7 @@ provider = createImgProvider(streamWidth, streamHeight, 2, VDO_FORMAT_YUV);
 
 #### Setting up the larod interface
 
-Next, the [larod](https://www.axis.com/techsup/developer_doc/acap3/3.1/api/larod/html/larod_8h.html) interface needs to be set up. It is through this interface that the model is loaded and inference is performed. The setting up of larod is in part done in the [setupLarod](env/app/tensorflow_to_larod.c#L138) method. This method creates a connection to larod, selects the hardware to use and loads the model.
+Next, the [larod](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/larod/html/index.html) interface needs to be set up. It is through this interface that the model is loaded and inference is performed. The setting up of larod is in part done in the [setupLarod](env/app/tensorflow_to_larod.c#L138) method. This method creates a connection to larod, selects the hardware to use and loads the model.
 
 ```c
 int larodModelFd = -1;

@@ -1,6 +1,6 @@
  *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A guide to building and running libcurl on ACAP3
+# A guide to building and running libcurl in an ACAP application
 
 This README file explains how to build libcurl from source and bundle it for the use in an ACAP. The example application uses the libcurl library to fetch data from
 URL and store the data in the application directory on the Camera.
@@ -26,7 +26,7 @@ curl_example
 ```
 
 * **app/LICENSE**        - File containing the license conditions.
-* **app/Makefile**       - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/Makefile**       - Makefile containing the build and link instructions for building the ACAP application.
 * **app/manifest.json    - Defines the application and its configuration.
 * **app/curl_example.c** - Example application.
 * **Dockerfile**         - Docker file with the specified Axis toolchain and API container to build the example specified.
@@ -118,7 +118,7 @@ Application curl_example is now available as an application on the device.
 
 ### libcurl application
 
-The application will fetch the content from "<http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"> and store the content at /usr/local/packages/curl_example/localdata/jquery.min.js on the camera.
+The application will fetch the content from "<http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js>" and store the content at /usr/local/packages/curl_example/localdata/jquery.min.js on the camera.
 
 #### The expected output
 

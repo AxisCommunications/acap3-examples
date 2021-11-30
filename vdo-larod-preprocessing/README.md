@@ -1,8 +1,8 @@
 *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A combined vdo stream and larod based ACAP3 application running inference on an edge device
+# A combined vdo stream and larod based ACAP application running inference on an edge device
 
-This README file explains how to build an ACAP3 application that uses:
+This README file explains how to build an ACAP application that uses:
 
 - vdo to fetch frames from e.g. a camera
 - larod API to load a graph model and run preprocessing and classification inferences
@@ -18,24 +18,17 @@ This application opens a client to vdo and starts fetching frames (in a new thre
 This is a simple example found in vdo_larod_preprocessing.c that utilizes VDO, larod and larod-vdo-utils libs to:
 
 1. Fetch image data from VDO.
-2. Preprocess the images (crop, scale and color convert) using larod with
-   either the libyuv or VProc backend (depending on platform).
-3. Run MobileNetV2 inferences with the preprocessing output as input on a larod
-   backend specified by a command line argument.
-4. Sort the classification scores output by the MobileNetV2 inferences and
-   print the top scores along with corresponding indices and [ImageNet][1]
-   labels to stdout.
+2. Preprocess the images (crop, scale and color convert) using larod with either the libyuv or VProc backend (depending on platform).
+3. Run MobileNetV2 inferences with the preprocessing output as input on a larod backend specified by a command line argument.
+4. Sort the classification scores output by the MobileNetV2 inferences and print the top scores along with corresponding indices and [ImageNet][1] labels to stdout.
 
 It will run steps 1-4 `NUM_ROUNDS` (defaulted to 5) times.
 
-## Which backends and models are supported
+## Which backends and models are supported?
 
-Unless you modify the app to your own needs you should only use a MobileNetV2
-model that takes 224x224 RGB images as input, and that outputs an array of
-1001 classification scores of type UINT8 or FLOAT32.
+Unless you modify the app to your own needs you should only use a MobileNetV2 model that takes 224x224 RGB images as input, and that outputs an array of 1001 classification scores of type UINT8 or FLOAT32.
 
-You can run the example with any inference backend as long as you can provide it
-with a model as described above.
+You can run the example with any inference backend as long as you can provide it with a model as described above.
 
 ## Getting started
 
@@ -59,7 +52,7 @@ vdo-larod-preprocessing
 - **app/imagenet-labels.h** - List of model labels.
 - **app/larod-vdo-utils.h/.c** - Larod VDO support files.
 - **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
-- **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+- **app/Makefile** - Makefile containing the build and link instructions for building the ACAP application.
 - **app/manifest.json.cpu** - Defines the application and its configuration when building for CPU with TensorFlow Lite.
 - **app/manifest.json.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
 - **app/vdo_larod_preprocessing.c** - Application using larod, written in C.
@@ -128,15 +121,11 @@ docker build --build-arg CHIP=edgetpu --tag <APP_IMAGE> .
 docker cp $(docker create <APP_IMAGE>):/opt/app ./build
 ```
 
-The working dir now also contains a build folder with the following content:
+The working directory now contains a build folder with the following files of importance:
 
 ```bash
 vdo_larod_preprocessing
 ├── build
-│   ├── model
-|   │   ├── imagenet_labels.txt
-|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.tflite
-|   │   └── mobilenet_v2_1.9_224_quant.tflite
 │   ├── imagenet-labels.h
 │   ├── larod-vdo-utils.c
 │   ├── larod-vod-utils.h
@@ -145,23 +134,34 @@ vdo_larod_preprocessing
 │   ├── manifest.json
 │   ├── manifest.json.cpu
 │   ├── manifest.json.edgetpu
+│   ├── model
+|   │   ├── imagenet_labels.txt
+|   │   ├── mobilenet_v2_1.0_224_quant_edgetpu.tflite
+|   │   └── mobilenet_v2_1.0_224_quant.tflite
 │   ├── package.conf
 │   ├── package.conf.orig
 │   ├── param.conf
 │   ├── vdo_larod_preprocessing
 │   ├── vdo_larod_preprocessing_cpu_1_0_0_armv7hf.eap / vdo_larod_preprocessing_edgetpu_1_0_0_armv7hf.eap
+│   ├── vdo_larod_preprocessing_cpu_1_0_0_LICENSE.txt / vdo_larod_preprocessing_edgetpu_1_0_0_LICENSE.txt
 │   └── vdo_larod_preprocessing.c
 ```
 
-Explanation of some files in the build folder:
-
+- **build/manifest.json** - Defines the application and its configuration.
+- **build/model** - Folder containing models used in this application.
 - **build/model/imagenet_labels.txt** - Label file for MobileNet V2 (ImageNet).
-- **build/model/mobilenet_v2_1.9_224_quant_edgetpu.tflite** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
-- **build/model/mobilenet_v2_1.9_224_quant.tflite** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
-- **build/vdo_larod_preprocessing_cpu_1_0_0_armv7hf.eap** - Application package .eap file,
+- **build/model/mobilenet_v2_1.0_224_quant_edgetpu.tflite** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
+- **build/model/mobilenet_v2_1.0_224_quant.tflite** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
+- **build/package.conf** - Defines the application and its configuration.
+- **build/package.conf.orig** - Defines the application and its configuration, original file.
+- **build/param.conf** - File containing application parameters.
   if alternative chip 2 has been built.
-- **build/vdo_larod_preprocessing_edgetpu_1_0_0_armv7hf.eap** - Application package .eap file,
+- **build/vdo_larod_preprocessing_cpu_1_0_0_armv7hf.eap** - Application package .eap file.
+- **build/vdo_larod_preprocessing_cpu_1_0_0_LICENSE.txt** - Copy of LICENSE file.
+
   if alternative chip 4 has been built.
+- **build/vdo_larod_preprocessing_edgetpu_1_0_0_armv7hf.eap** - Application package .eap file.
+- **build/vdo_larod_preprocessing_edgetpu_1_0_0_LICENSE.txt** - Copy of LICENSE file.
 
 ## Install your application
 
@@ -173,11 +173,9 @@ Browse to the following page (replace <axis_device_ip> with the IP number of you
 http://<axis_device_ip>/#settings/apps
 ```
 
-*Go to your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to
-the newly built **vdo_larod_preprocessing_cpu_1_0_0_armv7hf.eap** or **vdo_larod_preprocessing_edgetpu_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
+*Go to your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to the newly built **vdo_larod_preprocessing_cpu_1_0_0_armv7hf.eap** or **vdo_larod_preprocessing_edgetpu_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
 
-Application vdo_larod_preprocessing is now available as an application on the device,
-using the friendly name "vdo_larod_proprocessing_cpu" or "vdo_larod_preprocessing_edgetpu".
+Application vdo_larod_preprocessing is now available as an application on the device, using the friendly name "vdo_larod_proprocessing_cpu" or "vdo_larod_preprocessing_edgetpu".
 
 ## The expected output
 

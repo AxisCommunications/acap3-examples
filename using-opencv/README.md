@@ -1,6 +1,6 @@
  *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A guide to building and running OpenCV on ACAP3
+# A guide to building and running OpenCV in an ACAP application
 
 This guide explains how to build OpenCV from source and bundle it for use in an ACAP. The example application
 runs a background subtraction operation on video from the camera for a very simple motion detection application

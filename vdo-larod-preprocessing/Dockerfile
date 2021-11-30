@@ -1,13 +1,9 @@
-# Put a proxy URL in the docker_proxy environment variable if needed
-ARG DOCKER_PROXY
-ARG http_proxy=$DOCKER_PROXY
-ARG https_proxy=$DOCKER_PROXY
-
 ARG ARCH=armv7hf
-ARG VERSION=3.4
+ARG VERSION=3.4.2
 ARG UBUNTU_VERSION=20.04
 ARG REPO=axisecp
 ARG SDK=acap-sdk
+
 FROM ${REPO}/${SDK}:${VERSION}-${ARCH}-ubuntu${UBUNTU_VERSION}
 
 # Download model

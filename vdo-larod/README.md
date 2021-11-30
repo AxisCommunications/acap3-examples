@@ -1,8 +1,8 @@
  *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# A combined vdo stream and larod based ACAP3 application running inference on an edge device
+# A combined vdo stream and larod based ACAP application running inference on an edge device
 
-This README file explains how to build an ACAP3 application that uses:
+This README file explains how to build an ACAP application that uses:
 
 - vdo to fetch frames from e.g. a camera
 - a library called libyuv to do image preprocessing
@@ -49,10 +49,10 @@ vdo-larod
 ```
 
 - **app/argparse.c/h** - Implementation of argument parser, written in C.
-- **app/imageconverter.c/h** - Implementation of libyuv parts, written in C.
-- **app/imageprovider.c/h** - Implementation of vdo parts, written in C.
+- **app/imgconverter.c/h** - Implementation of libyuv parts, written in C.
+- **app/imgprovider.c/h** - Implementation of vdo parts, written in C.
 - **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
-- **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+- **app/Makefile** - Makefile containing the build and link instructions for building the ACAP application.
 - **app/manifest.json.cpu** - Defines the application and its configuration when building for CPU with TensorFlow Lite.
 - **app/manifest.json.edgetpu** - Defines the application and its configuration when building chip and model for Google TPU.
 - **app/vdo-larod.c** - Application using larod, written in C.
@@ -152,14 +152,14 @@ vdo-larod
 │   ├── manifest.json.cpu
 │   ├── manifest.json.edgetpu
 │   ├── model
-|   │   ├── mobilenet_v2_1.9_224_quant_edgetpu.tflite
-|   │   └── mobilenet_v2_1.9_224_quant.tflite
+|   │   ├── mobilenet_v2_1.0_224_quant_edgetpu.tflite
+|   │   └── mobilenet_v2_1.0_224_quant.tflite
 │   ├── package.conf
 │   ├── package.conf.orig
 │   ├── param.conf
 │   ├── vdo_larod*
 │   ├── vdo_larod_cpu_1_0_0_armv7hf.eap / vdo_larod_edgetpu_1_0_0_armv7hf.eap
-│   ├── vdo_larod_1_0_0_LICENSE.txt
+│   ├── vdo_larod_cpu_1_0_0_LICENSE.txt / vdo_larod_edgetpu_1_0_0_LICENSE.txt
 │   └── vdo_larod.c
 ```
 
@@ -168,17 +168,18 @@ vdo-larod
 - **build/lib** - Folder containing compiled library files for libyuv.
 - **build/manifest.json** - Defines the application and its configuration.
 - **build/model** - Folder containing models used in this application.
-- **build/model/mobilenet_v2_1.9_224_quant_edgetpu.tflite** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
-- **build/model/mobilenet_v2_1.9_224_quant.tflite** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
+- **build/model/mobilenet_v2_1.0_224_quant_edgetpu.tflite** - Model file for MobileNet V2 (ImageNet), used for Google TPU.
+- **build/model/mobilenet_v2_1.0_224_quant.tflite** - Model file for MobileNet V2 (ImageNet), used for CPU with TensorFlow Lite.
 - **build/package.conf** - Defines the application and its configuration.
 - **build/package.conf.orig** - Defines the application and its configuration, original file.
 - **build/param.conf** - File containing application parameters.
 - **build/vdo_larod** - Application executable binary file.
-- **build/vdo_larod_cpu_1_0_0_armv7hf.eap** - Application package .eap file,
   if alternative chip 2 has been built.
-- **build/vdo_larod_edgetpu_1_0_0_armv7hf.eap** - Application package .eap file,
+- **build/vdo_larod_cpu_1_0_0_armv7hf.eap** - Application package .eap file.
+- **build/vdo_larod_cpu_1_0_0_LICENSE.txt** - Copy of LICENSE file.
   if alternative chip 4 has been built.
-- **build/vdo_larod_1_0_0_LICENSE.txt** - Copy of LICENSE file.
+- **build/vdo_larod_edgetpu_1_0_0_armv7hf.eap** - Application package .eap file,
+- **build/vdo_larod_edgetpu_1_0_0_LICENSE.txt** - Copy of LICENSE file.
 
 #### Install your application
 
@@ -190,8 +191,10 @@ Browse to the following page (replace <axis_device_ip> with the IP number of you
 http://<axis_device_ip>/#settings/apps
 ```
 
-*Goto your device web page above > Click on the tab **App** in the device GUI > Add **(+)** sign and browse to
-the newly built **vdo_larod_cpu_1_0_0_armv7hf.eap** or **vdo_larod_edgetpu_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
+*Goto your device web page above > Click on the tab **App** in the device GUI >
+Add **(+)** sign and browse to the newly built
+**vdo_larod_cpu_1_0_0_armv7hf.eap** or **vdo_larod_edgetpu_1_0_0_armv7hf.eap**
+> Click **Install** > Run the application by enabling the **Start** switch*
 
 Application vdo_larod is now available as an application on the device,
 using the friendly name "vdo_larod_cpu" or "vdo_larod_edgetpu".

@@ -39,7 +39,7 @@ The following instructions can be executed to simply run the example.
 
 ## Designing the application
 
-The whole principle is similar to the [tensorflow-to-larod](https://github.com/AxisCommunications/acap3-examples-staging/tree/master/tensorflow-to-larod). In this example, the original video has a resolution of 1920x1080, while the input size of MobileNet SSD COCO requires a input size of 300x300, so we set up two different streams, one is for MobileNet model, another is used to crop a higher resolution jpg image.
+The whole principle is similar to the [tensorflow-to-larod](../tensorflow-to-larod). In this example, the original video has a resolution of 1920x1080, while the input size of MobileNet SSD COCO requires a input size of 300x300, so we set up two different streams, one is for MobileNet model, another is used to crop a higher resolution jpg image.
 
 ### Setting up the MobileNet Stream
 
@@ -51,7 +51,7 @@ unsigned int streamHeight = 0;
 chooseStreamResolution(args.width, args.height, &streamWidth, &streamHeight);
 ```
 
-Then the [createImgProvider](app/imgprovider.c#L95) method is used to return an ImgProvider with the selected [output format](https://www.axis.com/techsup/developer_doc/acap3/3.2/api/vdostream/html/vdo-types_8h.html#a5ed136c302573571bf325c39d6d36246).
+Then the [createImgProvider](app/imgprovider.c#L95) method is used to return an ImgProvider with the selected [output format](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/vdostream/html/vdo-types_8h.html#a5ed136c302573571bf325c39d6d36246).
 
 ```c
 provider = createImgProvider(streamWidth, streamHeight, 2, VDO_FORMAT_YUV);
@@ -67,7 +67,7 @@ provider_raw = createImgProvider(args.raw_width, args.raw_height, 2, VDO_FORMAT_
 
 #### Setting up the larod interface
 
-Then similar with [tensorflow-to-larod](https://github.com/AxisCommunications/acap3-examples-staging/tree/master/tensorflow-to-larod), the [larod](https://www.axis.com/techsup/developer_doc/acap3/3.2/api/larod/html/larod_8h.html) interface needs to be set up. The [setupLarod](app/object_detection.c#L236) method is used to create a conncection to larod and select the hardware to use the model.
+Then similar with [tensorflow-to-larod](../tensorflow-to-larod), the [larod](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/larod/html/index.html) interface needs to be set up. The [setupLarod](app/object_detection.c#L236) method is used to create a conncection to larod and select the hardware to use the model.
 
 ```c
 int larodModelFd = -1;
@@ -193,7 +193,7 @@ jpeg_to_file(file_name, jpeg_buffer, jpeg_size);
 
 ## Building the application
 
-Similar with [tensorflow-to-larod](https://github.com/AxisCommunications/acap3-examples-staging/tree/master/tensorflow-to-larod), a packaging file is needed to compile the ACAP. This is found in [app/manifest.json](app/manifest.json). The noteworthy attribute for this tutorial is the `runOptions` attribute. `runOptions` allows arguments to be given to the ACAP, which in this case is handled by the `argparse` lib. The argument order, defined by [app/argparse.c](app/argparse.c), is `<model_path input_resolution_width input_resolution_height output_size_in_bytes raw_video_resolution_width raw_video_resolution_height threshold>`. We also need to copy our .tflite model file to the ACAP, and this is done by using the -a flag in the acap-build command in the Dockerfile. The -a flag simply tells the compiler what files to copy to the ACAP.
+Similar with [tensorflow-to-larod](../tensorflow-to-larod), a packaging file is needed to compile the ACAP. This is found in [app/manifest.json](app/manifest.json). The noteworthy attribute for this tutorial is the `runOptions` attribute. `runOptions` allows arguments to be given to the ACAP, which in this case is handled by the `argparse` lib. The argument order, defined by [app/argparse.c](app/argparse.c), is `<model_path input_resolution_width input_resolution_height output_size_in_bytes raw_video_resolution_width raw_video_resolution_height threshold>`. We also need to copy our .tflite model file to the ACAP, and this is done by using the -a flag in the acap-build command in the Dockerfile. The -a flag simply tells the compiler what files to copy to the ACAP.
 
 The ACAP is built to specification by the `Makefile` in [app/Makefile](app/Makefile). With the [Makefile](app/Makefile) and [manifest.json](app/manifest.json) files set up, the ACAP can be built by running the build script in the example environment:
 

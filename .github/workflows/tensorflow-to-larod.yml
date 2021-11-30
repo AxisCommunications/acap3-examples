@@ -34,3 +34,4 @@ jobs:
           docker rm -f $appimagename
           cd ..
           mkdir -p $EXDIR/build
+          cp $EXNAME/build/$eapfile $EXDIR/build/$eapfile

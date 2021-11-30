@@ -1,8 +1,8 @@
  *Copyright (C) 2021, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# An ACAP3 application subscribing to multiple events
+# An ACAP application subscribing to multiple events
 
-This README file explains how to build an ACAP3 application that uses the axevent API. It is achieved by using the containerized API and toolchain images.
+This README file explains how to build an ACAP application that uses the axevent API. It is achieved by using the containerized API and toolchain images.
 
 Together with this README file, you should be able to find a directory called app. That directory contains the "subscribe_to_events" application source code which can easily
 be compiled and run with the help of the tools and step by step below.
@@ -25,7 +25,7 @@ subscribe_to_events
 ```
 
 * **app/LICENSE** - File containing the license conditions.
-* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP application.
 * **app/manifest.json** - Defines the application and its configuration.
 * **app/subscribe_to_events.c** - Example application.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
