@@ -37,20 +37,19 @@ Below is the list of examples available in the repository.
   * An example of how to create a reproducible application package.
 * [tensorflow-to-larod](./tensorflow-to-larod/)
   * This example covers model conversion, model quantization, image formats and custom models in
-greater depth than the [larod](./larod)
-and [vdo-larod](./vdo-larod) examples.
+greater depth than the [larod](./larod) and [vdo-larod](./vdo-larod) examples.
 * [using-opencv](./using-opencv/)
-  * This example covers how to build, bundle and use OpenCV with ACAP3.
+  * This example covers how to build, bundle and use OpenCV with ACAP.
 * [utility-libraries](./utility-libraries/)
-  * These examples covers how to build, bundle and use external libraries with ACAP3.
-* [vdostream](./vdostream/)
-  * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
+  * These examples covers how to build, bundle and use external libraries with ACAP.
 * [vdo-larod](./vdo-larod/)
   * The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are converted to interleaved rgb format and then sent to larod for inference on MODEL.
 * [vdo-larod-preprocessing](./vdo-larod-preprocessing/)
   * The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are sent to larod for preprocessing and inference on MODEL.
 * [vdo-opencl-filtering](./vdo-opencl-filtering/)
   * This example illustrates how to capture frames from the vdo service, access the received buffer, and finally perform a GPU accelerated Sobel filtering with OpenCL.
+* [vdostream](./vdostream/)
+  * The example code is written in C which starts a vdo stream and then illustrates how to continuously capture frames from the vdo service, access the received buffer contents as well as the frame metadata.
 
 ### DockerHub Image
 
