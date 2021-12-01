@@ -41,3 +41,17 @@ jobs:
           cd ../..
           mkdir -p $EXDIR/$example/build
           cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile
+
+      - name: Build ${{ env.example }} application
+        env:
+          example: openssl_example
+          imagetag: openssl-example:1.0
+          eapfile: openssl_example_1_0_0_armv7hf.eap
+        run: |
+          docker image rm -f $imagetag
+          cd $EXNAME/$example
+          docker build --no-cache --tag $imagetag .
+          docker cp $(docker create $imagetag):/opt/app ./build
+          cd ../..
+          mkdir -p $EXDIR/$example/build
+          cp $EXNAME/$example/build/$eapfile $EXDIR/$example/build/$eapfile
