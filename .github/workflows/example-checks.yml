@@ -34,8 +34,12 @@ jobs:
 
       - name: Verify that all examples have an entry in top-README
         run: |
+          # Find directories that do not start with dot
           acap_list="$(find . -maxdepth 1 -type d -printf '%f\n' |grep -v '^[.]' | sort)"
-          readme_examples="$(sed -n '/* \[/p' README.md | grep -oe '\[.*\]' | grep -oe '[0-9a-z-]*')"
+          # Find lines starting with '* ['
+          # The grep removes anything but '[*]', then remove entries with space
+          # or capital letter and finally removes the brackets.
+          readme_examples="$(sed -n '/* \[/p' README.md | grep -oe '\[.*\]' | grep -v '[A-Z ]' | grep -oe '[0-9a-z-]*')"
 
           # Control that all examples have an entry in README
           common=$(printf "${acap_list}\n${readme_examples}" | sort | uniq -d)
