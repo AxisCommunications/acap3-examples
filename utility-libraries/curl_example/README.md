@@ -96,7 +96,7 @@ The working dir now contains a build folder with the following files:
 * **build/package.conf** - Defines the application and its configuration.
 * **build/package.conf.orig** - Defines the application and its configuration, original file.
 * **build/param.conf** - File containing application parameters.
-* **build/curl_example** - Application executable binary file.
+* **build/curl_example*** - Application executable binary file.
 * **build/lib** - Folder containing compiled library files for libcurl.
 * **build/curl_example_1_0_0_armv7hf.eap** - Application package .eap file.
 * **build/curl_example_1_0_0_LICENSE.txt** - Copy of LICENSE file.
