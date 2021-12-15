@@ -3,9 +3,9 @@
 # A guide to building and running openssl and libcurl in an ACAP application
 
 This README file explains how to build openssl and libcurl from source and bundle them for use in an ACAP. The example application uses the openssl and libcurl
-libraries to fetch https content from the URL and store the data in the application directory on the Camera.
+libraries to fetch https content from the URL and store the data in the application directory on the camera.
 
-Together with this README file, you should be able to find a directory called app. That directory contains the "openssl_example" application source code which can easily
+Together with this README file, you should be able to find a directory called app. That directory contains the openssl_example application source code which can easily
 be compiled and run with the help of the tools.
 
 APIs specification is available on https://curl.se/libcurl/c, https://www.openssl.org/docs/man1.1.1/man7/
@@ -100,7 +100,7 @@ The working dir now contains a build folder with the following files:
 * **build/package.conf** - Defines the application and its configuration.
 * **build/package.conf.orig** - Defines the application and its configuration, original file.
 * **build/param.conf** - File containing application parameters.
-* **build/openssl_example** - Application executable binary file.
+* **build/openssl_example*** - Application executable binary file.
 * **build/lib** - Folder containing compiled library files for openssl and libcurl.
 * **build/openssl_example_1_0_0_armv7hf.eap** - Application package .eap file.
 * **build/openssl_example_1_0_0_LICENSE.txt** - Copy of LICENSE file.
