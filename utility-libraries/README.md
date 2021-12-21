@@ -12,13 +12,11 @@ Below is the structure of the files and folders on the top level:
 utility-libraries
 ├── curl_example
 ├── custom_lib_example
-├── openssl_example
 └── README.md
 ```
 
 * **curl_example** - Folder containing files for building the curl_example.
 * **custom_lib_example** - Folder containing files for building the custom_lib_example.
-* **openssl_example** - Folder containing files for building the openssl_example.
 * **README.md** - Step-by-step instructions for how to use the examples.
 
 ### Example applications
@@ -30,8 +28,6 @@ Below is the list of examples available in the repository.
   * The example shows how to build curl as a library and how to include it in an application.
 * [custom_lib_example](./custom_lib_example/README.md)
   * The example shows how to build a custom library and how to include it in an application.
-* [openssl_example](./openssl_example/README.md)
-  * The example shows how to build the openssl and curl libraries and how to include them in an application.
 
 ## License
 
