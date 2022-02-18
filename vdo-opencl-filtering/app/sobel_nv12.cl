@@ -21,13 +21,15 @@ __kernel void sobel_3x1(__global const unsigned char *In_y,
                         int height)
 {
     int row = get_global_id(0);
-    if (row > height - 1)
-        return;
 
     /* Since we work on 8 pixels at a time, col needs to be multiplied by 8. */
     int col = (get_global_id(1) << 3);
     /* Offset of 1 is added to make sure we read from within the buffer. */
     int pix_id = (row * width) + col + 1;
+
+    /* Memory is read 15 pixels in front of pix_id. This read has to be contained within allocated memory. */
+    if (pix_id + 15 > (height - 1) * width)
+            return;
 
     /* Interpretation here is that cbcr buffer is as wide as y buffer,
      * since for two y values in width there is one cb and one cr. However
@@ -74,11 +76,11 @@ __kernel void sobel_3x3(__global const unsigned char *In_y,
                         int height)
 {
     int row = get_global_id(0);
-    if (row > height - 1)
-        return;
 
     int col = (get_global_id(1) << 3);
     int pix_id = (row * width) + col + 1;
+    if (pix_id + 15 > (height - 1) * width)
+            return;
     int cbcr_id = ((row >> 1) * width) + (col);
 
     short8 gx = (short8)0;
