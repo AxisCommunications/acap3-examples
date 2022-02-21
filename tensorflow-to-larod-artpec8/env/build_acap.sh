@@ -1,4 +1,4 @@
-#!/bin/sh -eu
+#!/bin/bash -eu
 
 [ $# -eq 1 ] || {
     echo "Argument should be: <APP_IMAGE>"

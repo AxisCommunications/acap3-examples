@@ -1,5 +1,5 @@
 ARG ARCH=armv7hf
-ARG VERSION=3.4.2
+ARG VERSION=3.5
 ARG UBUNTU_VERSION=20.04
 ARG REPO=axisecp
 ARG SDK=acap-sdk
@@ -19,7 +19,7 @@ COPY ./app .
 
 ARG CHIP=
 # Building the ACAP application
-RUN if [ "$CHIP" = cpu ]; then \
+RUN if [ "$CHIP" = cpu ] || [ "$CHIP" = artpec8 ]; then \
         cp /opt/app/manifest.json.${CHIP} /opt/app/manifest.json && \
         . /opt/axis/acapsdk/environment-setup* && acap-build . \
         -a 'model/mobilenet_v2_1.0_224_quant.tflite' -a 'model/imagenet_labels.txt' ; \

@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 # Make sure a environment name was given
-[ $# -eq 1 ] || {
-    echo "Argument should be: <ENVIRONMENT_NAME>"
+[ $# -eq 1 ] || [ $# -eq 2 ] || {
+    echo "Argument should be: <ENVIRONMENT_NAME> [--no_gpu]"
     exit 1
 }
 
