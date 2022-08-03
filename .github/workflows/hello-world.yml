@@ -10,16 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      #- uses: actions/checkout@master
-      # this will enable shellCheck to be performed
-      # on every push to the repo.
-    #- name: Run ShellCheck
-      #uses: ludeeus/action-shellcheck@master
-      # If shellCheck complains about unnecessary things, ignore it.
-      #env:
-        #SHELLCHECK_OPTS: -e SC2153 -e SC2148
-
-    #Build hello-world application
     - name: Build hello-world application
       run: |
         cd hello-world
