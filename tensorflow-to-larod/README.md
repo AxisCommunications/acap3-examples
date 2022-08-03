@@ -25,6 +25,7 @@ and [vdo-larod](https://github.com/AxisCommunications/acap3-examples/tree/master
 10. [Running the algorithm](#running-the-algorithm)
 
 ## Prerequisites
+
 - Axis camera equipped with an [Edge TPU](https://coral.ai/docs/edgetpu/faq/)
 - NVIDIA GPU and drivers [compatible with Tensorflow r2.3](https://www.tensorflow.org/install/source#gpu)
 - [Docker](https://docs.docker.com/get-docker/)
@@ -59,7 +60,9 @@ tensorflow_to_larod
 │       └── 0001-Create-a-shared-library.patch
 ├── README.md
 └── run_env.sh
+└── models.armv7hf.edgetpu.sha512
 ```
+
 - **build_env.sh** - Builds the environment in which this example is run.
 - **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 - **env/app/argparse.c/h** - Implementation of argument parser, written in C.
@@ -76,52 +79,61 @@ tensorflow_to_larod
 - **env/training/utils.py** - Contains a datagenerator which specifies how data is loaded to the training process.
 - **env/yuv/** - Folder containing patch for building libyuv.
 - **run_env.sh** - Runs the environment in which this example is run.
-
+- **models.armv7hf.edgetpu.sha512** - The file necessary to download a pretrained model.
 
 ## Quickstart
 The following instructions can be executed to simply run the example. Each step is described in greater detail in the following sections.
 
-1. Build and run the example environment:
-```sh
-./build_env.sh
-./run_env.sh <a_name_for_your_env>
-```
-2. Train a Tensorflow model _(optional, pre-trained models available)_:
-```sh
-python training/train.py -i /env/data/images/val2017/ -a /env/data/annotations/instances_val2017.json
-```
+1. Build and run the example environment. This mounts the `env` directory into the container:
+
+   ```sh
+   ./build_env.sh
+   ./run_env.sh <a_name_for_your_env>
+   ```
+
+2. Train a Tensorflow model *(optional, pre-trained models available in `/env/models`)*:
+
+   ```sh
+   python training/train.py -i data/images/val2017/ -a data/annotations/instances_val2017.json
+   ```
+
 3. Quantize the Tensorflow model and convert it to `.tflite`:
-```sh
-python convert_model.py -i /env/models/saved_model -d /env/data/images/val2017 -o /env/models/converted_model.tflite
-```
+
+   ```sh
+   python convert_model.py -i /env/models/saved_model -d /env/data/images/val2017 -o /env/models/converted_model.tflite
+   ```
+
 4. Compile the converted model to work on the Edge TPU:
-```sh
-edgetpu_compiler -s -o models models/converted_model.tflite
-```
+
+   ```sh
+   edgetpu_compiler -s -o models models/converted_model.tflite
+   ```
+
 5. Copy the compiled converted model to the `app` directory:
-```sh
-cp models/converted_model_edgetpu.tflite app/
-```
 
-6. Compile the ACAP:
-```sh
-./build_acap.sh tensorflow_to_larod_acap:1.0
-```
+   ```sh
+   cp models/converted_model_edgetpu.tflite app/
+   ```
 
-7. Open a new terminal
+5. Compile the ACAP application:
 
-8. In the new terminal, copy the ACAP `.eap` file from the example environment:
-```sh
-docker cp <a_name_for_your_env>:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
-```
-9. Install and start the ACAP on your camera through the GUI
+   ```sh
+   ./build_acap.sh tensorflow_to_larod_acap:1.0
+   ```
 
-10. SSH to the camera
+7. In a new terminal, copy the ACAP application `.eap` file from the example environment:
 
-11. View its log to see the ACAP output:
-```sh
-tail -f /var/volatile/log/info.log | grep tensorflow_to_larod
-```
+   ```sh
+   docker cp <a_name_for_your_env>:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
+   ```
+
+8. Install and start the ACAP application on your camera through the GUI
+9. SSH to the camera
+10. View its log to see the ACAP output:
+
+   ```sh
+   tail -f /var/volatile/log/info.log | grep tensorflow_to_larod
+   ```
 
 ## Environment for building and training
 In this example, we're going to be working within a Docker container environment. This is done as to get the correct version of Tensorflow installed, as well as the needed tools. To start the environment, run the build script and then the run script with what you want to name the environment as an argument. The build script forwards the environment variables `http_proxy` and `https_proxy` to the environment to allow proxy setups. The scripts are run as seen below:
@@ -237,6 +249,7 @@ To upload the algorithm to the camera, it needs to be packaged as an [ACAP](http
 In this section we will go over the _rough outline_ of what needs to be done to run inference for our model, but again, the full code is available in [/env/app/tensorflow_to_larod.c](env/app/tensorflow_to_larod.c).
 
 #### Setting up a video stream
+
 First of all, the frame to perform our analytics operation on needs to be retrieved. We do this using the [libvdo](https://www.axis.com/techsup/developer_doc/acap3/3.1/api/vdostream/html/index.html) library. First, the most appropriate available stream for our needs is chosen with the [chooseStreamResolution](env/app/imgprovider.c#L221) method. While any stream could be used, selecting the smallest stream which is still greater or equal to our requested resolution ensures that a minimal amount of time is spent on resizing.
 
 ```c
@@ -252,6 +265,7 @@ provider = createImgProvider(streamWidth, streamHeight, 2, VDO_FORMAT_YUV);
 ```
 
 #### Setting up the larod interface
+
 Next, the [larod](https://www.axis.com/techsup/developer_doc/acap3/3.1/api/larod/html/larod_8h.html) interface needs to be set up. It is through this interface that the model is loaded and inference is performed. The setting up of larod is in part done in the [setupLarod](env/app/tensorflow_to_larod.c#L138) method. This method creates a connection to larod, selects the hardware to use and loads the model.
 
 ```c
@@ -310,6 +324,7 @@ infReq = larodCreateInferenceRequest(model, inputTensors, numInputs, outputTenso
 ```
 
 #### Fetching a frame and performing inference
+
 To get a frame, the `ImgProvider` created earlier is used. A buffer containing the latest image from the pipeline is retrieved by using the `getLastFrameBlocking` method with the created provider. The NV12 data from the buffer is then extracted with the `vdo_buffer_get_data` method.  
 
 ```c
@@ -323,7 +338,6 @@ conversion to e.g., RGB might be needed. This can be done using ```libyuv```. Ho
 ```c
 convertCropScaleU8yuvToRGB(nv12Data, streamWidth, streamHeight, (uint8_t*) larodInputAddr, args.width, args.height);
 ```
-
 
 Any other preprocessing steps should be done now, as the inference is next. Using the larod interface, inference is run with the `larodRunInference` method, which outputs the results to the specified output addresses.
 
@@ -342,6 +356,7 @@ syslog(LOG_INFO, "Person detected: %.2f%% - Car detected: %.2f%%",
 ```
 
 ## Building the algorithm's application
+
 A packaging file is needed to compile the ACAP. This is found in [app/package.conf](env/app/package.conf). For the scope of this tutorial, the `APPOPTS` and `OTHERFILES` keys are noteworthy. `APPOPTS` allows arguments to be given to the ACAP, which in this case is handled by the `argparse` lib. The argument order, defined by [app/argparse.c](env/app/argparse.c), is `<model_path input_resolution_width input_resolution_height output_size_in_bytes>`. The file(s) specified in `OTHERFILES` simply tell the compiler what files to copy to the ACAP, such as our .larod model file.
 
 The ACAP is built to specification by the `Makefile` in [app/Makefile](env/app/Makefile). It is also this file which specifies the last step in the model conversion process, namely converting the `.tflite` to `.larod` by using the `convert_larod.py`-tool described earlier. With the [Makefile](env/app/Makefile) and [package.conf](env/app/package.conf) files set up, the ACAP can be built by running the build script in the example environment:
@@ -350,12 +365,14 @@ The ACAP is built to specification by the `Makefile` in [app/Makefile](env/app/M
 ./build_acap.sh tensorflow_to_larod_acap:1.0
 ```
 
-After running this script, the `build` directory should have been populated. Inside it is an `.eap` file, which is your stand-alone ACAP build.
+After running this script, the `build` directory should have been populated. Inside it is an `.eap` file, which is your stand-alone ACAP application build.
 
 ## Installing the algorithm's application
-To install an ACAP, the `.eap` file in the `build` directory needs to be uploaded to the camera and installed. This can be done through the camera GUI.
+
+To install an ACAP application, the `.eap` file in the `build` directory needs to be uploaded to the camera and installed. This can be done through the camera GUI.
 
 Outside of the example environment, extract the `.eap` from the environment by running:
+
 ```sh
 docker cp <a_name_for_your_env>:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf.eap tensorflow_to_larod.eap
 ```
@@ -363,27 +380,31 @@ docker cp <a_name_for_your_env>:/env/build/tensorflow_to_larod_app_1_0_0_armv7hf
 where `<a_name_for_your_env>` is the same name as you used to start your environment with the `./run_env.sh` script.
 Then go to your camera -> Settings -> Apps -> Add -> Browse to `tensorflow_to_larod.eap` and press Install.
 
-
 ## Running the algorithm
-In the Apps view of the camera, press the icon for your ACAP. A window will pop up which allows you to start the application. Press the Start icon to run the algorithm.
+
+In the Apps view of the camera, press the icon for your application. A window will pop up which allows you to start the application. Press the Start icon to run the algorithm.
 
 With the algorithm started, we can view the output by either pressing "App log" in the same window, or by SSHing into the camera and viewing the log as below:
+
 ```sh
 tail -f /var/volatile/log/info.log | grep tensorflow_to_larod
 ```
 
 Placing yourself in the middle of the cameras field of view should ideally make the log read something like:
+
 ```sh
 [ INFO    ] tensorflow_to_larod[1893]: Person detected: 98.2% - Car detected: 1.98%
 ```
+
 ## License
+
 **[Apache License 2.0](../LICENSE)**
 
-
 # Future possible improvements
-* Interaction with non-neural network operations (eg NMS)
-* Custom objects
-* 2D output for showing overlay of e.g., pixel classifications
-* Different output tensor dimensions for a more realistic use case
-* Usage of the @tf.function decorator
-* Quantization-aware training
+
+- Interaction with non-neural network operations (eg NMS)
+- Custom objects
+- 2D output for showing overlay of e.g., pixel classifications
+- Different output tensor dimensions for a more realistic use case
+- Usage of the @tf.function decorator
+- Quantization-aware training
