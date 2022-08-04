@@ -1,0 +1,17 @@
+name: Build using-opencv Applications
+on:
+  push:
+     paths:
+      - 'using-opencv/**'
+      - '.github/workflows/using-opencv.yml'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build using-opencv application
+      run: |
+        cd using-opencv
+        docker build --tag using-opencv:1.0 .
+        docker cp $(docker create using-opencv:1.0):/opt/app ./build
