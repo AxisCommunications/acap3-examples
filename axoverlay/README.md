@@ -1,7 +1,8 @@
- *Copyright (C) 2020, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
+*Copyright (C) 2022, Axis Communications AB, Lund, Sweden. All Rights Reserved.*
 
-# An axoverlay based ACAP3 application on an edge device
-This README file explains how to build an ACAP3 application that uses the axoverlay API. It is achieved by using the containerized Axis API and toolchain images.
+# An axoverlay based ACAP application on an edge device
+
+This README file explains how to build an ACAP application that uses the axoverlay API. It is achieved by using the containerized API and toolchain images.
 
 Together with this README file, you should be able to find a directory called app. That directory contains the "axoverlay" application source code which can easily be compiled and run with the help of the tools and step by step below.
 
@@ -13,6 +14,7 @@ More detailed overlays like text overlays, should instead use ARGB32 color space
 Different stream resolutions are logged in the Application log.
 
 ## Getting started
+
 These instructions will guide you on how to execute the code. Below is the structure and scripts used in the example:
 
 ```bash
@@ -27,7 +29,7 @@ axoverlay
 
 * **app/axoverlay.c** - Application to draw overlays using axoverlay in C.
 * **app/LICENSE** - Text file which lists all open source licensed source code distributed with the application.
-* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP3 application.
+* **app/Makefile** - Makefile containing the build and link instructions for building the ACAP application.
 * **Dockerfile** - Docker file with the specified Axis toolchain and API container to build the example specified.
 * **README.md** - Step by step instructions on how to run the example.
 
@@ -36,15 +38,17 @@ axoverlay
 * It is not possible to combine different color spaces for ARTPEC-6.
 
 ### How to run the code
+
 Below is the step by step instructions on how to execute the program. So basically starting with the generation of the .eap file to running it on a device:
 
 #### Build the application
+
 Standing in your working directory run the following commands:
 
 > [!IMPORTANT]
 > *Depending on the network you are connected to,
-The file that needs those settings is: *~/.docker/config.json.*
-For reference please see: https://docs.docker.com/network/proxy/ and a
+The file that needs those settings is:* ~/.docker/config.json. *For
+reference please see: <https://docs.docker.com/network/proxy/> and a
 [script for Axis device here](../FAQs.md#HowcanIset-upnetworkproxysettingsontheAxisdevice?).*
 
 ```bash
@@ -89,11 +93,12 @@ axoverlay
 * **build/param.conf** - File containing application parameters.
 
 #### Install your application
+
 Installing your application on an Axis video device is as simple as:
 
 Browse to the following page (replace <axis_device_ip> with the IP number of your Axis video device)
 
-```bash
+```sh
 http://<axis_device_ip>/#settings/apps
 ```
 
@@ -101,9 +106,10 @@ http://<axis_device_ip>/#settings/apps
 the newly built **axoverlay_1_0_0_armv7hf.eap** > Click **Install** > Run the application by enabling the **Start** switch*
 
 #### The expected output
+
 Application log can be found directly at:
 
-```
+```sh
 http://<axis_device_ip>/axis-cgi/admin/systemlog.cgi?appname=axoverlay
 ```
 
@@ -112,11 +118,11 @@ or by clicking on the "**App log**" link in the device GUI or by extracting the 
 >[!IMPORTANT]
 *> Please make sure SSH is enabled on the device to run the following commands.*
 
-```bash
+```sh
 tail -f /var/log/info.log | grep axoverlay
 ```
 
-```
+```sh
 ----- Contents of SYSTEM_LOG for 'axoverlay' -----
 
 14:13:07.412 [ INFO ] axoverlay[0]: starting axoverlay
@@ -127,7 +133,7 @@ Overlays are shown when the stream has been started:
 
 *Goto your device web page above > Click on the tab **Stream** in the device GUI >  Press the **Play** icon to see the overlays.*
 
-```
+```sh
 ----- Contents of SYSTEM_LOG for 'axoverlay' -----
 14:13:18.819 [ INFO ] axoverlay[2906]: Adjust callback for overlay: 1920 x 1080
 14:13:18.819 [ INFO ] axoverlay[2906]: Adjust callback for stream: 1920 x 1080
@@ -145,7 +151,7 @@ It is possible to update the resolution by:
 
 *Goto your device web page above > Click on the tab **Stream** in the device GUI > Update **Resolution** dropdown menu to **1280x720 (16:9)***
 
-```
+```sh
 ----- Contents of SYSTEM_LOG for 'axoverlay' -----
 14:28:28.112 [ INFO ] axoverlay[2906]: Adjust callback for overlay: 1920 x 1080
 14:28:28.112 [ INFO ] axoverlay[2906]: Adjust callback for stream: 1280 x 720
@@ -155,4 +161,5 @@ It is possible to update the resolution by:
 ```
 
 ## License
+
 **[Apache License 2.0](../LICENSE)**
