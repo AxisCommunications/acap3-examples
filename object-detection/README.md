@@ -56,7 +56,7 @@ unsigned int streamHeight = 0;
 chooseStreamResolution(args.width, args.height, &streamWidth, &streamHeight);
 ```
 
-Then the [createImgProvider](app/imgprovider.c#L95) method is used to return an ImgProvider with the selected [output format](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/vdostream/html/vdo-types_8h.html#a5ed136c302573571bf325c39d6d36246).
+Then the [createImgProvider](app/imgprovider.c#L95) method is used to return an ImgProvider with the selected [output format](https://www.axis.com/techsup/developer_doc/acap3/3.5/api/vdostream/html/vdo-types_8h.html#a5ed136c302573571bf325c39d6d36246).
 
 ```c
 provider = createImgProvider(streamWidth, streamHeight, 2, VDO_FORMAT_YUV);
@@ -72,7 +72,7 @@ provider_raw = createImgProvider(args.raw_width, args.raw_height, 2, VDO_FORMAT_
 
 #### Setting up the larod interface
 
-Then similar with [tensorflow-to-larod](../tensorflow-to-larod), the [larod](https://www.axis.com/techsup/developer_doc/acap3/3.4/api/larod/html/index.html) interface needs to be set up. The [setupLarod](app/object_detection.c#L236) method is used to create a conncection to larod and select the hardware to use the model.
+Then similar with [tensorflow-to-larod](../tensorflow-to-larod), the [larod](https://www.axis.com/techsup/developer_doc/acap3/3.5/api/larod/html/index.html) interface needs to be set up. The [setupLarod](app/object_detection.c#L236) method is used to create a conncection to larod and select the hardware to use the model.
 
 ```c
 int larodModelFd = -1;
