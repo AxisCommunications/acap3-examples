@@ -39,7 +39,9 @@ Below is the list of examples available in the repository.
   * This example covers model conversion, model quantization, image formats and custom models in
 greater depth than the [larod](./larod) and [vdo-larod](./vdo-larod) examples.
 * [tensorflow-to-larod-artpec8](./tensorflow-to-larod-artpec8/)
-  * The tensorflow-to-larod example made for Artpec 8.
+  * This example is very similar to tensorflow-to-larod, but is designed for AXIS ARTPEC-8 devices.
+* [tensorflow-to-larod-cv25](./tensorflow-to-larod-cv25/)
+  * This example is very similar to tensorflow-to-larod, but is designed for AXIS CV25 devices.
 * [using-opencv](./using-opencv/)
   * This example covers how to build, bundle and use OpenCV with ACAP.
 * [utility-libraries](./utility-libraries/)
