@@ -1,0 +1,36 @@
+name: Build object-detection application
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'object-detection-cv25/**'
+      - '!object-detection-cv25/README.md'
+      - '.github/workflows/object-detection-cv25.yml'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - arch: aarch64
+            chip: cv25
+    env:
+      EXREPO: acap3-examples
+      EXNAME: object-detection-cv25
+      EAPNAME: object_detection
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build ${{ env.example }} application
+        env:
+          example: ${{ env.EXNAME }}-${{ matrix.chip }}
+          imagetag: ${{ env.EXREPO }}_${{ env.EXNAME }}-${{ matrix.chip }}:1.0
+          eapfile: ${{ env.EAPNAME }}_${{ matrix.chip }}_1_0_0_${{ matrix.arch }}.eap
+        run: |
+          docker image rm -f $imagetag
+          cd $EXNAME
+          cp app/manifest.json.${{ matrix.chip }} app/manifest.json
+          docker build --no-cache --tag $imagetag .
+          docker cp $(docker create $imagetag):/opt/app ./build_${{ matrix.chip }}
+          cd ..
+          docker image rm -f $imagetag
