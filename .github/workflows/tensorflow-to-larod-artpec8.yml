@@ -1,5 +1,6 @@
 name: Build tensorflow-to-larod-artpec8 application
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'tensorflow-to-larod-artpec8/**'
@@ -10,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        arch: ["aarch64"]
+        include:
+          - arch: aarch64
+            chip: artpec8
     env:
       EXREPO: acap3-examples
       EXNAME: tensorflow-to-larod-artpec8
