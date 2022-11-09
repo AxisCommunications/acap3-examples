@@ -139,7 +139,7 @@ Support for installing license key though device web page is available, if acapP
 
 *Goto your device web page above > Click on the tab **Apps** in the device GUI > Click on the installed **licensekey_handler** application > Install the license with the **Install** button in the **Activate the license** part*
 
-More instructions how to install a valid license key is found on [Axis Developer Community](https://help.axis.com/acap-3-developer-guide#developer-community).
+More instructions how to install a valid license key is found on [Axis Developer Community](https://www.axis.com/developer-community).
 
 ## License
 
