@@ -9,28 +9,24 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - arch: aarch64
-            chip: cv25
     env:
       EXREPO: acap3-examples
       EXNAME: object-detection-cv25
       EAPNAME: object_detection
+      arch: aarch64
+      chip: cv25
     steps:
       - uses: actions/checkout@v3
 
-      - name: Build ${{ env.example }} application
+      - name: Build ${{ env.EXNAME }} application
         env:
-          example: ${{ env.EXNAME }}-${{ matrix.chip }}
-          imagetag: ${{ env.EXREPO }}_${{ env.EXNAME }}-${{ matrix.chip }}:1.0
-          eapfile: ${{ env.EAPNAME }}_${{ matrix.chip }}_1_0_0_${{ matrix.arch }}.eap
+          imagetag: ${{ env.EXREPO }}_${{ env.EXNAME }}-${{ env.chip }}:1.0
+          eapfile: ${{ env.EAPNAME }}_${{ env.chip }}_1_0_0_${{ env.arch }}.eap
         run: |
           docker image rm -f $imagetag
           cd $EXNAME
-          cp app/manifest.json.${{ matrix.chip }} app/manifest.json
+          cp app/manifest.json.${{ env.chip }} app/manifest.json
           docker build --no-cache --tag $imagetag .
-          docker cp $(docker create $imagetag):/opt/app ./build_${{ matrix.chip }}
+          docker cp $(docker create $imagetag):/opt/app ./build_${{ env.chip }}
           cd ..
           docker image rm -f $imagetag
