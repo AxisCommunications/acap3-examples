@@ -29,7 +29,7 @@ Below is the list of examples available in the repository.
 - [hello-world](./hello-world/)
   - The example code is written in C and shows how to build a simple hello world application.
 - [larod](./larod/)
-  - The example code is written in C which connects to [larod](./FAQs.md#WhatisLarod?) and loads a model, runs inference on it and then finally deletes the loaded model from [larod](./FAQs.md#WhatisLarod?).
+  - The example code is written in C which connects to the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) and loads a model, runs inference on it and then finally deletes the loaded model from Larod.
 - [licensekey](./licensekey/)
   - The example code is written in C which illustrates how to check the licensekey status.
 - [object-detection](./object-detection/)
@@ -50,9 +50,9 @@ greater depth than the [larod](./larod) and [vdo-larod](./vdo-larod) examples.
 - [utility-libraries](./utility-libraries/)
   - These examples covers how to build, bundle and use external libraries with ACAP.
 - [vdo-larod](./vdo-larod/)
-  - The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are converted to interleaved rgb format and then sent to larod for inference on MODEL.
+  - The example code is written in C and loads an image classification model to the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) and then uses the [Video capture API (VDO)](https://help.axis.com/acap-3-developer-guide#video-capture-api) to fetch frames of size WIDTH x HEIGHT in yuv format which are converted to interleaved rgb format and then sent to larod for inference on MODEL.
 - [vdo-larod-preprocessing](./vdo-larod-preprocessing/)
-  - The example code is written in C and loads an image classification model to [larod](./FAQs.md#WhatisLarod?) and then uses vdo to fetch frames of size WIDTH x HEIGHT in yuv format which are sent to larod for preprocessing and inference on MODEL.
+  - The example code is written in C and loads an image classification model to the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) and then uses the [Video capture API (VDO)](https://help.axis.com/acap-3-developer-guide#video-capture-api) to fetch frames of size WIDTH x HEIGHT in yuv format which are sent to larod for preprocessing and inference on MODEL.
 - [vdo-opencl-filtering](./vdo-opencl-filtering/)
   - This example illustrates how to capture frames from the vdo service, access the received buffer, and finally perform a GPU accelerated Sobel filtering with OpenCL.
 - [vdostream](./vdostream/)
@@ -75,10 +75,6 @@ library files) needed for accessing different parts of the camera firmware.
 Examples for older versions of the ACAP SDK can been found here:
 
 - [Examples for ACAP SDK v3.1](https://github.com/AxisCommunications/acap3-examples/tree/3.1)
-
-# Frequently asked questions
-
-Please visit [FAQs page](FAQs.md) for frequently asked questions.
 
 # License
 
