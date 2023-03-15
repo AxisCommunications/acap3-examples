@@ -14,12 +14,16 @@ jobs:
         include:
           - arch: armv7hf
             chip: cpu
+            axis-os: 10.12.153
           - arch: armv7hf
             chip: edgetpu
+            axis-os: 10.12.153
           - arch: aarch64
             chip: artpec8
+            axis-os: 10.12.153
           - arch: aarch64
             chip: cv25
+            axis-os: 10.12.153
     env:
       EXREPO: acap3-examples
       EXNAME: vdo-larod-preprocessing

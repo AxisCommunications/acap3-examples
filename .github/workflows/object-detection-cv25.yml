@@ -14,6 +14,7 @@ jobs:
         include:
           - arch: aarch64
             chip: cv25
+            axis-os: 10.12.153
     env:
       EXREPO: acap3-examples
       EXNAME: object-detection-cv25
