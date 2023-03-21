@@ -50,9 +50,7 @@ greater depth than the [larod](./larod) and [vdo-larod](./vdo-larod) examples.
 - [utility-libraries](./utility-libraries/)
   - These examples covers how to build, bundle and use external libraries with ACAP.
 - [vdo-larod](./vdo-larod/)
-  - The example code is written in C and loads an image classification model to the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) and then uses the [Video capture API (VDO)](https://help.axis.com/acap-3-developer-guide#video-capture-api) to fetch frames of size WIDTH x HEIGHT in yuv format which are converted to interleaved rgb format and then sent to larod for inference on MODEL.
-- [vdo-larod-preprocessing](./vdo-larod-preprocessing/)
-  - The example code is written in C and loads an image classification model to the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) and then uses the [Video capture API (VDO)](https://help.axis.com/acap-3-developer-guide#video-capture-api) to fetch frames of size WIDTH x HEIGHT in yuv format which are sent to larod for preprocessing and inference on MODEL.
+  - The example code is written in C and loads an image classification model to the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) and then uses the [Video capture API (VDO)](https://help.axis.com/acap-3-developer-guide#video-capture-api) to fetch video frames in YUV format and finally run inference.
 - [vdo-opencl-filtering](./vdo-opencl-filtering/)
   - This example illustrates how to capture frames from the vdo service, access the received buffer, and finally perform a GPU accelerated Sobel filtering with OpenCL.
 - [vdostream](./vdostream/)
