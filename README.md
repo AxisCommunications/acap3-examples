@@ -28,8 +28,6 @@ Below is the list of examples available in the repository.
   - The example code is written in C which illustrates how to draw plain boxes and text as overlays in a stream.
 - [hello-world](./hello-world/)
   - The example code is written in C and shows how to build a simple hello world application.
-- [larod](./larod/)
-  - The example code is written in C which connects to the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) and loads a model, runs inference on it and then finally deletes the loaded model from Larod.
 - [licensekey](./licensekey/)
   - The example code is written in C which illustrates how to check the licensekey status.
 - [object-detection](./object-detection/)
@@ -39,8 +37,7 @@ Below is the list of examples available in the repository.
 - [reproducible-package](./reproducible-package/)
   - An example of how to create a reproducible application package.
 - [tensorflow-to-larod](./tensorflow-to-larod/)
-  - This example covers model conversion, model quantization, image formats and custom models in
-greater depth than the [larod](./larod) and [vdo-larod](./vdo-larod) examples.
+  - This example covers model conversion, model quantization, image formats and custom models.
 - [tensorflow-to-larod-artpec8](./tensorflow-to-larod-artpec8/)
   - This example is very similar to tensorflow-to-larod, but is designed for AXIS ARTPEC-8 devices.
 - [tensorflow-to-larod-cv25](./tensorflow-to-larod-cv25/)
