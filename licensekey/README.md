@@ -6,8 +6,7 @@ This README file explains how to build an ACAP application that uses the license
 
 Together with this README file, you should be able to find a directory called app. That directory contains the application source code which can easily be compiled and run with the help of the tools and step by step below.
 
-This example illustrates how to check the license key status. A license key is a signed file which has been generated for a specific device ID and application ID. The ACAP Service Portal is maintaining both license keys and application IDs, see [Online manual](https://help.axis.com/acap-3-developer-guide#acap-service-portal-for-administrators)
-
+This example illustrates how to check the license key status. A license key is a signed file which has been generated for a specific device ID and application ID. The ACAP Service Portal is maintaining both license keys and application IDs, see [Online manual](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/services-for-partners/acap-service-portal-for-administrators.html)
 License key status i.e. valid or invalid is logged in the Application log.
 
 ## Getting started
@@ -49,7 +48,7 @@ Standing in your working directory run the following commands:
 > Depending on the network you are connected to, you may need to add proxy settings.
 > The file that needs these settings is: `~/.docker/config.json`. For reference please see
 > https://docs.docker.com/network/proxy and a
-> [script for Axis devices](https://help.axis.com/acap-3-developer-guide#configure-network-proxy-settings) in the ACAP documentation.
+> [script for Axis devices](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/develop-applications/build-install-and-run-the-application.html#configure-network-proxy-settings) in the ACAP documentation.
 
 ```sh
 docker build --tag <APP_IMAGE> .
@@ -134,7 +133,7 @@ or by clicking on the "**App log**" link in the device GUI.
 10:31:43.058 [ INFO ] licensekey_handler[14660]: Licensekey is invalid
 ```
 
-A valid license key for a registered application ID is only accessible through ACAP Service Portal, see [Online manual](https://help.axis.com/acap-3-developer-guide#acap-service-portal-for-administrators).
+A valid license key for a registered application ID is only accessible through ACAP Service Portal, see [Online manual](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/services-for-partners/acap-service-portal-for-administrators.html).
 
 Support for installing license key though device web page is available, if acapPackageConf.copyProtection.method is set to "axis" in the **manifest.json** file, by the following steps:
 

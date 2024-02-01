@@ -44,7 +44,7 @@ building the ACAP application. That is because the older `libc` from the SDK
 can't find these newer symbols and functions.
 - **Don't depend on all available libraries in SDK** - It's recommended to only
   use `libc` and the documented [ACAP
-API](https://help.axis.com/acap-3-developer-guide#api)
+API](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/api)
 libraries in the SDK. Don't use other libraries from the SDK in an ACAP
 application.  Instead, download, compile and bundle libraries such as
 `libcrypto.so` and `libssl.so` (OpenSSL) and `libcurl.so` (curl) with the ACAP
@@ -102,7 +102,7 @@ the application on a device.
 > Depending on the network you are connected to, you may need to add proxy settings.
 > The file that needs these settings is: `~/.docker/config.json`. For reference please see
 > https://docs.docker.com/network/proxy and a
-> [script for Axis devices](https://help.axis.com/acap-3-developer-guide#configure-network-proxy-settings) in the ACAP documentation.
+> [script for Axis devices](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/develop-applications/build-install-and-run-the-application.html#configure-network-proxy-settings) in the ACAP documentation.
 
 Standing in your working directory run:
 
@@ -200,7 +200,7 @@ device.
 
 > **Note**
 > Make sure
-> [SSH is enabled](https://help.axis.com/acap-3-developer-guide#access-the-device-with-ssh)
+> [SSH is enabled](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/get-started/set-up-the-device.html#access-the-device-with-ssh)
 > on the device to run the following commands.
 
 Compare the web page source code to the content of file `www.example.com.txt`.
@@ -225,7 +225,7 @@ extracting the logs using the following commands in the terminal.
 
 > **Note**
 > Make sure
-> [SSH is enabled](https://help.axis.com/acap-3-developer-guide#access-the-device-with-ssh)
+> [SSH is enabled](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/get-started/set-up-the-device.html#access-the-device-with-ssh)
 > on the device to run the following commands.
 
 ```sh
@@ -253,7 +253,7 @@ which are also available in the SDK, by accident.  To achieve this, we
 recommend removing any OpenSSL or curl libraries in the SDK library path.
 
    Why not remove these libraries from the SDK? The [Licensekey
-API](https://help.axis.com/acap-3-developer-guide#license-api)
+API](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/api#license-api)
 has a dependency on `libcrypto`.
 
 2. **Build OpenSSL libraries** - The SDK environment is sourced to compile with
@@ -334,7 +334,7 @@ objdump -p openssl_curl_example | grep -E "NEEDED|RUNPATH|RPATH"
 
 > **Note**
 > Make sure
-> [SSH is enabled](https://help.axis.com/acap-3-developer-guide#access-the-device-with-ssh)
+> [SSH is enabled](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/get-started/set-up-the-device.html#access-the-device-with-ssh)
 > on the device to run the following commands.
 
 For even better information on where the application binary will search for

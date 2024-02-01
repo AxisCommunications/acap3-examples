@@ -4,8 +4,8 @@
 
 This README file explains how to build an ACAP application that uses:
 
-- the [Video capture API (VDO)](https://help.axis.com/acap-3-developer-guide#video-capture-api) to fetch frames from e.g. a camera
-- the [Machine learning API (Larod)](https://help.axis.com/acap-3-developer-guide#machine-learning-api) to load a graph model and run preprocessing and classification inferences
+- the [Video capture API (VDO)](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/api#video-capture-api) to fetch frames from e.g. a camera
+- the [Machine learning API (Larod)](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/api#machine-learning-api) to load a graph model and run preprocessing and classification inferences
 
 It is achieved by using the containerized API and toolchain images.
 
@@ -84,7 +84,7 @@ Below is the step by step instructions on how to execute the program. So basical
 > Depending on the network you are connected to, you may need to add proxy settings.
 > The file that needs these settings is: `~/.docker/config.json`. For reference please see
 > https://docs.docker.com/network/proxy and a
-> [script for Axis devices](https://help.axis.com/acap-3-developer-guide#configure-network-proxy-settings) in the ACAP documentation.
+> [script for Axis devices](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/develop-applications/build-install-and-run-the-application.html#configure-network-proxy-settings) in the ACAP documentation.
 
 Depending on selected chip, different models are trained and are used for running laord.
 In this example, model files are downloaded from an AWS S3 bucket,
