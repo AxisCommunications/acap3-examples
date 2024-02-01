@@ -57,7 +57,7 @@ Standing in your working directory follow the commands below:
 > Depending on the network you are connected to, you may need to add proxy settings.
 > The file that needs these settings is: `~/.docker/config.json`. For reference please see
 > https://docs.docker.com/network/proxy and a
-> [script for Axis devices](https://help.axis.com/acap-3-developer-guide#configure-network-proxy-settings) in the ACAP documentation.
+> [script for Axis devices](https://axiscommunications.github.io/acap-documentation/docs/acap-sdk-version-3/develop-applications/build-install-and-run-the-application.html#configure-network-proxy-settings) in the ACAP documentation.
 
 In all examples the option `--no-cache` is used to ensure that image is rebuilt.
 
