@@ -1,3 +1,14 @@
+> [!IMPORTANT]
+>
+> This repository has examples for ACAP version 3 SDK, which is not the latest
+> version and might therefore not get updates, bug fixes or answers on tickets
+> as frequently.
+>
+> It's recommended to move to ACAP version 4 SDK which is the active track:
+>
+> - [ACAP Native SDK example](https://github.com/AxisCommunications/acap-native-sdk-examples)
+> - [ACAP Documentation](https://axiscommunications.github.io/acap-documentation)
+
 # What is AXIS Camera Application Platform?
 
 [AXIS Camera Application Platform (ACAP)](https://www.axis.com/support/developer-support/axis-camera-application-platform) is an open application platform that enables members of [Axis Application Development Partner](https://www.axis.com/partners/adp-partner-program) (ADP) Program to develop applications that can be downloaded and installed on Axis network cameras and video encoders. ACAP makes it possible to develop applications for a wide range of use cases:

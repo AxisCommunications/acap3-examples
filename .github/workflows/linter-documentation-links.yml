@@ -57,7 +57,9 @@ jobs:
               for doc_url in $search_urls
               do
                 found_doc_url=$(grep -nir "$doc_url" --exclude $workflowfile | grep -v $acap3_base_url)
-                [ -z "$found_doc_url" ] || {
+                # Whitelist link in disclaimer notice
+                found_doc_url_stripped=$(echo $found_doc_url |sed '/README.md:10/d')
+                [ -z "$found_doc_url_stripped" ] || {
                   printf "\nERROR: $doc_url is an ACAP $incorrect_sdk_version documentation URL found in:\n$found_doc_url\n"
                   found_error=y
                 }
