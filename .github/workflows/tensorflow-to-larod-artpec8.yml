@@ -10,6 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - arch: aarch64
@@ -19,7 +20,7 @@ jobs:
       EXREPO: acap3-examples
       EXNAME: tensorflow-to-larod-artpec8
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: docker/setup-buildx-action@v3
 
       - name: Build ${{ env.example }} application
